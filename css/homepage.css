@@ -1,6 +1,6 @@
 /* Título "O Principezinho" */
 h1 {
-    font-family: "Comic Neue", cursive;
+    font-family: "Nunito Sans", sans-serif;
     font-size: 4.5vw;
     color: #ffffff;
     text-align: center;
@@ -25,7 +25,7 @@ h2 {
 }
 
 /* Background Deserto */
-.deserto-noite {
+.deserto {
     width: 100%;
     height: 100vh;
     object-fit: cover;
@@ -35,13 +35,16 @@ h2 {
     z-index: -1;
 }
 
+/* Deserto Frontal */
 .deserto-frente {
     width: 100%;
-    height: 100vh;
-    object-fit: cover;
+    height: auto;
     position: absolute;
+    bottom: 0;
+    left: 0;
     z-index: 50;
 }
+
 
 /* Avião */
 .aviao {
@@ -60,20 +63,20 @@ h2 {
     }
 
     25% {
-        top: 15%;
+        top: 10%;
         right: 20%;
         transform: rotate(-90deg) scale(2);
     }
 
     50% {
-        top: 30%;
+        top: 20%;
         right: 20%;
         transform: rotate(-180deg) scale(4);
     }
 
     100% {
-        top: 60%;
-        right: 40%;
+        top: 50%;
+        right: 50%;
         transform: rotate(-380deg) scale(8);
     }
 }
