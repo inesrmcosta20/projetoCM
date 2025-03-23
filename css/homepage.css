@@ -1,38 +1,30 @@
 /* Título "O Principezinho" */
 h1 {
-    font-family: 'La Belle Aurore', cursive;
-    font-size: 5vw;
-    /* Usando uma unidade relativa ao tamanho da tela */
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 4.5vw;
     color: #ffffff;
     text-align: center;
     position: absolute;
     top: 3%;
-    /* Ajuste da posição vertical */
     left: 20%;
-    /* Centraliza horizontalmente */
     transform: translateX(-50%);
-    /* Centraliza perfeitamente considerando o tamanho do texto */
     z-index: 10;
 }
 
 /* Subtítulo */
 h2 {
-    font-family: 'La Belle Aurore', cursive;
-    font-size: 2vw;
-    /* Usando uma unidade relativa ao tamanho da tela */
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1.5vw;
     color: #ffffff;
     text-align: center;
     position: absolute;
     top: 20%;
-    /* Ajuste da posição vertical */
     left: 20%;
-    /* Centraliza horizontalmente */
     transform: translateX(-50%);
-    /* Centraliza perfeitamente considerando o tamanho do texto */
     z-index: 10;
 }
 
-/* Imagem de fundo (background) */
+/* Background Deserto */
 .deserto {
     width: 100%;
     height: 100vh;
@@ -41,6 +33,16 @@ h2 {
     top: 0;
     left: 0;
     z-index: -1;
+}
+
+/* Deserto Frontal */
+.deserto-frente {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
 }
 
 
@@ -61,21 +63,21 @@ h2 {
     }
 
     25% {
-        top: 15%;
+        top: 10%;
         right: 20%;
-        transform: rotate(-90deg) scale(2.5);
+        transform: rotate(-90deg) scale(2);
     }
 
     50% {
-        top: 30%;
+        top: 20%;
         right: 20%;
-        transform: rotate(-180deg) scale(5);
+        transform: rotate(-180deg) scale(4);
     }
 
     100% {
-        top: 60%;
-        right: 40%;
-        transform: rotate(-380deg) scale(10);
+        top: 50%;
+        right: 50%;
+        transform: rotate(-380deg) scale(8);
     }
 }
 
