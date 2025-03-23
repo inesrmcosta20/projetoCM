@@ -43,25 +43,25 @@ h2 {
     0% {
         top: -10%;
         right: 20%;
-        transform: rotate(40deg) scale(0);
+        transform: rotate(-40deg) scale(0);
     }
 
     25% {
         top: 15%; 
         right: 20%;
-        transform: rotate(90deg) scale(2.5); 
+        transform: rotate(-90deg) scale(2.5); 
     }
 
     50% {
         top: 30%; 
         right: 20%;
-        transform: rotate(180deg) scale(5); 
+        transform: rotate(-180deg) scale(5); 
     }
 
     100% {
         top: 60%;
         right: 40%;
-        transform: rotate(380deg) scale(10); 
+        transform: rotate(-380deg) scale(10); 
     }
 }
 
