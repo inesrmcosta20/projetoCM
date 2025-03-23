@@ -33,7 +33,7 @@ h2 {
 /* Avião */
 .aviao {
     position: absolute;
-    width: 10vw;  /* Começa pequeno */
+    width: 10vw;  
     height: auto;
     animation: moveAviao 2s linear forwards;
     z-index: 20;
@@ -43,44 +43,30 @@ h2 {
 @keyframes moveAviao {
     0% {
         top: -10%;
-        right: 40%;
-        transform: rotate(0deg) scale(1); /* Começa pequeno e em movimento */
+        right: 20%;
+        transform: rotate(-45deg) scale(0);
     }
-    35% {
+
+    25% {
         top: 15%; 
         right: 20%;
-        transform: rotate(90deg) scale(4); /* Aumenta de tamanho e gira */
+        transform: rotate(-90deg) scale(2.5); 
     }
 
     50% {
         top: 40%; 
         right: 20%;
-        transform: rotate(180deg) scale(6); /* Aumenta de tamanho e gira */
+        transform: rotate(-180deg) scale(5); 
     }
 
     100% {
         top: 70%;
         right: 40%;
-        transform: rotate(380deg) scale(10); /* Chega maior e gira até parar */
+        transform: rotate(-380deg) scale(10); 
     }
 }
 
 /* Impede o overflow da animação fora da tela */
 body {
     overflow: hidden;
-}
-
-/* Media queries para ajustes em telas menores */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 5vw; /* Aumenta o tamanho da fonte em telas menores */
-        top: 3%; /* Ajusta a posição vertical para telas menores */
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 4vw; /* Aumenta ainda mais o tamanho da fonte para telas muito pequenas */
-        top: 3%; /* Ajuste fino da posição */
-    }
 }
