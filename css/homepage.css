@@ -18,7 +18,7 @@ h2 {
     color: #ffffff;
     text-align: center;
     position: absolute;
-    top: 30%; /* Ajuste da posição vertical */
+    top: 20%; /* Ajuste da posição vertical */
     left: 20%; /* Centraliza horizontalmente */
     transform: translateX(-50%); /* Centraliza perfeitamente considerando o tamanho do texto */
     z-index: 10;
@@ -36,7 +36,6 @@ h2 {
     width: 10vw;  
     height: auto;
     animation: moveAviao 2s linear forwards;
-    z-index: 20;
 }
 
 /* Animação do movimento do Avião */
@@ -44,25 +43,25 @@ h2 {
     0% {
         top: -10%;
         right: 20%;
-        transform: rotate(-45deg) scale(0);
+        transform: rotate(40deg) scale(0);
     }
 
     25% {
         top: 15%; 
         right: 20%;
-        transform: rotate(-90deg) scale(2.5); 
+        transform: rotate(90deg) scale(2.5); 
     }
 
     50% {
-        top: 40%; 
+        top: 30%; 
         right: 20%;
-        transform: rotate(-180deg) scale(5); 
+        transform: rotate(180deg) scale(5); 
     }
 
     100% {
-        top: 70%;
+        top: 60%;
         right: 40%;
-        transform: rotate(-380deg) scale(10); 
+        transform: rotate(380deg) scale(10); 
     }
 }
 
