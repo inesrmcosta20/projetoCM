@@ -1,7 +1,7 @@
+/* Substitui a imagem aviao.png por aviao-sombra.png quando a animação terminar*/
 document.addEventListener("DOMContentLoaded", function () {
     const aviao = document.getElementById('aviao');
     aviao.addEventListener('animationend', function () {
-      // Substitui a imagem quando a animação terminar
       aviao.src = 'imagens/aviao-sombra.png';
     });
   });

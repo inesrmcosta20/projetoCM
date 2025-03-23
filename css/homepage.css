@@ -6,7 +6,7 @@ h1 {
     text-align: center;
     position: absolute;
     top: 3%;
-    left: 20%;
+    left: 50%;
     transform: translateX(-50%);
     z-index: 10;
 }
@@ -19,7 +19,7 @@ h2 {
     text-align: center;
     position: absolute;
     top: 20%;
-    left: 20%;
+    left: 50%;
     transform: translateX(-50%);
     z-index: 10;
 }
@@ -45,39 +45,40 @@ h2 {
     z-index: 50;
 }
 
-
 /* Avião */
 .aviao {
     position: absolute;
     width: 10vw;
     height: auto;
-    animation: moveAviao 2s linear forwards;
+    animation: moveAviao 3s ease-out forwards;
 }
 
 /* Animação do movimento do Avião */
 @keyframes moveAviao {
     0% {
         top: -10%;
-        right: 20%;
-        transform: rotate(-40deg) scale(0);
+        left: 100%;
+        transform: rotate(20deg) scale(0);
     }
-
-    25% {
-        top: 10%;
-        right: 20%;
-        transform: rotate(-90deg) scale(2);
+    45% {
+        top: 30%;
+        left: 80%;
+        transform: rotate(10deg) scale(2);
     }
-
-    50% {
-        top: 20%;
-        right: 20%;
-        transform: rotate(-180deg) scale(4);
+    65% {
+        top: 30%;
+        left: 55%;
+        transform: rotate(90deg) scale(4);
     }
-
-    100% {
+    75% {
         top: 50%;
-        right: 50%;
-        transform: rotate(-380deg) scale(8);
+        left: 45%;
+        transform: rotate(180deg) scale(6);
+    }
+    100% {
+        top: 46%;
+        left: 42%;
+        transform: rotate(360deg) scale(8);
     }
 }
 
