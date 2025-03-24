@@ -50,7 +50,7 @@ h2 {
     position: absolute;
     width: 10vw;
     height: auto;
-    animation: moveAviao 5s ease-out forwards;
+    animation: moveAviao 2s ease-out forwards;
 }
 
 /* Animação do movimento do Avião */
@@ -60,14 +60,29 @@ h2 {
         left: 100%;
         transform: rotate(10deg) scale(0);
     }
-    30% {
-        top: 20%;
-        left: 70%;
-        transform: rotate(30deg) scale(2);
+    10% {
+        top: 10%;
+        left: 90%;
+        transform: rotate(30deg) scale(1);
     }
+    20% {
+        top: 25%;
+        left: 75%;
+        transform: rotate(60deg) scale(2);
+    }
+    30% {
+        top: 25%;
+        left: 75%;
+        transform: rotate(90deg) scale(3);
+    }
+    40% {
+        top: 25%;
+        left: 70%;
+        transform: rotate(180deg) scale(4);
+    } 
     50% {
-        top: 20%;
-        left: 80%;
+        top: 35%;
+        left: 60%;
         transform: rotate(360deg) scale(5);
     }
     100% {
