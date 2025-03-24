@@ -65,13 +65,15 @@ h2 {
         left: 70%;
         transform: rotate(30deg) scale(2);
     }
-    60% {
+    50% {
+        top: 20%;
+        left: 80%;
         transform: rotate(360deg) scale(5);
     }
     100% {
-        top: 40%;
-        left: 50%;
-        transform: rotate(370deg) scale(8);
+        top: 50%;
+        left: 45%;
+        transform: rotate(385deg) scale(8);
     }
 }
 
