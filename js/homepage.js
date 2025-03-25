@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const aviao = document.getElementById('aviao');
     aviao.addEventListener('animationend', function () {
-      aviao.src = 'imagens/aviao-sombra.png';
+      aviao.src = 'imagens/avião-linhas-preto.png';
     });
   });
   

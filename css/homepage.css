@@ -86,9 +86,9 @@ h2 {
         transform: rotate(360deg) scale(5);
     }
     100% {
-        top: 50%;
+        top: 60%;
         left: 45%;
-        transform: rotate(385deg) scale(8);
+        transform: rotate(385deg) scale(6);
     }
 }
 
