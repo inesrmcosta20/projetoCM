@@ -4,7 +4,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
+   }
   
   .planeta_rosa {
     position: absolute;
@@ -22,15 +22,31 @@
     width: 10%;
   }
   
-  .barra-lateral {
+  #left {
+    background-color: blue; 
     position: absolute;
-    left: 0;
+    left: 5%;
     top: 10%;
     width: 150px;
+    height: 100%; 
     display: flex;
+    border: black 2px; 
     flex-direction: column;
     align-items: center;
+        
+
   }
+#regador{
+  top: 10%; 
+}
+#guarda-chuva{
+  top: 30%; 
+
+}
+#cupula{
+  top: 50%; 
+
+}
   
   .arrastavel {
     cursor: grab;
@@ -38,4 +54,6 @@
     left: 20px;
     width: 80px;
     user-select: none;
+
+    
   }

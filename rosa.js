@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Seleciona todos os objetos que podem ser arrastados
-    const objetos = document.querySelectorAll(".arrastavel");
+    const objetos = document.getElementsClassName("arrastavel");
   
-    let objetoAtivo = null;
-    let offsetX = 0, offsetY = 0;
+let leftBox = document.getElementsById("left");
+  
+let rightBox = document.getElementsById("right");
+
   
     // Adiciona eventos a cada objeto interativo
     objetos.forEach(objeto => {
