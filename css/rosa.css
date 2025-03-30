@@ -54,7 +54,9 @@
 
 .objetos img:active {
   opacity: 1 !important; 
+  cursor: grabbing !important; /* Adiciona o estilo para o cursor durante o movimento */
 }
+
 
 
 #regador {
