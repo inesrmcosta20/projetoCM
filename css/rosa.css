@@ -20,13 +20,35 @@
 }
 
 /* Nuvem Lateral */
-.nuvem-lateral {
+#nuvem-lateral {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 70%;
+  /*bottom: 0;*/
+  left: -10;
+  width: 85%;
+ /* min-height: 500px;*/
   z-index: 2;
 }
+
+.objetos{
+  display: flex;
+  flex-direction: column;
+  width:10%; 
+  top:25%;
+  align-items: center;
+  margin-top:5% ; 
+
+
+  >img{
+    margin: 10% ; 
+    width:100px; 
+    z-index: 3; 
+    position: fixed; 
+  }
+  > #cupula{
+    width:70px;
+  }
+}
+
 
 /* Impede o overflow da animação fora da tela */
 body {
