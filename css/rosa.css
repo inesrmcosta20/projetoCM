@@ -23,7 +23,7 @@
 #nuvem-lateral {
   position: fixed;
   /*bottom: 0;*/
-  left: -10;
+  left: 0;
   width: 85%;
  /* min-height: 500px;*/
   z-index: 2;
@@ -34,7 +34,7 @@
   flex-direction: column;
   width:10%; 
   top:25%;
-  align-items: center;
+
   margin-top:5% ; 
 
 
@@ -42,7 +42,7 @@
     margin: 10% ; 
     width:100px; 
     z-index: 3; 
-    position: fixed; 
+   /* position: fixed; */
   }
   > #cupula{
     width:70px;

@@ -1,31 +1,41 @@
-let newX =0, newY =0, startX =0, startY =0; 
+// Rosa game interactions
+document.addEventListener('DOMContentLoaded', () => {
+  const regador = document.getElementById('regador');
+  const guardaChuva = document.getElementById('guarda-chuva');
+  const cupula = document.getElementById('cupula');
+  const sol = document.getElementById('sol');
 
-  const images = document.querySelectorAll(".peça");
+  // Initial positions
+  regador.style.left = '20%';
+  regador.style.top = '60%';
+  
+  guardaChuva.style.left = '50%';
+  guardaChuva.style.top = '70%';
+  
+  cupula.style.left = '80%';
+  cupula.style.top = '60%';
 
-  images.addEventListener('mousedown', mouseDown)
+  // Make objects draggable
+  [regador, guardaChuva, cupula].forEach(item => {
+    item.addEventListener('mousedown', startDragging);
+  });
 
-  function mouseDown(e){
-    startX=e.client(e); 
-    startY=e.client(e); 
+  function startDragging(e) {
+    const item = e.target;
+    let offsetX = e.clientX - item.getBoundingClientRect().left;
+    let offsetY = e.clientY - item.getBoundingClientRect().top;
 
-    document.addEventListener('mousemove', mouseMove); 
-    document.addEventListener('mouseup', mouseUp); 
+    function drag(e) {
+      item.style.left = `${e.clientX - offsetX}px`;
+      item.style.top = `${e.clientY - offsetY}px`;
+    }
+
+    function stopDragging() {
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('mouseup', stopDragging);
+    }
+
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', stopDragging);
   }
-
-  function mouseMove(e){
-    newX = startX - e.clientX; 
-    newY = startY - e.clientY; 
-
-    startX = e.clientX; 
-    startY = e.clientY; 
-
-    card.style.top = (card.offsetTop -newY) + 'px'; 
-    card.style.left = (card.offsetLeft -newYX + 'px'; 
-
-    console.log({newX, newY}); 
-  }
-
- function mouseUp(e){
-  document.removeEventListener('mousemove', mouseMove); 
-
- }
+})
