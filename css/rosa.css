@@ -33,11 +33,3 @@ body {
   overflow: hidden;
 }
 
-/* Imagens Objetos */
-.objeto {
-  position: absolute;
-  width: 5%; /* Ajustei o tamanho para que fiquem um pouco maiores */
-  height: auto;
-  z-index: 4;
-}
-
