@@ -58,26 +58,25 @@
 }
 
 
-
 #regador {
-  top: 22%;
+  top: 20%;
   left: 3%;
 }
 
 #guarda-chuva {
-  top: 41%;
-  left: 3%;
+  top: 38%;
+  left: 8%;
 }
 
 #cupula {
-  top: 56%;
+  top: 48%;
   left: 3%;
   width: 70px;
 }
 
 #sol {
-  top: 80%;
-  left: 3%;
+  top: 74%;
+  left: 5%;
 }
 
 /* Impede o overflow da animação fora da tela */
