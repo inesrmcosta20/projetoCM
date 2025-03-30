@@ -119,12 +119,12 @@ body {
     opacity:10;
   }
  
-  #peças img:first-child { z-index: 99; }
-  #peças img:nth-child(2) { z-index: 98; }
-  #peças img:nth-child(3) { z-index: 97; }
-  #peças img:nth-child(4) { z-index: 96; }
-  #peças img:nth-child(5) { z-index: 95; }
-  #peças img:nth-child(6) { z-index: 94; }
+  #peças_sobrepostas img:first-child { z-index: 99; }
+  #peças_sobrepostas img:nth-child(2) { z-index: 98; }
+  #peças_sobrepostas img:nth-child(3) { z-index: 97; }
+  #peças_sobrepostas img:nth-child(4) { z-index: 96; }
+  #peças_sobrepostas img:nth-child(5) { z-index: 95; }
+  #peças_sobrepostas img:nth-child(6) { z-index: 94; }
 
 .botao {
     display: inline-block;
@@ -137,6 +137,3 @@ body {
    /* z-index: 200;*/
 }
 
-a.botao:hover {
-    background-color: #ffffff;
-}
