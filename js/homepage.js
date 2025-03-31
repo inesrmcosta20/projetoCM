@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const aviao = document.getElementById("aviao");
-  const jogoRosa = document.querySelector(".jogo-rosa");
+  const jogoRosa = document.querySelector(".missao-rosa");
 
   aviao.addEventListener("animationend", function () {
     aviao.src = "imagens/aviao-sombra.png";

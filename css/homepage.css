@@ -144,7 +144,7 @@ body {
     z-index: 94;
 }
 
-.jogo-rosa {
+.missao-rosa {
     display: none;
     color: white;
     text-decoration: none;
@@ -159,6 +159,6 @@ body {
     z-index: 100;
 }
 
-.jogo-rosa:hover {
+.missao-rosa:hover {
     opacity: 0.5;
 }
