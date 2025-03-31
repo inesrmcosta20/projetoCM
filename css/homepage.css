@@ -145,7 +145,7 @@ body {
 }
 
 .jogo-rosa {
-    display: inline-block;
+    display: none;
     color: white;
     text-decoration: none;
     border-radius: 8px;

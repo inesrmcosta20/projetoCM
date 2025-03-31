@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   const aviao = document.getElementById("aviao");
-  const pecas = document.querySelectorAll(".peça");
+  const jogoRosa = document.querySelector(".jogo-rosa");
 
   aviao.addEventListener("animationend", function () {
     aviao.src = "imagens/aviao-sombra.png";
-
+    jogoRosa.style.display = "inline-block"; // Exibe o botão após a animação
   });
+});
+
 
   /*
 
@@ -16,4 +18,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 */
-}); 
+
