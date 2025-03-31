@@ -108,8 +108,8 @@ body {
     top: 50%;
     left: 45%;
     width: 10vw;
-    transform: rotate(385deg) scale(8);
-
+    transform:  rotate(385deg) scale(8);
+   
     opacity: 1;
     transition: opacity 0.5s;
     cursor: pointer;
