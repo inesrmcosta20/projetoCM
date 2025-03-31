@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    function makeDraggable(element) {
+    function makeDraggable(element, scaleInside) {
         let isDragging = false;
         let offsetX, offsetY;
         let startX, startY; // Armazena posição inicial
         let zonaSucesso = document.getElementById("zona-sucesso");
 
         element.style.cursor = "grab";
-        element.style.position = "absolute"; // Garante que os elementos possam mover-se
+        element.style.position = "absolute"; // Permite movimento
+        element.style.transition = "transform 0.3s ease"; // Suaviza a escala
 
         // Salvar posição inicial do elemento
         startX = element.offsetLeft;
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 isDragging = false;
                 element.style.cursor = "grab";
 
-                // Verifica se o objeto está completamente dentro da zona-sucesso
+                // Verifica se o objeto está dentro da zona-sucesso
                 let elemRect = element.getBoundingClientRect();
                 let zonaRect = zonaSucesso.getBoundingClientRect();
 
@@ -60,18 +61,32 @@ document.addEventListener("DOMContentLoaded", function () {
                     (elemRect.left < zonaRect.right && elemRect.right > zonaRect.left) &&
                     (elemRect.top < zonaRect.bottom && elemRect.bottom > zonaRect.top);
 
-                if (!completamenteDentro) {
-                    if (parcialmenteDentro) {
-                        alert("O objeto está nos limites da zona-sucesso, mas não completamente dentro!");
-                    }
-                    // Retorna à posição inicial
+                if (completamenteDentro || parcialmenteDentro) {
+                    // Define a escala personalizada para cada objeto
+                    element.style.transform = `scale(${scaleInside})`;
+                } else {
+                    // Retorna à posição inicial e tamanho original
                     element.style.left = startX + "px";
                     element.style.top = startY + "px";
+                    element.style.transform = "scale(1)";
                 }
             }
         });
     }
 
-    // Aplica a função a todos os elementos dentro da classe .objetos
-    document.querySelectorAll(".objetos img").forEach(makeDraggable);
+    // Lista de objetos com escalas personalizadas
+    let objetosComEscala = {
+        "regador": 2.5,       // O regador aumenta para 1.5x
+        "guarda-chuva": 3,  // O guarda-chuva aumenta para 1.3x
+        "cupula": 4,        // A cúpula aumenta para 1.4x
+        "sol": 3            // O sol aumenta para 1.2x
+    };
+
+    // Aplica a função a cada objeto com sua escala específica
+    Object.keys(objetosComEscala).forEach(id => {
+        let elemento = document.getElementById(id);
+        if (elemento) {
+            makeDraggable(elemento, objetosComEscala[id]);
+        }
+    });
 });
