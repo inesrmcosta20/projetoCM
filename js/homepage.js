@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const pecas = document.querySelectorAll(".peça");
 
   aviao.addEventListener("animationend", function () {
-    aviao.src = "imagens/aviao_sombra.png";
+    aviao.src = "imagens/aviao-sombra.png";
 
   });
 
@@ -17,3 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 */
 }); 
+
+document.addEventListener("DOMContentLoaded", function () {
+  const botaoRosa = document.querySelector(".jogo-rosa");
+  botaoRosa.addEventListener("click", function () {
+    console.log("Botão Rosa clicado!");
+  });
+});
+
