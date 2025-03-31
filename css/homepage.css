@@ -110,7 +110,7 @@ body {
     width: 10vw;
     transform:  rotate(385deg) scale(8);
    
-    opacity: 1;
+    opacity: 0;
     transition: opacity 0.5s;
     cursor: pointer;
     /* Indica que o elemento é clicável */
