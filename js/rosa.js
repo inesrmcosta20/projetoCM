@@ -74,12 +74,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Lista de objetos com escalas personalizadas
+    // Escala dos objetos
     let objetosComEscala = {
-        "regador": 2.5,       // O regador aumenta para 1.5x
-        "guarda-chuva": 3,  // O guarda-chuva aumenta para 1.3x
-        "cupula": 4,        // A cúpula aumenta para 1.4x
-        "sol": 3            // O sol aumenta para 1.2x
+        "regador": 2.5,       
+        "guarda-chuva": 3,  
+        "cupula": 4,       
+        "sol": 3            
     };
 
     // Aplica a função a cada objeto com sua escala específica
