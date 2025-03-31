@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let zonaSucesso = document.getElementById("zona-sucesso");
 
         element.style.cursor = "grab";
-        element.style.position = "absolute"; // Permite movimento
+        element.style.position = "absolute"; // Permite movimentar
         element.style.transition = "transform 0.3s ease"; // Suaviza a escala
 
         // Salvar posição inicial do elemento
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             offsetX = e.clientX - element.getBoundingClientRect().left;
             offsetY = e.clientY - element.getBoundingClientRect().top;
 
-            // Garante que o elemento fique acima dos outros durante o movimento
+            // Garante que o objeto fique acima dos outros durante o movimento
             element.style.zIndex = 1000;
         });
 
