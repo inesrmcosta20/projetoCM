@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   aviao.addEventListener("animationend", function () {
     aviao.src = "imagens/aviao_sombra.png";
-  
+
   });
 
   /*
