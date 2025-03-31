@@ -17,11 +17,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 */
 }); 
-
-document.addEventListener("DOMContentLoaded", function () {
-  const botaoRosa = document.querySelector(".jogo-rosa");
-  botaoRosa.addEventListener("click", function () {
-    console.log("Botão Rosa clicado!");
-  });
-});
-
