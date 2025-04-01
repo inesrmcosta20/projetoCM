@@ -1,16 +1,17 @@
 //Intro Jogo Rosa
 document.addEventListener("DOMContentLoaded", function () {
     let introRosa = document.getElementById("intro-rosa");
-  
+
     if (introRosa) {
-      introVideo.addEventListener("ended", function () {
-        introRosa.style.opacity = "0"; // Reduz gradualmente a opacidade
-        setTimeout(() => {
-          introRosa.style.display = "none"; // Remove completamente após a animação
-        }, 1000);
-      });
+        introRosa.addEventListener("ended", function () {
+            introRosa.style.opacity = "0"; // Inicia a transição de opacidade
+            setTimeout(() => {
+                introRosa.style.display = "none"; // Remove o vídeo após a animação
+            }, 1000);
+        });
     }
-  });
+});
+
   
 
 // Mover objetos
