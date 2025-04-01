@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let objetosComEscala = {
       "regador": 2.5,       
       "guarda-chuva": 3, 
-      "cupula": 4,        
+      "cupula": 3.5,        
       "sol": 3            
   };
 
