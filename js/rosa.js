@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
   
 
 // Mover objetos
