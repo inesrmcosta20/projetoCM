@@ -1,21 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
   const aviao = document.getElementById("aviao");
-  const jogoRosa = document.querySelector(".missao-rosa");
+  const missaoRosa = document.querySelector(".missao-rosa");
 
   aviao.addEventListener("animationend", function () {
     aviao.src = "imagens/aviao-sombra.png";
-    jogoRosa.style.display = "inline-block"; // Exibe o botão após a animação
+    missaoRosa.style.display = "inline-block"; // Exibe o botão da rosa após a animação
   });
 });
 
 
-  /*
-
-    pecas.forEach(peça => {
-        peça.style.opacity = "0"; // Inicialmente ocultas
-        peça.addEventListener("click", function () {
-            peça.style.opacity = "1"; // Torna visível ao clicar
-        });
-    });
+/*
+  pecas.forEach(peça => {
+      peça.style.opacity = "0"; // Inicialmente ocultas
+      peça.addEventListener("click", function () {
+          peça.style.opacity = "1"; // Torna visível ao clicar
+      });
+  });
 */
 
