@@ -162,3 +162,20 @@ body {
 .missao-rosa:hover {
     opacity: 0.5;
 }
+
+/* Posiciona os ícones de som no canto superior direito */
+.sound-controls {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    display: flex;
+    gap: 10px;
+    z-index: 10000;
+}
+
+/* Aplique um cursor de pointer para tornar os ícones interativos */
+.sound-controls img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+}
