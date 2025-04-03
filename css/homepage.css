@@ -1,12 +1,12 @@
 /* Título "O Principezinho" */
 h1 {
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 4.5vw;
+    font-family: "La Belle Aurore", sans-serif;
+    font-size: 5vw;
     color: #ffffff;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 50%;
+    top: -3.3%;
+    left: 50.2%;
     transform: translateX(-50%);
     z-index: 10;
 }
@@ -14,11 +14,11 @@ h1 {
 /* Subtítulo */
 h2 {
     font-family: "Nunito Sans", sans-serif;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     color: #ffffff;
     text-align: center;
     position: absolute;
-    top: 20%;
+    top: 19%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
