@@ -269,8 +269,8 @@ body {
 /* Ícones de som */
 .sound-controls {
     position: absolute;
-    top: 20px;
-    right: 25px;
+    top: 30px;
+    right: 30px;
     display: flex;
     z-index: 10000;
 }

@@ -67,6 +67,44 @@
   visibility: hidden;
 }
 
+#missao-concluida {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1500;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Imagem Mensagem Final Principezinho - Balao Fala */
+#conclusao{
+  position: absolute;
+  top: 10%;
+  left: 43%;
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1550;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
 /* Background Noite */
 .noite-rosa {
   width: 100%;
@@ -162,11 +200,11 @@
   transform: translateX(-50%);
   width: 160px;
   height: 67%;
-  background-color: rgba(255, 255, 255, 0);
   border-radius: 10px;
   z-index: 2;
 }
 
+/* Níveis*/
 .niveis{
   position: absolute;
   top: 20px;
@@ -180,7 +218,18 @@
   height: auto;
 }
 
+/* Timer */
+#timer {
+  position: absolute;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.2vw;
+  top: 70px;
+  right: 50px;
+  color: white;
+  z-index: 10000;
+}
 
+/* Balão de Fala */
 #balao-fala1 {
   position: absolute;
   top: 30%;
