@@ -130,13 +130,13 @@
 
 /*Regador*/
 #regador {
-  top: 20%;
-  left: 3%;
+  top: 26%;
+  left: 2%;
 }
 
 /*Guarda-Chuva*/
 #guarda-chuva {
-  top: 38%;
+  top: 40%;
   left: 8%;
 }
 
@@ -150,7 +150,7 @@
 
 /*Sol*/
 #sol {
-  top: 74%;
+  top: 72%;
   left: 5%;
 }
 
