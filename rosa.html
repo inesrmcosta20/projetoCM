@@ -20,11 +20,24 @@
 </head>
 
 <body>
-   <!--<video id="intro-rosa" autoplay>
-    <source src="intro/intro-rosa.mp4" type="video/mp4">
-  </video>-->
+  <header>
+    <!-- Música de fundo -->
+    <audio id="background-music-jogo" loop>
+      <source src="audio-jogo.mp3" type="audio/mp3">
+    </audio>
+    <a href="homepage.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>
+
+  </header>
 
   <main>
+    <!-- Video de Introdução
+    <video id="intro-rosa" autoplay>
+      <source src="intro/intro-rosa.mp4" type="video/mp4">
+    </video> -->
+
+    <img src="intro/intro-rosa.png" alt="intro-rosa" class="intro-rosa">
+    <img src="intro/instrucoes.png" alt="instrucoes" class="instrucoes">
+
     <!-- Cenário -->
     <img src="imagens/rosa/noite-rosa.png" alt="background" class="noite-rosa">
     <img src="imagens/rosa/rosa-e-planeta.png" alt="rosa-e-planeta" class="rosa-e-planeta">
@@ -38,7 +51,12 @@
       </div>
     </div>
 
-    <!-- Balão de Fala -->
+    <!-- Níveis -->
+    <div class="niveis">
+      <img src="imagens/niveis/nivel.png" alt="nivel" id="nivel">
+    </div>
+
+    <!-- Balões de Fala -->
     <img src="imagens/rosa/balao-fala1.png" alt="balao-fala1" id="balao-fala1">
 
     <!-- Zona de Sucesso -->

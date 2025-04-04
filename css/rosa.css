@@ -1,4 +1,21 @@
-/* Intro Jogo Rosa */
+/* Seta Retroceder */
+#seta-retroceder {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  display: flex;
+  z-index: 10000;
+  width: 40px;
+  height: auto;
+  cursor: pointer;
+}
+
+#seta-retroceder:hover {
+  opacity: 0.5;
+}
+
+
+/* Vídeo Intro Jogo Rosa 
 #intro-rosa {
   position: fixed;
   top: 0;
@@ -10,7 +27,46 @@
   opacity: 1;
   transition: opacity 1s ease-out;
 }
- 
+*/
+
+/* Imagem Intro Principezinho - Jogo Rosa  */
+.intro-rosa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1500;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Imagem Intro Principezinho - Balao Fala */
+.instrucoes{
+  position: absolute;
+  top: 10%;
+  left: 43%;
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1550;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
 /* Background Noite */
 .noite-rosa {
   width: 100%;
@@ -37,7 +93,7 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 80%;
+  width: 73%;
   z-index: 2;
 }
 
@@ -111,7 +167,21 @@
   z-index: 2;
 }
 
-#balao-fala1{
+.niveis{
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  display: flex;
+  z-index: 900;
+}
+
+.niveis img {
+  width: 140px; 
+  height: auto;
+}
+
+
+#balao-fala1 {
   position: absolute;
   top: 30%;
   left: 69%;
