@@ -2,10 +2,22 @@
 document.addEventListener("DOMContentLoaded", function () {
   const aviao = document.getElementById("aviao");
   const missaoRosa = document.querySelector(".missao-rosa");
+  const missaoRaposa = document.querySelector(".missao-raposa");
+  const missaoVaidoso = document.querySelector(".missao-vaidoso");
+  const missaoAcendedorCandeeiros = document.querySelector(".missao-acendedor-candeeiros");
+  const missaoHomemNegocios = document.querySelector(".missao-homem-negocios");
+  const missaoRei = document.querySelector(".missao-rei");
 
+
+  //Após a animação do avião
   aviao.addEventListener("animationend", function () {
-    aviao.src = "imagens/aviao-sombra.png";
-    missaoRosa.style.display = "inline-block"; // Exibe o botão da rosa após a animação
+    aviao.src = "imagens/cenario/aviao-sombra.png";
+    missaoRosa.style.display = "inline-block"; // Exibe o botão da Missão da Rosa 
+    missaoRaposa.style.display = "inline-block"; // Exibe o botão da Missão da Raposa 
+    missaoVaidoso.style.display = "inline-block"; // Exibe o botão da Missão do Vaidoso 
+    missaoAcendedorCandeeiros.style.display = "inline-block"; // Exibe o botão da Missão do Acendedor de Candeeiros
+    missaoHomemNegocios.style.display = "inline-block"; // Exibe o botão da Missão do Homem de Negócios
+    missaoRei.style.display = "inline-block"; // Exibe o botão da Missão Rei
   });
 });
 
@@ -25,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const somOff = document.getElementById("som-off");
   const audio = document.getElementById("background-music");
 
-  // Inicializa os ícones de som corretamente
+  // Inicializa os ícones de som 
   somOn.style.display = "none";
   somOff.style.display = "block";
 

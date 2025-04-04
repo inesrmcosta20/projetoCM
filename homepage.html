@@ -24,28 +24,26 @@
     <audio id="background-music" loop>
       <source src="audio-homepage.mp3" type="audio/mp3">
     </audio>
-    
+
     <div class="sound-controls">
       <!-- Exibe o som desligado inicialmente e o som ligado estará oculto -->
-      <img src="imagens/som-on.png" alt="Som ligado" class="som-icon" id="som-on" style="display: none;">
-      <img src="imagens/som-off.png" alt="Som desligado" class="som-icon" id="som-off">
+      <img src="imagens/icones/som-on.png" alt="Som ligado" class="som-icon" id="som-on" style="display: none;">
+      <img src="imagens/icones/som-off.png" alt="Som desligado" class="som-icon" id="som-off">
     </div>
   </header>
 
-
-
   <!-- Cenário -->
   <main>
-    <img src="imagens/deserto-frente.png" alt="Deserto-frente" class="deserto-frente">
-    <img src="imagens/deserto-noite.png" alt="Deserto" class="deserto">
-    <img id="aviao" src="imagens/aviao-vermelho.png" alt="Aviao" class="aviao">
+    <img src="imagens/cenario/deserto-frente.png" alt="Deserto-frente" class="deserto-frente">
+    <img src="imagens/cenario/deserto-noite.png" alt="Deserto" class="deserto">
+    <img id="aviao" src="imagens/cenario/aviao-vermelho.png" alt="Aviao" class="aviao">
 
     <h1>O Principezinho</h1>
     <h2>Ajuda o aviador a regressar a casa!</h2>
 
     <!-- Peças do Avião -->
     <div id="peças_sobrepostas">
-      <img src="imagens/peças/elices.png" alt="elices" class="peça" id="elices" visible="false">
+      <img src="imagens/peças/helices.png" alt="helices" class="peça" id="helices" visible="false">
       <img src="imagens/peças/rodas.png" alt="rodas" class="peça" visible="false">
       <img src="imagens/peças/placaBaixo.png" alt="placaBaixo" class="peça" visible="false">
       <img src="imagens/peças/corpo.png" alt="corpo" class="peça" visible="false">
@@ -54,7 +52,14 @@
     </div>
 
     <!-- Missões -->
-    <a href="rosa.html" class="missao-rosa">Missão da Rosa</a>
+    <a href="rosa.html" class="missao-rosa">Missão da Rosa</a> <!-- Peça tirantes -->
+    <a href="raposa.html" class="missao-raposa">Missão da Raposa</a> <!-- Placa Baixo -->
+    <a href="vaidoso.html" class="missao-vaidoso">Missão da Vaidoso</a> <!-- Hélices -->
+    <a href="acendedor-candeeiros.html" class="missao-acendedor-candeeiros">Missão do Acendedor <br> de Candeeiros</a>
+    <!-- Corpo -->
+    <a href="homem-negocios.html" class="missao-homem-negocios">Missão do Homem <br> de Negócios</a> <!-- Placa Cima -->
+    <a href="rei.html" class="missao-rei">Missão do Rei</a> <!-- Rodas -->
+
   </main>
 
   <!-- JS -->

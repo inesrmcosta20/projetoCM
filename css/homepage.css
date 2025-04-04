@@ -103,6 +103,7 @@ body {
     overflow: hidden;
 }
 
+/*Peças do Avião */
 .peça {
     position: absolute;
     top: 50%;
@@ -116,7 +117,7 @@ body {
     /* Indica que o elemento é clicável */
 }
 
-#elices:hover {
+#helices:hover {
     opacity: 10;
 }
 
@@ -144,7 +145,48 @@ body {
     z-index: 94;
 }
 
+/*Botão Missão Rosa*/
 .missao-rosa {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 45%;
+    left: 10%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-rosa:hover {
+    opacity: 0.5;
+}
+
+/*Botão Missão Raposa*/
+.missao-raposa {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 40%;
+    left: 80%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-raposa:hover {
+    opacity: 0.5;
+}
+
+/*Botão Missão Vaidoso*/
+.missao-vaidoso {
     display: none;
     color: white;
     text-decoration: none;
@@ -159,11 +201,72 @@ body {
     z-index: 100;
 }
 
-.missao-rosa:hover {
+.missao-vaidoso:hover {
     opacity: 0.5;
 }
 
-/* Posiciona os ícones de som no canto superior direito */
+/*Botão Missão Acendedor de Candeeiros*/
+.missao-acendedor-candeeiros {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 64%;
+    left: 8%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-acendedor-candeeiros:hover {
+    opacity: 0.5;
+}
+
+/*Botão Missão Homem de Negócios*/
+.missao-homem-negocios {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 51%;
+    left: 26%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-homem-negocios:hover {
+    opacity: 0.5;
+}
+
+
+/*Botão Missão Rei*/
+.missao-rei {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 60%;
+    left: 75%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-rei:hover {
+    opacity: 0.5;
+}
+
+/* Ícones de som */
 .sound-controls {
     position: absolute;
     top: 20px;
@@ -173,7 +276,7 @@ body {
     z-index: 10000;
 }
 
-/* Aplique um cursor de pointer para tornar os ícones interativos */
+/* Aplica um cursor de pointer para tornar os ícones interativos */
 .sound-controls img {
     width: 40px;
     height: auto;
