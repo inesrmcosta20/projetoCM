@@ -111,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Nível 1 - Cúpula
-// Nível 1 - Cúpula
 document.addEventListener("DOMContentLoaded", function () {
     const cupula = document.getElementById("cupula");
     const zonaSucesso = document.getElementById("zona-sucesso");
@@ -156,8 +155,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (dentro && balaoFala1.style.display !== "none") {
                     // Reposiciona a cúpula imediatamente quando estiver dentro da zona de sucesso
-                    element.style.left = "50%";  // Ajuste a posição X para o centro
-                    element.style.top = "50%";   // Ajuste a posição Y para o centro
+                    let screenWidth = window.innerWidth;
+                    let screenHeight = window.innerHeight;
+
+                    // Centraliza a cúpula
+                    let centerX = (screenWidth - element.offsetWidth) / 2;
+                    let centerY = (screenHeight - element.offsetHeight) / 2;
+
+                    element.style.left = centerX + "px";  // Ajusta a posição X para o centro
+                    element.style.top = centerY + "px";   // Ajusta a posição Y para o centro
                     element.style.transform = "scale(3.5)";  // Ajusta a escala para 3.5
                     element.style.transition = "transform 0.3s ease, left 0.3s ease, top 0.3s ease";  // Suaviza a transição
                 }
