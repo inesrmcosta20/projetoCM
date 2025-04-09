@@ -1,4 +1,21 @@
-/* Intro Jogo Rosa */
+/* Seta Retroceder */
+#seta-retroceder {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  display: flex;
+  z-index: 10000;
+  width: 40px;
+  height: auto;
+  cursor: pointer;
+}
+
+#seta-retroceder:hover {
+  opacity: 0.5;
+}
+
+
+/* Vídeo Intro Jogo Rosa 
 #intro-rosa {
   position: fixed;
   top: 0;
@@ -10,7 +27,84 @@
   opacity: 1;
   transition: opacity 1s ease-out;
 }
- 
+*/
+
+/* Imagem Intro Principezinho - Jogo Rosa  */
+.intro-rosa {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1500;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Imagem Intro Principezinho - Balao Fala */
+.instrucoes{
+  position: absolute;
+  top: 10%;
+  left: 43%;
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1550;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#missao-concluida {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1500;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Imagem Mensagem Final Principezinho - Balao Fala */
+#conclusao{
+  position: absolute;
+  top: 10%;
+  left: 43%;
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1550;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
 /* Background Noite */
 .noite-rosa {
   width: 100%;
@@ -37,7 +131,7 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 80%;
+  width: 73%;
   z-index: 2;
 }
 
@@ -74,13 +168,13 @@
 
 /*Regador*/
 #regador {
-  top: 20%;
-  left: 3%;
+  top: 26%;
+  left: 2%;
 }
 
 /*Guarda-Chuva*/
 #guarda-chuva {
-  top: 38%;
+  top: 40%;
   left: 8%;
 }
 
@@ -89,12 +183,12 @@
   top: 48%;
   left: 3%;
   width: 70px;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 /*Sol*/
 #sol {
-  top: 74%;
+  top: 72%;
   left: 5%;
 }
 
@@ -106,12 +200,37 @@
   transform: translateX(-50%);
   width: 160px;
   height: 67%;
-  background-color: rgba(255, 255, 255, 0);
   border-radius: 10px;
   z-index: 2;
 }
 
-#balao-fala1{
+/* Níveis*/
+.niveis{
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  display: flex;
+  z-index: 900;
+}
+
+.niveis img {
+  width: 140px; 
+  height: auto;
+}
+
+/* Timer */
+#timer {
+  position: absolute;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.2vw;
+  top: 70px;
+  right: 50px;
+  color: white;
+  z-index: 10000;
+}
+
+/* Balão de Fala */
+#balao-fala1 {
   position: absolute;
   top: 30%;
   left: 69%;

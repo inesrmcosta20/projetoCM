@@ -1,12 +1,12 @@
 /* Título "O Principezinho" */
 h1 {
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 4.5vw;
+    font-family: "La Belle Aurore", sans-serif;
+    font-size: 5vw;
     color: #ffffff;
     text-align: center;
     position: absolute;
-    top: 3%;
-    left: 50%;
+    top: -3.3%;
+    left: 50.2%;
     transform: translateX(-50%);
     z-index: 10;
 }
@@ -14,11 +14,11 @@ h1 {
 /* Subtítulo */
 h2 {
     font-family: "Nunito Sans", sans-serif;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     color: #ffffff;
     text-align: center;
     position: absolute;
-    top: 20%;
+    top: 19%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -103,20 +103,21 @@ body {
     overflow: hidden;
 }
 
+/*Peças do Avião */
 .peça {
     position: absolute;
     top: 50%;
     left: 45%;
     width: 10vw;
-    transform:  rotate(385deg) scale(8);
-   
+    transform: rotate(385deg) scale(8);
+
     opacity: 0;
     transition: opacity 0.5s;
     cursor: pointer;
     /* Indica que o elemento é clicável */
 }
 
-#elices:hover {
+#helices:hover {
     opacity: 10;
 }
 
@@ -144,7 +145,48 @@ body {
     z-index: 94;
 }
 
+/*Botão Missão Rosa*/
 .missao-rosa {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 45%;
+    left: 10%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-rosa:hover {
+    opacity: 0.5;
+}
+
+/*Botão Missão Raposa*/
+.missao-raposa {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 40%;
+    left: 80%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-raposa:hover {
+    opacity: 0.5;
+}
+
+/*Botão Missão Vaidoso*/
+.missao-vaidoso {
     display: none;
     color: white;
     text-decoration: none;
@@ -159,6 +201,83 @@ body {
     z-index: 100;
 }
 
-.missao-rosa:hover {
+.missao-vaidoso:hover {
     opacity: 0.5;
+}
+
+/*Botão Missão Acendedor de Candeeiros*/
+.missao-acendedor-candeeiros {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 64%;
+    left: 8%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-acendedor-candeeiros:hover {
+    opacity: 0.5;
+}
+
+/*Botão Missão Homem de Negócios*/
+.missao-homem-negocios {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 51%;
+    left: 26%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-homem-negocios:hover {
+    opacity: 0.5;
+}
+
+
+/*Botão Missão Rei*/
+.missao-rei {
+    display: none;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 1vw;
+    position: absolute;
+    top: 60%;
+    left: 75%;
+    transform: translateX(-50%);
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+.missao-rei:hover {
+    opacity: 0.5;
+}
+
+/* Ícones de som */
+.sound-controls {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    z-index: 10000;
+}
+
+/* Aplica um cursor de pointer para tornar os ícones interativos */
+.sound-controls img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
 }

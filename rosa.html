@@ -21,6 +21,7 @@
 
 <body>
   <header>
+<<<<<<< HEAD
   
       <!-- icon avião homepage -->
   <div>
@@ -29,6 +30,15 @@
    <!--<video id="intro-rosa" autoplay>
     <source src="intro/intro-rosa.mp4" type="video/mp4">
   </video>-->
+=======
+    <!-- Música de fundo -->
+    <audio id="background-music-jogo" loop>
+      <source src="audio-jogo.mp3" type="audio/mp3">
+    </audio>
+    <a href="homepage.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>
+
+  </header>
+>>>>>>> 5f3769502fd83395ac32abe3d96f83f79e07825a
 
   <img src="imagens/icons/estrela1.png" alt="" class="estrelas" id="estrela1">
   <img src="imagens/icons/estrela2.png" alt="" class="estrelas"  id="estrela2">
@@ -37,6 +47,16 @@
 </header>
 
   <main>
+    <!-- Video de Introdução
+    <video id="intro-rosa" autoplay>
+      <source src="intro/intro-rosa.mp4" type="video/mp4">
+    </video> -->
+
+    <img src="intro/intro-rosa.png" alt="intro-rosa" class="intro-rosa">
+    <img src="intro/instrucoes.png" alt="instrucoes" class="instrucoes">
+
+
+
     <!-- Cenário -->
     <img src="imagens/rosa/noite-rosa.png" alt="background" class="noite-rosa">
     <img src="imagens/rosa/rosa-e-planeta.png" alt="rosa-e-planeta" class="rosa-e-planeta">
@@ -50,11 +70,20 @@
       </div>
     </div>
 
-    <!-- Balão de Fala -->
+    <!-- Níveis -->
+    <div class="niveis">
+      <img src="imagens/niveis/nivel.png" alt="nivel" id="nivel">
+    </div>
+    <div id="timer"></div>
+
+
+    <!-- Balões de Fala -->
     <img src="imagens/rosa/balao-fala1.png" alt="balao-fala1" id="balao-fala1">
 
     <!-- Zona de Sucesso -->
     <div id="zona-sucesso"></div>
+    <img src="intro/missao-concluida.png" alt="missao-concluida" id="missao-concluida" class="hidden">
+    <img src="intro/conclusao.png" alt="conclusao" id="conclusao" class="hidden">
   </main>
 
   <!-- JS -->
