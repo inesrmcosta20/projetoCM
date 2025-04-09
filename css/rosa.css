@@ -29,8 +29,8 @@
 }
 */
 
-/* Imagem Intro Principezinho - Jogo Rosa  */
-.intro-rosa {
+/* Principezinho Início  */
+.principezinho-inicio {
   position: absolute;
   top: 0;
   left: 0;
@@ -48,8 +48,8 @@
   visibility: hidden;
 }
 
-/* Imagem Intro Principezinho - Balao Fala */
-.instrucoes{
+/* Balao Instrução */
+.balao-instruçao {
   position: absolute;
   top: 10%;
   left: 43%;
@@ -67,7 +67,8 @@
   visibility: hidden;
 }
 
-#missao-concluida {
+/* Principezinho Fim */
+#principezinho-fim {
   position: absolute;
   top: 0;
   left: 0;
@@ -85,8 +86,8 @@
   visibility: hidden;
 }
 
-/* Imagem Mensagem Final Principezinho - Balao Fala */
-#conclusao{
+/* Balão conclusão */
+#balao-conclusao {
   position: absolute;
   top: 10%;
   left: 43%;
@@ -104,6 +105,68 @@
   visibility: hidden;
 }
 
+/* Imagem Background Vermelho */
+#background-insucesso {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1500;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+
+.background-insucesso.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Balão insucesso */
+#balao-insucesso {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  max-width: 60%;
+  max-height: 30%;
+  object-fit: contain;
+  object-position: center;
+  z-index: 1500;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+  transform: translate(-50%, -50%);
+}
+
+.balao-insucesso.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Tentar Novamente */
+#tentar-novamente {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  max-width: 15%;
+  max-height: 15%;
+  object-fit: contain;
+  object-position: center;
+  z-index: 1500;
+  opacity: 1;
+  transition: opacity 1s ease-out, visibility 1s ease-out;
+  transform: translate(-50%, -50%);
+}
+
+.tentar-novamente.visible {
+  opacity: 1;
+  visibility: visible;
+}
 
 /* Background Noite */
 .noite-rosa {
@@ -205,7 +268,7 @@
 }
 
 /* Níveis*/
-.niveis{
+.niveis {
   position: absolute;
   top: 20px;
   right: 50px;
@@ -214,14 +277,14 @@
 }
 
 .niveis img {
-  width: 140px; 
+  width: 140px;
   height: auto;
 }
 
 /* Timer */
 #timer {
   position: absolute;
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "Nunito Sans", sans-serif !important;
   font-size: 1.2vw;
   top: 70px;
   right: 50px;
