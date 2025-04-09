@@ -148,11 +148,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-var animation= bodymovin.loadAnimation({
-    container:  document.getElementById('acenar'), // the dom element that will contain the animation
-    renderer: 'svg',
-    loop: true,
-    autoplay: true,
-    path: 'js/mao.json' // the path to the animation json
 
-}); 
