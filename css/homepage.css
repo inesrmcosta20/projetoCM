@@ -35,8 +35,8 @@ h2 {
     z-index: -1;
 }
 
-/* Deserto Frontal */
-.deserto-frente {
+/* Camadas do deserto */
+.areia1 {
     width: 100%;
     height: auto;
     position: absolute;
@@ -104,166 +104,45 @@ body {
 }
 
 /*Peças do Avião */
-.peça {
+.peças_cenario {
     position: absolute;
     top: 50%;
     left: 45%;
     width: 10vw;
     transform: rotate(385deg) scale(8);
-
+    z-index: 1000000;
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 0.5s ease-in-out;
     cursor: pointer;
-    /* Indica que o elemento é clicável */
+    display: block;
 }
 
 #helices:hover {
     opacity: 10;
 }
 
-#peças_sobrepostas img:first-child {
+#peças_cenario img:first-child {
     z-index: 99;
 }
 
-#peças_sobrepostas img:nth-child(2) {
+#peças_cenario img:nth-child(2) {
     z-index: 98;
 }
 
-#peças_sobrepostas img:nth-child(3) {
+#peças_cenario img:nth-child(3) {
     z-index: 97;
 }
 
-#peças_sobrepostas img:nth-child(4) {
+#peças_cenario img:nth-child(4) {
     z-index: 96;
 }
 
-#peças_sobrepostas img:nth-child(5) {
+#peças_cenario img:nth-child(5) {
     z-index: 95;
 }
 
-#peças_sobrepostas img:nth-child(6) {
+#peças_cenario img:nth-child(6) {
     z-index: 94;
-}
-
-/*Botão Missão Rosa*/
-.missao-rosa {
-    display: none;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 1vw;
-    position: absolute;
-    top: 45%;
-    left: 10%;
-    transform: translateX(-50%);
-    transition: background-color 0.3s ease;
-    z-index: 100;
-}
-
-.missao-rosa:hover {
-    opacity: 0.5;
-}
-
-/*Botão Missão Raposa*/
-.missao-raposa {
-    display: none;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 1vw;
-    position: absolute;
-    top: 40%;
-    left: 80%;
-    transform: translateX(-50%);
-    transition: background-color 0.3s ease;
-    z-index: 100;
-}
-
-.missao-raposa:hover {
-    opacity: 0.5;
-}
-
-/*Botão Missão Vaidoso*/
-.missao-vaidoso {
-    display: none;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 1vw;
-    position: absolute;
-    top: 50%;
-    left: 61%;
-    transform: translateX(-50%);
-    transition: background-color 0.3s ease;
-    z-index: 100;
-}
-
-.missao-vaidoso:hover {
-    opacity: 0.5;
-}
-
-/*Botão Missão Acendedor de Candeeiros*/
-.missao-acendedor-candeeiros {
-    display: none;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 1vw;
-    position: absolute;
-    top: 64%;
-    left: 8%;
-    transform: translateX(-50%);
-    transition: background-color 0.3s ease;
-    z-index: 100;
-}
-
-.missao-acendedor-candeeiros:hover {
-    opacity: 0.5;
-}
-
-/*Botão Missão Homem de Negócios*/
-.missao-homem-negocios {
-    display: none;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 1vw;
-    position: absolute;
-    top: 51%;
-    left: 26%;
-    transform: translateX(-50%);
-    transition: background-color 0.3s ease;
-    z-index: 100;
-}
-
-.missao-homem-negocios:hover {
-    opacity: 0.5;
-}
-
-
-/*Botão Missão Rei*/
-.missao-rei {
-    display: none;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-family: "Nunito Sans", sans-serif;
-    font-size: 1vw;
-    position: absolute;
-    top: 60%;
-    left: 75%;
-    transform: translateX(-50%);
-    transition: background-color 0.3s ease;
-    z-index: 100;
-}
-
-.missao-rei:hover {
-    opacity: 0.5;
 }
 
 /* Ícones de som */

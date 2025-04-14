@@ -1,47 +1,31 @@
-//Substituição no final da animação
+// homepage.js
+
 document.addEventListener("DOMContentLoaded", function () {
   const aviao = document.getElementById("aviao");
-  const missaoRosa = document.querySelector(".missao-rosa");
-  const missaoRaposa = document.querySelector(".missao-raposa");
-  const missaoVaidoso = document.querySelector(".missao-vaidoso");
-  const missaoAcendedorCandeeiros = document.querySelector(".missao-acendedor-candeeiros");
-  const missaoHomemNegocios = document.querySelector(".missao-homem-negocios");
-  const missaoRei = document.querySelector(".missao-rei");
+  const pecasCenario = document.querySelector(".peças_cenario");
 
-
-  //Após a animação do avião
+  // Animação do avião finalizada
   aviao.addEventListener("animationend", function () {
+    // Muda a imagem do avião
     aviao.src = "imagens/cenario/aviao-sombra.png";
-    missaoRosa.style.display = "inline-block"; // Exibe o botão da Missão da Rosa 
-    missaoRaposa.style.display = "inline-block"; // Exibe o botão da Missão da Raposa 
-    missaoVaidoso.style.display = "inline-block"; // Exibe o botão da Missão do Vaidoso 
-    missaoAcendedorCandeeiros.style.display = "inline-block"; // Exibe o botão da Missão do Acendedor de Candeeiros
-    missaoHomemNegocios.style.display = "inline-block"; // Exibe o botão da Missão do Homem de Negócios
-    missaoRei.style.display = "inline-block"; // Exibe o botão da Missão Rei
+
+    // Torna visíveis as peças do cenário com efeito de fade-in
+    setTimeout(() => {
+      pecasCenario.style.opacity = "1";
+    }, 300); // opcional: atraso de 300ms para fluidez
   });
 });
 
-
-/*
-  pecas.forEach(peça => {
-      peça.style.opacity = "0"; // Inicialmente ocultas
-      peça.addEventListener("click", function () {
-          peça.style.opacity = "1"; // Torna visível ao clicar
-      });
-  });
-*/
-
-//Controlo do som
+// Controlo do som
 document.addEventListener("DOMContentLoaded", function () {
   const somOn = document.getElementById("som-on");
   const somOff = document.getElementById("som-off");
   const audio = document.getElementById("background-music");
 
-  // Inicializa os ícones de som 
+  // Inicializa ícones
   somOn.style.display = "none";
   somOff.style.display = "block";
 
-  // Verifica se o áudio está em reprodução e ajusta os ícones
   function toggleAudio() {
     if (audio.paused) {
       audio.play();
@@ -54,9 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Quando o ícone de som desligado for clicado
+  // Eventos de clique nos ícones de som
   somOff.addEventListener("click", toggleAudio);
-
-  // Quando o ícone de som ligado for clicado
   somOn.addEventListener("click", toggleAudio);
 });

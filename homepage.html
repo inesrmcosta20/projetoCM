@@ -22,7 +22,7 @@
   <header>
     <!-- Música de fundo -->
     <audio id="background-music" loop>
-      <source src="audio-homepage.mp3" type="audio/mp3">
+      <source src="audios/audio-homepage.mp3" type="audio/mp3">
     </audio>
 
     <div class="sound-controls">
@@ -34,32 +34,30 @@
 
   <!-- Cenário -->
   <main>
-    <img src="imagens/cenario/deserto-frente.png" alt="Deserto-frente" class="deserto-frente">
+    <img src="imagens/cenario/areia1.png" alt="areia1" class="areia1">
+    <img src="imagens/cenario/areia2.png" alt="areia2" class="areia2">
+    <img src="imagens/cenario/areia3png" alt="areia3" class="areia3">
+    <img src="imagens/cenario/areia4.png" alt="areia4" class="areia4">
+    <img src="imagens/cenario/areia5.png" alt="areia5" class="areia5">
+    <img src="imagens/cenario/areia6.png" alt="areia6" class="areia6">
+    <img src="imagens/cenario/areia7.png" alt="areia7" class="areia7">
+
+
     <img src="imagens/cenario/deserto-noite.png" alt="Deserto" class="deserto">
     <img id="aviao" src="imagens/cenario/aviao-vermelho.png" alt="Aviao" class="aviao">
 
     <h1>O Principezinho</h1>
     <h2>Ajuda o aviador a regressar a casa!</h2>
 
-    <!-- Peças do Avião -->
-    <div id="peças_sobrepostas">
-      <img src="imagens/peças/helices.png" alt="helices" class="peça" id="helices" visible="false">
-      <img src="imagens/peças/rodas.png" alt="rodas" class="peça" visible="false">
-      <img src="imagens/peças/placaBaixo.png" alt="placaBaixo" class="peça" visible="false">
-      <img src="imagens/peças/corpo.png" alt="corpo" class="peça" visible="false">
-      <img src="imagens/peças/tirantes.png" alt="tirantes" class="peça" visible="false">
-      <img src="imagens/peças/placaCima.png" alt="placaCima" class="peça" visible="false">
+    <!-- Peças do Avião dispersas no cenário -->
+    <div class="peças_cenario">
+      <a href="rosa.html"><img src="imagens/peças-cenário/tirantes.png" alt="tirantes" class="peça-tirantes" visible="false"></a>
+      <a href="raposa.html"><img src="imagens/peças-cenário/placaBaixo.png" alt="placaBaixo" class="peça-placaBaixo" visible="false"></a>
+      <a href="vaidoso.html"><img src="imagens/peças-cenário/helices.png" alt="helices" class="peça-helices" id="helices" visible="false"></a>
+      <a href="acendedor-candeeiros.html"><img src="imagens/peças-cenário/corpo.png" alt="corpo" class="peça-corpo" visible="false"></a>
+      <a href="rei.html"><img src="imagens/peças-cenário/rodas.png" alt="rodas" class="peça-rodas" visible="false"></a>
+      <a href="homem-negocios.html"><img src="imagens/peças-cenário/placaCima.png" alt="placaCima" class="peça-placaCima" visible="false"></a>
     </div>
-
-    <!-- Missões -->
-    <a href="rosa.html" class="missao-rosa">Missão da Rosa</a> <!-- Peça tirantes -->
-    <a href="raposa.html" class="missao-raposa">Missão da Raposa</a> <!-- Placa Baixo -->
-    <a href="vaidoso.html" class="missao-vaidoso">Missão da Vaidoso</a> <!-- Hélices -->
-    <a href="acendedor-candeeiros.html" class="missao-acendedor-candeeiros">Missão do Acendedor <br> de Candeeiros</a>
-    <!-- Corpo -->
-    <a href="homem-negocios.html" class="missao-homem-negocios">Missão do Homem <br> de Negócios</a> <!-- Placa Cima -->
-    <a href="rei.html" class="missao-rei">Missão do Rei</a> <!-- Rodas -->
-
   </main>
 
   <!-- JS -->
