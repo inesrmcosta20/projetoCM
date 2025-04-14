@@ -1,8 +1,6 @@
-// homepage.js
-
 document.addEventListener("DOMContentLoaded", function () {
   const aviao = document.getElementById("aviao");
-  const pecasCenario = document.querySelector(".peças_cenario");
+  const pecasCenario = document.querySelector(".peças-cenario");
 
   // Animação do avião finalizada
   aviao.addEventListener("animationend", function () {
