@@ -1,29 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
   const aviao = document.getElementById("aviao");
   const pecasCenario = document.querySelector(".peças-cenario");
-
-  // Animação do avião finalizada
-  aviao.addEventListener("animationend", function () {
-    // Muda a imagem do avião
-    aviao.src = "imagens/cenario/aviao-sombra.png";
-
-    // Torna visíveis as peças do cenário com efeito de fade-in
-    setTimeout(() => {
-      pecasCenario.style.opacity = "1";
-    }, 300); // opcional: atraso de 300ms para fluidez
-  });
-});
-
-// Controlo do som
-document.addEventListener("DOMContentLoaded", function () {
   const somOn = document.getElementById("som-on");
   const somOff = document.getElementById("som-off");
   const audio = document.getElementById("background-music");
 
-  // Inicializa ícones
+  // Inicializa ícones de som
   somOn.style.display = "none";
   somOff.style.display = "block";
 
+  // Controlo do som
   function toggleAudio() {
     if (audio.paused) {
       audio.play();
@@ -36,7 +22,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Eventos de clique nos ícones de som
   somOff.addEventListener("click", toggleAudio);
   somOn.addEventListener("click", toggleAudio);
+
+  // Quando a animação do avião termina
+  aviao.addEventListener("animationend", function () {
+    console.log("Animação terminou!"); // <-- Isto deve aparecer na consola
+    aviao.src = "imagens/cenario/aviao-sombra.png";
+  
+    setTimeout(() => {
+      pecasCenario.style.opacity = "1";
+      pecasCenario.style.pointerEvents = "auto";
+    }, 300);
+  });  
 });
