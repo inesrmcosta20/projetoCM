@@ -1,12 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
     const zonaSucesso = document.getElementById("zona-sucesso");
-    const balaoFala1 = document.getElementById("balao-fala1");
 
-    // Exibe o balão de fala após 6 segundos
-    setTimeout(() => {
-        balaoFala1.classList.remove("hidden");
-        contagem = setInterval(atualizarTimer, 1000);
-    }, 6000);
+    const objetos = {
+        "cupula": document.getElementById("cupula"),
+        "regador": document.getElementById("regador"),
+        "sol": document.getElementById("sol"),
+        "guarda-chuva": document.getElementById("guarda-chuva")
+    };
+
+    const balaoFalas = [
+        "balao-fala1",
+        "balao-fala2",
+        "balao-fala3"
+    ];
+
+    let etapaAtual = 0;
+    let ordemCorreta = ["cupula", "regador", "sol"];
 
     const posicoesFinais = {
         "regador": { left: "37%", top: "35%", rotate: "20deg" },
@@ -14,6 +23,16 @@ document.addEventListener("DOMContentLoaded", function () {
         "cupula": { left: "54%", top: "50%" },
         "sol": { left: "35%", top: "30%" }
     };
+
+    function mostrarBalao(etapa) {
+        balaoFalas.forEach((id, i) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.display = (i === etapa) ? "block" : "none";
+        });
+    }
+
+    mostrarBalao(etapaAtual); // Inicia com balao-fala1
 
     function makeDraggable(element, scaleInside) {
         let isDragging = false;
@@ -38,80 +57,69 @@ document.addEventListener("DOMContentLoaded", function () {
             if (isDragging) {
                 let newX = e.clientX - offsetX;
                 let newY = e.clientY - offsetY;
-
                 element.style.left = Math.min(Math.max(0, newX), window.innerWidth - element.clientWidth) + "px";
                 element.style.top = Math.min(Math.max(0, newY), window.innerHeight - element.clientHeight) + "px";
             }
         });
 
         document.addEventListener("mouseup", function () {
-            if (isDragging) {
-                isDragging = false;
-                element.style.cursor = "grab";
+            if (!isDragging) return;
+            isDragging = false;
+            element.style.cursor = "grab";
 
-                let elemRect = element.getBoundingClientRect();
-                let zonaRect = zonaSucesso.getBoundingClientRect();
+            let elemRect = element.getBoundingClientRect();
+            let zonaRect = zonaSucesso.getBoundingClientRect();
 
-                // Verifica interseção parcial
-                let intersecta =
-                    elemRect.right > zonaRect.left &&
-                    elemRect.left < zonaRect.right &&
-                    elemRect.bottom > zonaRect.top &&
-                    elemRect.top < zonaRect.bottom;
+            let intersecta =
+                elemRect.right > zonaRect.left &&
+                elemRect.left < zonaRect.right &&
+                elemRect.bottom > zonaRect.top &&
+                elemRect.top < zonaRect.bottom;
 
-                if (intersecta) {
-                    // Define posição personalizada
-                    const final = posicoesFinais[element.id];
-                    if (final) {
-                        element.style.left = final.left;
-                        element.style.top = final.top;
-                    }
+            const correto = element.id === ordemCorreta[etapaAtual];
 
-                    const rotacao = final.rotate || "0deg";
-                    element.style.transform = `scale(${scaleInside}) rotate(${rotacao})`;
+            if (intersecta && correto) {
+                const final = posicoesFinais[element.id];
+                element.style.left = final.left;
+                element.style.top = final.top;
+                element.style.transform = `scale(${scaleInside}) rotate(${final.rotate || "0deg"})`;
+                element.style.transformOrigin = "center";
+                element.style.pointerEvents = "none"; // Impede novos drags
 
-                    element.style.transformOrigin = "center";
-
-                    // Lógica especial para a cúpula
-                    if (element.id === "cupula") {
-                        const missaoConcluida = document.getElementById("principezinho-fim");
-                        const conclusao = document.getElementById("balao-conclusao");
-
-                        if (missaoConcluida) {
-                            missaoConcluida.classList.remove("hidden");
-                            missaoConcluida.removeAttribute("style");
-                        }
-
-                        if (conclusao) {
-                            conclusao.classList.remove("hidden");
-                            conclusao.removeAttribute("style");
-                        }
-
-                        clearInterval(contagem);
-                    }
-
-                } else {
-                    // Volta à posição inicial
+                // Avança para a próxima etapa após 2 segundos
+                setTimeout(() => {
+                    // Reset visual
                     element.style.left = `${startX}px`;
                     element.style.top = `${startY}px`;
                     element.style.transform = "scale(1)";
-                }
+                    element.style.pointerEvents = "auto";
+
+                    // Avança etapa
+                    etapaAtual++;
+                    if (etapaAtual < balaoFalas.length) {
+                        mostrarBalao(etapaAtual);
+                    } else {
+                        // Última etapa concluída (opcional: mostrar mensagem final)
+                        console.log("Jogo concluído!");
+                    }
+                }, 2000);
+            } else {
+                // Volta à posição inicial
+                element.style.left = `${startX}px`;
+                element.style.top = `${startY}px`;
+                element.style.transform = "scale(1)";
             }
         });
     }
 
-    // Escalas para cada objeto
-    const objetosComEscala = {
-        "regador": 2.5,
-        "guarda-chuva": 3,
+    const escalas = {
         "cupula": 3.5,
-        "sol": 3
+        "regador": 2.5,
+        "sol": 3,
+        "guarda-chuva": 3
     };
 
-    Object.keys(objetosComEscala).forEach(id => {
-        let elemento = document.getElementById(id);
-        if (elemento) {
-            makeDraggable(elemento, objetosComEscala[id]);
-        }
+    Object.keys(objetos).forEach(id => {
+        makeDraggable(objetos[id], escalas[id]);
     });
 });

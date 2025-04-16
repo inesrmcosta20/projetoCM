@@ -1,5 +1,23 @@
-/* Balão de Fala fixo */
+/* Balões de Fala */
 #balao-fala1 {
+  position: fixed;
+  left: 65%;
+  bottom: 55%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+#balao-fala2 {
+  position: fixed;
+  left: 65%;
+  bottom: 55%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+#balao-fala3 {
   position: fixed;
   left: 65%;
   bottom: 55%;
