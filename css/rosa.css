@@ -106,7 +106,7 @@
   z-index: -1;
 }
 
-/* Rosa e Planeta */
+/* Planeta */
 .planeta {
   position: absolute;
   bottom: 0;
@@ -135,4 +135,17 @@
 /* Evita scroll da tela */
 body {
   overflow: hidden;
+}
+
+/* Movimento do Sol */
+@keyframes girarEOscilar {
+  0% { transform: scale(3) rotate(0deg); }
+  25% { transform: scale(3.1) rotate(10deg); }
+  50% { transform: scale(2.9) rotate(20deg); }
+  75% { transform: scale(3.1) rotate(30deg); }
+  100% { transform: scale(3) rotate(360deg); }
+}
+
+.animacao-sol {
+  animation: girarEOscilar 2s ease-in-out;
 }

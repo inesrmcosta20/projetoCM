@@ -24,6 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "sol": { left: "35%", top: "30%" }
     };
 
+    // Áudios
+    const somErro = document.getElementById("audio-erro");
+    const somAcerto = document.getElementById("audio-acerto");
+
     function mostrarBalao(etapa) {
         balaoFalas.forEach((id, i) => {
             const el = document.getElementById(id);
@@ -32,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    mostrarBalao(etapaAtual); // Inicia com balao-fala1
+    mostrarBalao(etapaAtual);
 
     function makeDraggable(element, scaleInside) {
         let isDragging = false;
@@ -79,32 +83,51 @@ document.addEventListener("DOMContentLoaded", function () {
             const correto = element.id === ordemCorreta[etapaAtual];
 
             if (intersecta && correto) {
+                // Toca som de acerto
+                somAcerto.currentTime = 0;
+                somAcerto.play();
+
                 const final = posicoesFinais[element.id];
                 element.style.left = final.left;
                 element.style.top = final.top;
-                element.style.transform = `scale(${scaleInside}) rotate(${final.rotate || "0deg"})`;
-                element.style.transformOrigin = "center";
-                element.style.pointerEvents = "none"; // Impede novos drags
 
-                // Avança para a próxima etapa após 2 segundos
+                if (element.id === "sol") {
+                    element.classList.add("animacao-sol");
+                    element.style.transform = `scale(${scaleInside}) rotate(0deg)`;
+                } else {
+                    element.style.transform = `scale(${scaleInside}) rotate(${final.rotate || "0deg"})`;
+                }
+
+                element.style.transformOrigin = "center";
+                element.style.pointerEvents = "none";
+
+                // Avança após 2.5s
                 setTimeout(() => {
-                    // Reset visual
                     element.style.left = `${startX}px`;
                     element.style.top = `${startY}px`;
                     element.style.transform = "scale(1)";
                     element.style.pointerEvents = "auto";
 
-                    // Avança etapa
+                    if (element.id === "sol") {
+                        element.classList.remove("animacao-sol");
+                    }
+
                     etapaAtual++;
                     if (etapaAtual < balaoFalas.length) {
                         mostrarBalao(etapaAtual);
                     } else {
-                        // Última etapa concluída (opcional: mostrar mensagem final)
                         console.log("Jogo concluído!");
                     }
-                }, 2000);
+                }, 2500);
+
+            } else if (intersecta && !correto) {
+                somErro.currentTime = 0;
+                somErro.play();
+
+                element.style.left = `${startX}px`;
+                element.style.top = `${startY}px`;
+                element.style.transform = "scale(1)";
             } else {
-                // Volta à posição inicial
                 element.style.left = `${startX}px`;
                 element.style.top = `${startY}px`;
                 element.style.transform = "scale(1)";
