@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const audio = document.getElementById("background-music");
 
   // Inicializa ícones de som
-  somOn.style.display = "none";
-  somOff.style.display = "block";
+  somOn.style.display = "block";
+  somOff.style.display = "none";
 
   // Controlo do som
   function toggleAudio() {

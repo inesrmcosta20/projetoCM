@@ -1,4 +1,36 @@
-body {
+/* Seta Retroceder */
+#seta-retroceder {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    display: flex;
+    z-index: 10000;
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+  }
+  
+  #seta-retroceder:hover {
+    opacity: 0.5;
+  }
+  
+/* Som */
+.sound-controls {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    z-index: 10000;
+}
+
+.sound-controls img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+}
+
+  
+  body {
     margin: 0;
     overflow: hidden;
     background-color: #000;
@@ -15,6 +47,14 @@ body {
     top: 0;
     left: 0;
     z-index: -1;
+}
+#acendedor{
+    width: 80%;
+   
+     position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
 }
 
 .planeta_candeeiro {
@@ -39,33 +79,71 @@ body {
 
 .luz {
     position: absolute;
-    top: 65%;
+    top: 80%;
     left: 50%;
-    width: 100px;
+    width: 150px;
     height: auto;
-    transform-origin: center -40px;
+    transform-origin: center -130px;
     pointer-events: none;
 
 }
 
 #luz1 {
-    transform: translate(-50%, -50%) rotate(0deg) translateY(-300px);
+    transform: rotate(0deg) translateY(100px);
+  
+    animation: rotateLamp1 20s linear infinite;
 }
 
 #luz2 {
-    transform: translate(-40%, -50%) rotate(120deg) translateY(-300px);
+    transform:  rotate(120deg) translateY(100px);
+    
+    animation: rotateLamp2 20s linear infinite;
 }
 
 #luz3 {
-    transform: translate(-50%, -50%) rotate(240deg) translateY(-300px);
+    transform: rotate(240deg) translateY(100px) ;
+    
+
+    animation: rotateLamp3 20s linear infinite;
 }
 
 @keyframes rotatePlanet {
     from {
         transform: translate(-50%, -50%) rotate(0deg);
+     
     }
     to {
         transform: translate(-50%, -50%) rotate(360deg);
+   
     }
 }
 
+@keyframes rotateLamp1 {
+    from {
+       
+        transform:  translate(-50%, -50%) rotate(0deg);
+       
+    }
+    to {
+      
+        transform:  translate(-50%, -50%) rotate(360deg);
+    
+    }
+}
+@keyframes rotateLamp2 {
+    from {
+        transform:   translate(-50%, -50%)  rotate(120deg);
+        
+    }
+    to {
+        transform:    translate(-50%, -50%)   rotate(480deg);
+    }
+}
+@keyframes rotateLamp3 {
+    from {
+        transform: translate(-50%, -50%) rotate(240deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(600deg);
+    }
+}
