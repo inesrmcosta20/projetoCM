@@ -159,7 +159,7 @@ h2 {
 
 /* Posicionamento individual das peças */
 .peça-tirantes {
-    top: 32%;
+    top: 30%;
     left: 10%;
     width: 3vw;
     z-index: 1;

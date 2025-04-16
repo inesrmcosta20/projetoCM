@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 6000);
 
     const posicoesFinais = {
-        "regador": { left: "60%", top: "60%" },
-        "guarda-chuva": { left: "63%", top: "40%" },
-        "cupula": { left: "66%", top: "50%" },
-        "sol": { left: "62%", top: "30%" }
+        "regador": { left: "37%", top: "35%", rotate: "20deg" },
+        "guarda-chuva": { left: "50%", top: "35%" },
+        "cupula": { left: "54%", top: "50%" },
+        "sol": { left: "35%", top: "30%" }
     };
 
     function makeDraggable(element, scaleInside) {
@@ -67,7 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         element.style.top = final.top;
                     }
 
-                    element.style.transform = `scale(${scaleInside})`;
+                    const rotacao = final.rotate || "0deg";
+                    element.style.transform = `scale(${scaleInside}) rotate(${rotacao})`;
+
                     element.style.transformOrigin = "center";
 
                     // Lógica especial para a cúpula
