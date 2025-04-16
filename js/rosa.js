@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const posicoesFinais = {
         "regador": { left: "37%", top: "35%", rotate: "20deg" },
-        "guarda-chuva": { left: "50%", top: "35%" },
+        "guarda-chuva": { left: "47%", top: "35%", rotate: "-25deg" },
         "cupula": { left: "54%", top: "50%" },
         "sol": { left: "35%", top: "30%" }
     };
