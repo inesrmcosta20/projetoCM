@@ -1,59 +1,50 @@
-// Espera que o conteúdo da página esteja completamente carregado antes de executar a função
 document.addEventListener("DOMContentLoaded", function () {
-    // Seleciona os elementos da página necessários para manipulação
     const zonaSucesso = document.getElementById("zona-sucesso");
     const balaoFala1 = document.getElementById("balao-fala1");
 
-    // Exibe o balão de fala e começa a contagem do temporizador após 6 segundos
+    // Exibe o balão de fala após 6 segundos
     setTimeout(() => {
         balaoFala1.classList.remove("hidden");
         contagem = setInterval(atualizarTimer, 1000);
     }, 6000);
 
-    // Função para tornar um elemento arrastável na página
     function makeDraggable(element, scaleInside) {
-        let isDragging = false; // Variável para controlar o estado de arrasto
-        let offsetX, offsetY; // Variáveis para armazenar a posição do clique
-        let startX = element.offsetLeft; // Posição inicial do elemento
-        let startY = element.offsetTop; // Posição inicial do elemento
+        let isDragging = false;
+        let offsetX, offsetY;
+        let startX = element.offsetLeft;
+        let startY = element.offsetTop;
 
-        // Define o css inicial do elemento que é movido
         element.style.cursor = "grab";
         element.style.position = "absolute";
         element.style.transition = "transform 0.3s ease, left 0.2s ease, top 0.2s ease";
 
-        // Inicia o movimento ao clicar no elemento
         element.addEventListener("mousedown", function (e) {
             isDragging = true;
             element.style.cursor = "grabbing";
             e.preventDefault();
-            offsetX = e.clientX - element.getBoundingClientRect().left; // Calcula a diferença entre o clique e a posição do elemento
-            offsetY = e.clientY - element.getBoundingClientRect().top; // Calcula a diferença entre o clique e a posição do elemento
-            element.style.zIndex = 1000; // Coloca o elemento acima dos outros durante o movimento
+            offsetX = e.clientX - element.getBoundingClientRect().left;
+            offsetY = e.clientY - element.getBoundingClientRect().top;
+            element.style.zIndex = 1000;
         });
 
-        // Atualiza a posição do elemento enquanto está a ser arrastado
         document.addEventListener("mousemove", function (e) {
             if (isDragging) {
-                let newX = e.clientX - offsetX; // Calcula a nova posição horizontal
-                let newY = e.clientY - offsetY; // Calcula a nova posição vertical
+                let newX = e.clientX - offsetX;
+                let newY = e.clientY - offsetY;
 
-                // Limita a movimentação do elemento para dentro da janela
                 element.style.left = Math.min(Math.max(0, newX), window.innerWidth - element.clientWidth) + "px";
                 element.style.top = Math.min(Math.max(0, newY), window.innerHeight - element.clientHeight) + "px";
             }
         });
 
-        // Finaliza o movimento quando o mouse é solto
         document.addEventListener("mouseup", function () {
             if (isDragging) {
                 isDragging = false;
                 element.style.cursor = "grab";
 
-                let elemRect = element.getBoundingClientRect(); // Obtém a posição e o tamanho do elemento
-                let zonaRect = zonaSucesso.getBoundingClientRect(); // Obtém a posição e o tamanho da zona de sucesso
+                let elemRect = element.getBoundingClientRect();
+                let zonaRect = zonaSucesso.getBoundingClientRect();
 
-                // Verifica se o elemento está completamente dentro da zona de sucesso
                 let completamenteDentro =
                     elemRect.left >= zonaRect.left &&
                     elemRect.right <= zonaRect.right &&
@@ -61,16 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     elemRect.bottom <= zonaRect.bottom;
 
                 if (completamenteDentro) {
-                    // Se o elemento for a cúpula, aplica escala e centraliza na zona de sucesso
+                    element.style.transform = `scale(${scaleInside})`;
+                    element.style.transformOrigin = "center";
+
+                    // Caso seja a cúpula, pode adicionar lógica especial aqui
                     if (element.id === "cupula") {
-                        element.style.transform = `scale(${scaleInside})`; // Aplica a escala ao elemento
-                        element.style.transformOrigin = "center"; // Define o centro de transformação
-
-                        // Centraliza o elemento na zona de sucesso
-                        element.style.left = `${zonaRect.left + (zonaRect.width - elemRect.width) / 2}px`;
-                        element.style.top = `${zonaRect.top + (zonaRect.height - elemRect.height) / 2}px`;
-
-                        // Exibe a mensagem de missão concluída
                         const missaoConcluida = document.getElementById("principezinho-fim");
                         const conclusao = document.getElementById("balao-conclusao");
 
@@ -84,18 +70,19 @@ document.addEventListener("DOMContentLoaded", function () {
                             conclusao.removeAttribute("style");
                         }
 
-                        clearInterval(contagem); // Pára a contagem do tempo
-                    } else {
-                        // Se o objeto não for a cúpula, retorna à posição inicial
-                        element.style.left = `${startX}px`;
-                        element.style.top = `${startY}px`;
+                        clearInterval(contagem);
                     }
+
+                } else {
+                    element.style.left = `${startX}px`;
+                    element.style.top = `${startY}px`;
+                    element.style.transform = "scale(1)";
                 }
             }
         });
     }
 
-    // Definir a escala para cada objeto
+    // Escalas definidas para cada objeto
     const objetosComEscala = {
         "regador": 2.5,
         "guarda-chuva": 3,
@@ -103,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "sol": 3
     };
 
-    // Torna cada objeto movível com a escala definida
     Object.keys(objetosComEscala).forEach(id => {
         let elemento = document.getElementById(id);
         if (elemento) {
@@ -112,4 +98,34 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Animação da rosa
+const imagens = [
+    "rosa0.png", "rosa1.png", "rosa2.png", "rosa3.png", "rosa4.png", "rosa5.png",
+    "rosa6.png", "rosa7.png", "rosa8.png", "rosa9.png", "rosa10.png",
+    "rosa11.png", "rosa12.png", "rosa13.png", "rosa14.png", "rosa15.png",
+];
 
+let indice = 0;
+let direcao = 1;
+let ultimaTroca = 0;
+const intervalo = 50;
+
+function animarRosa(timestamp) {
+    if (!ultimaTroca) ultimaTroca = timestamp;
+
+    const rosa = document.getElementById("rosa");
+    if (!rosa) return;
+
+    if (timestamp - ultimaTroca >= intervalo) {
+        indice += direcao;
+        if (indice >= imagens.length - 1 || indice <= 0) {
+            direcao *= -1;
+        }
+        rosa.src = "imagens/rosa/movimento/" + imagens[indice];
+        ultimaTroca = timestamp;
+    }
+
+    requestAnimationFrame(animarRosa);
+}
+
+requestAnimationFrame(animarRosa);

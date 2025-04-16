@@ -13,16 +13,16 @@
   z-index: 4;
 }
 
-/* Cada objeto já é fixed individualmente */
 .objetos img {
   width: 100px;
   position: fixed;
   cursor: pointer;
   opacity: 1;
   z-index: 4;
+  transition: transform 0.3s ease;
 }
 
-/* Ajuste de posição com base na viewport */
+/* Posição inicial dos objetos */
 #regador {
   top: 26vh;
   left: 2vw;
@@ -45,17 +45,28 @@
   left: 5vw;
 }
 
-
-/*Zona Sucesso*/
+/* Zona de Sucesso */
 #zona-sucesso {
   position: absolute;
   bottom: 0;
   left: 56%;
   transform: translateX(-50%);
-  width: 160px;
-  height: 67%;
+  width: 30%;
+  height: 70%;
   border-radius: 10px;
   z-index: 2;
+  border: 2px dashed #00c3ff;
+  background-color: rgba(0, 195, 255, 0.1);
+}
+
+/* Rosa */
+#rosa {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 70%;
 }
 
 /* Nuvem Lateral */
@@ -79,7 +90,7 @@
 }
 
 /* Rosa e Planeta */
-.rosa-e-planeta {
+.planeta {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -104,7 +115,7 @@
   opacity: 0.5;
 }
 
-/* Impede o overflow da animação fora da tela */
+/* Evita scroll da tela */
 body {
   overflow: hidden;
 }
