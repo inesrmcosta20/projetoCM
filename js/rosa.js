@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
         contagem = setInterval(atualizarTimer, 1000);
     }, 6000);
 
+    const posicoesFinais = {
+        "regador": { left: "60%", top: "60%" },
+        "guarda-chuva": { left: "63%", top: "40%" },
+        "cupula": { left: "66%", top: "50%" },
+        "sol": { left: "62%", top: "30%" }
+    };
+
     function makeDraggable(element, scaleInside) {
         let isDragging = false;
         let offsetX, offsetY;
@@ -45,17 +52,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 let elemRect = element.getBoundingClientRect();
                 let zonaRect = zonaSucesso.getBoundingClientRect();
 
-                let completamenteDentro =
-                    elemRect.left >= zonaRect.left &&
-                    elemRect.right <= zonaRect.right &&
-                    elemRect.top >= zonaRect.top &&
-                    elemRect.bottom <= zonaRect.bottom;
+                // Verifica interseção parcial
+                let intersecta =
+                    elemRect.right > zonaRect.left &&
+                    elemRect.left < zonaRect.right &&
+                    elemRect.bottom > zonaRect.top &&
+                    elemRect.top < zonaRect.bottom;
 
-                if (completamenteDentro) {
+                if (intersecta) {
+                    // Define posição personalizada
+                    const final = posicoesFinais[element.id];
+                    if (final) {
+                        element.style.left = final.left;
+                        element.style.top = final.top;
+                    }
+
                     element.style.transform = `scale(${scaleInside})`;
                     element.style.transformOrigin = "center";
 
-                    // Caso seja a cúpula, pode adicionar lógica especial aqui
+                    // Lógica especial para a cúpula
                     if (element.id === "cupula") {
                         const missaoConcluida = document.getElementById("principezinho-fim");
                         const conclusao = document.getElementById("balao-conclusao");
@@ -74,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                 } else {
+                    // Volta à posição inicial
                     element.style.left = `${startX}px`;
                     element.style.top = `${startY}px`;
                     element.style.transform = "scale(1)";
@@ -82,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Escalas definidas para cada objeto
+    // Escalas para cada objeto
     const objetosComEscala = {
         "regador": 2.5,
         "guarda-chuva": 3,
@@ -97,35 +113,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-// Animação da rosa
-const imagens = [
-    "rosa0.png", "rosa1.png", "rosa2.png", "rosa3.png", "rosa4.png", "rosa5.png",
-    "rosa6.png", "rosa7.png", "rosa8.png", "rosa9.png", "rosa10.png",
-    "rosa11.png", "rosa12.png", "rosa13.png", "rosa14.png", "rosa15.png",
-];
-
-let indice = 0;
-let direcao = 1;
-let ultimaTroca = 0;
-const intervalo = 50;
-
-function animarRosa(timestamp) {
-    if (!ultimaTroca) ultimaTroca = timestamp;
-
-    const rosa = document.getElementById("rosa");
-    if (!rosa) return;
-
-    if (timestamp - ultimaTroca >= intervalo) {
-        indice += direcao;
-        if (indice >= imagens.length - 1 || indice <= 0) {
-            direcao *= -1;
-        }
-        rosa.src = "imagens/rosa/movimento/" + imagens[indice];
-        ultimaTroca = timestamp;
-    }
-
-    requestAnimationFrame(animarRosa);
-}
-
-requestAnimationFrame(animarRosa);
