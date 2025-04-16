@@ -99,68 +99,62 @@ h2 {
     10% {
         top: 10%;
         left: 90%;
-        transform: rotate(15deg) scale(1);
+        transform: rotate(15deg) scale(0.5);
     }
     20% {
         top: 15%;
         left: 85%;
-        transform: rotate(20deg) scale(2);
+        transform: rotate(20deg) scale(1);
     }
     30% {
         top: 25%;
         left: 75%;
-        transform: rotate(45deg) scale(3);
+        transform: rotate(45deg) scale(1.5);
     }
     40% {
         top: 25%;
         left: 70%;
-        transform: rotate(180deg) scale(4);
+        transform: rotate(180deg) scale(2);
     }
     50% {
         top: 35%;
         left: 60%;
-        transform: rotate(360deg) scale(5);
+        transform: rotate(360deg) scale(3);
     }
     100% {
-        top: 50%;
+        top: 70%;
         left: 45%;
-        transform: rotate(385deg) scale(8);
+        transform: rotate(385deg) scale(4);
     }
 }
 
 /* Peças do Avião */
 .peças-cenario {
     position: absolute;
-   top: 0;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
-    /*pointer-events:visible; ***/
-  } 
+    
+    pointer-events: none; /* Inicialmente desativado */
+}
 
-  
-/* Links das Peças */
-.link-peça {
-    position: relative;
-   /* display: block;*/
-    transition: transform 0.3s ease;
+.peças-cenario.active {
+    pointer-events: auto; /* Ativado quando a animação terminar */
+}
 
-    /* Cria área clicável maior */
-    padding: 15px;
-    margin: -15px;
-    z-index: inherit;
+/* Links das peças - agora com posicionamento absoluto */
+.peças-cenario a {
+    display: contents; /* Remove o contexto de empilhamento do link */
 }
 
 /* Imagens das Peças */
-.peça-img {
+.peças-cenario img {
     position: absolute;
-    display: block;
-    width: 100%;
-    height: auto;
-    pointer-events: none; /* Permite clique no link pai */
-   
+    transition: transform 0.3s ease;
+    pointer-events: auto; /* Permite clique mesmo com container desativado */
 }
 
 /* Posicionamento individual das peças */
@@ -224,7 +218,9 @@ h2 {
     transform: translateY(-15px);
 }
 
-
+ .peça-rodas a img:hover  {
+    transform: translateY(15px);
+}
 
 
 /* Som */
