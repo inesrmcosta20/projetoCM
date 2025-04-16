@@ -1,171 +1,70 @@
-/* Seta Retroceder */
-#seta-retroceder {
-  position: absolute;
-  top: 20px;
-  left: 25px;
-  display: flex;
-  z-index: 10000;
-  width: 40px;
-  height: auto;
-  cursor: pointer;
-}
-
-#seta-retroceder:hover {
-  opacity: 0.5;
-}
-
-
-/* Vídeo Intro Jogo Rosa 
-#intro-rosa {
+/* Balão de Fala fixo */
+#balao-fala1 {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1000;
-  opacity: 1;
-  transition: opacity 1s ease-out;
-}
-*/
-
-/* Principezinho Início  */
-.principezinho-inicio {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  object-position: center;
-  z-index: 1500;
-  opacity: 1;
-  transition: opacity 1s ease-out, visibility 1s ease-out;
-}
-
-.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Balao Instrução */
-.balao-instruçao {
-  position: absolute;
-  top: 10%;
-  left: 43%;
-  width: 300px;
+  left: 65%;
+  bottom: 55%;
+  width: 15vw;
   height: auto;
-  object-fit: cover;
-  object-position: center;
-  z-index: 1550;
+  z-index: 5;
+}
+
+/* Objetos */
+.objetos {
+  z-index: 4;
+}
+
+/* Cada objeto já é fixed individualmente */
+.objetos img {
+  width: 100px;
+  position: fixed;
+  cursor: pointer;
   opacity: 1;
-  transition: opacity 1s ease-out, visibility 1s ease-out;
+  z-index: 4;
 }
 
-.hidden {
-  opacity: 0;
-  visibility: hidden;
+/* Ajuste de posição com base na viewport */
+#regador {
+  top: 26vh;
+  left: 2vw;
 }
 
-/* Principezinho Fim */
-#principezinho-fim {
+#guarda-chuva {
+  top: 40vh;
+  left: 8vw;
+}
+
+#cupula {
+  top: 48vh;
+  left: 3vw;
+  width: 70px;
+  opacity: 0.7;
+}
+
+#sol {
+  top: 72vh;
+  left: 5vw;
+}
+
+
+/*Zona Sucesso*/
+#zona-sucesso {
   position: absolute;
-  top: 0;
+  bottom: 0;
+  left: 56%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 67%;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+/* Nuvem Lateral */
+#nuvem-lateral {
+  position: absolute;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  object-position: center;
-  z-index: 1500;
-  opacity: 1;
-  transition: opacity 1s ease-out, visibility 1s ease-out;
-}
-
-.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Balão conclusão */
-#balao-conclusao {
-  position: absolute;
-  top: 10%;
-  left: 43%;
-  width: 300px;
-  height: auto;
-  object-fit: cover;
-  object-position: center;
-  z-index: 1550;
-  opacity: 1;
-  transition: opacity 1s ease-out, visibility 1s ease-out;
-}
-
-.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Imagem Background Vermelho */
-#background-insucesso {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  object-position: center;
-  z-index: 1500;
-  opacity: 1;
-  transition: opacity 1s ease-out, visibility 1s ease-out;
-}
-
-.background-insucesso.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Balão insucesso */
-#balao-insucesso {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: auto;
-  height: auto;
-  max-width: 60%;
-  max-height: 30%;
-  object-fit: contain;
-  object-position: center;
-  z-index: 1500;
-  opacity: 1;
-  transition: opacity 1s ease-out, visibility 1s ease-out;
-  transform: translate(-50%, -50%);
-}
-
-.balao-insucesso.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Tentar Novamente */
-#tentar-novamente {
-  position: absolute;
-  top: 57%;
-  left: 50%;
-  width: auto;
-  height: auto;
-  max-width: 15%;
-  max-height: 15%;
-  object-fit: contain;
-  object-position: center;
-  z-index: 1500;
-  opacity: 1;
-  transition: opacity 1s ease-out, visibility 1s ease-out;
-  transform: translate(-50%, -50%);
-}
-
-.tentar-novamente.visible {
-  opacity: 1;
-  visibility: visible;
+  bottom: 0;
+  width: 73%;
+  z-index: 2;
 }
 
 /* Background Noite */
@@ -189,118 +88,20 @@
   width: 70%;
 }
 
-/* Nuvem Lateral */
-#nuvem-lateral {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 73%;
-  z-index: 2;
-}
-
-/*Objetos*/
-.objetos-container {
-  position: fixed;
-  top: 20%;
-  left: 0;
-  padding-left: 20px;
-  z-index: 3;
-}
-
-.objetos {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.objetos img {
-  width: 100px;
-  position: fixed;
-  z-index: 4;
-  cursor: pointer;
-  opacity: 1;
-}
-
-
-.objetos img:active {
-  opacity: 1 !important;
-  cursor: grabbing !important;
-  /* Adiciona o cursor durante o movimento */
-}
-
-/*Regador*/
-#regador {
-  top: 26%;
-  left: 2%;
-}
-
-/*Guarda-Chuva*/
-#guarda-chuva {
-  top: 40%;
-  left: 8%;
-}
-
-/*Cúpula*/
-#cupula {
-  top: 48%;
-  left: 3%;
-  width: 70px;
-  opacity: 0.7;
-}
-
-/*Sol*/
-#sol {
-  top: 72%;
-  left: 5%;
-}
-
-/*Zona Sucesso*/
-#zona-sucesso {
-  position: absolute;
-  bottom: 0;
-  left: 56%;
-  transform: translateX(-50%);
-  width: 160px;
-  height: 67%;
-  border-radius: 10px;
-  z-index: 2;
-}
-
-/* Níveis*/
-.niveis {
+/* Seta Retroceder */
+#seta-retroceder {
   position: absolute;
   top: 20px;
-  right: 50px;
+  left: 25px;
   display: flex;
-  z-index: 900;
-}
-
-.niveis img {
-  width: 140px;
-  height: auto;
-}
-
-/* Timer */
-#timer {
-  position: absolute;
-  font-family: "Nunito Sans", sans-serif !important;
-  font-size: 1.2vw;
-  top: 70px;
-  right: 50px;
-  color: white;
   z-index: 10000;
+  width: 40px;
+  height: auto;
+  cursor: pointer;
 }
 
-/* Balão de Fala */
-#balao-fala1 {
-  position: absolute;
-  top: 30%;
-  left: 69%;
-  transform: translateX(-50%);
-  width: 190px;
-  height: auto;
-  z-index: 2;
+#seta-retroceder:hover {
+  opacity: 0.5;
 }
 
 /* Impede o overflow da animação fora da tela */
