@@ -137,13 +137,30 @@ h2 {
     height: 100%;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
-    pointer-events: none; 
+    /*pointer-events:visible; ***/
   } 
 
-.peças-cenario img {
+  
+/* Links das Peças */
+.link-peça {
+    position: relative;
+   /* display: block;*/
+    transition: transform 0.3s ease;
+
+    /* Cria área clicável maior */
+    padding: 15px;
+    margin: -15px;
+    z-index: inherit;
+}
+
+/* Imagens das Peças */
+.peça-img {
     position: absolute;
-    cursor: pointer;
-    
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none; /* Permite clique no link pai */
+   
 }
 
 /* Posicionamento individual das peças */
@@ -152,11 +169,9 @@ h2 {
     left: 10%;
     width: 3vw;
     z-index: 1;
+    
 }
 
-.peça-tirantes:hover {
-    top: 28%;
-}
 
 .peça-placaBaixo {
     top: 34%;
@@ -166,11 +181,9 @@ h2 {
     rotate: 30deg;
 }
 
-.peça-placaBaixo:hover {
-    top: 30%;
-}
 
-.peça-helices {
+
+.peça-helices{
     top: 48%;
     left: 85%;
     width: 5vw;
@@ -178,9 +191,6 @@ h2 {
     rotate: 20deg;
 }
 
-.peça-helices:hover {
-    top: 44%;
-}
 
 .peça-corpo {
     top: 60%;
@@ -190,21 +200,16 @@ h2 {
     rotate: 30deg;
 }
 
-.peça-corpo:hover {
-    top: 56%;
-}
 
 .peça-rodas {
-    top: 52%;
+    top: 50%;
     left: 60%;
     width: 10vw;
     z-index: 5;
     rotate: 170deg;
 }
 
-.peça-rodas:hover {
-    top: 46%;
-}
+
 
 .peça-placaCima {
     top: 46%;
@@ -214,9 +219,12 @@ h2 {
     rotate: -10deg;
 }
 
-.peça-placaCima:hover {
-    top: 40%;
+/* Efeito Hover - Aplicado aos links */
+.peças-cenario a img:hover {
+    transform: translateY(-15px);
 }
+
+
 
 
 /* Som */
