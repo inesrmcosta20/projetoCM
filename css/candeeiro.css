@@ -53,7 +53,7 @@ body {
 }
 
 #luz2 {
-    transform: translate(-50%, -50%) rotate(120deg) translateY(-300px);
+    transform: translate(-40%, -50%) rotate(120deg) translateY(-300px);
 }
 
 #luz3 {
@@ -69,11 +69,3 @@ body {
     }
 }
 
-@keyframes rotateLuz {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-}
