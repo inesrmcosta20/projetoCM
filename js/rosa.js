@@ -1,50 +1,14 @@
 // Espera que o conteúdo da página esteja completamente carregado antes de executar a função
 document.addEventListener("DOMContentLoaded", function () {
     // Seleciona os elementos da página necessários para manipulação
-    const principezinhoinicio = document.querySelector(".principezinho-inicio");
-    const balaoinstrucao = document.querySelector(".balao-instruçao");
-    const timerDisplay = document.getElementById("timer");
     const zonaSucesso = document.getElementById("zona-sucesso");
     const balaoFala1 = document.getElementById("balao-fala1");
-    const insucessoImagem = document.getElementById("insucesso");
-    const backgroundInsucesso = document.getElementById("background-insucesso");
-    const balaoInsucesso = document.getElementById("balao-insucesso");
-    const tentarNovamente = document.getElementById("tentar-novamente");
-
-    let tempoRestante = 15; // Define o tempo inicial do temporizador
-    let contagem;
-
-    // Define a fonte do temporizador
-    timerDisplay.style.fontFamily = '"Nunito Sans", sans-serif';
 
     // Exibe o balão de fala e começa a contagem do temporizador após 6 segundos
     setTimeout(() => {
         balaoFala1.classList.remove("hidden");
         contagem = setInterval(atualizarTimer, 1000);
     }, 6000);
-
-    // Função para atualizar o temporizador a cada segundo
-    function atualizarTimer() {
-        let segundos = tempoRestante.toString().padStart(2, '0'); // Formata os segundos com dois dígitos
-        timerDisplay.textContent = `00:${segundos}`; // Exibe o tempo restante
-
-        if (tempoRestante > 0) {
-            tempoRestante--; // Diminui o tempo restante
-        } else {
-            clearInterval(contagem); // Para a contagem quando o tempo chega a zero
-            timerDisplay.textContent = "00:00";
-            timerDisplay.style.color = "red";
-
-            // Exibe imagens de insucesso caso o tempo acabe
-            backgroundInsucesso.classList.remove("hidden");
-            balaoInsucesso.classList.remove("hidden");
-            tentarNovamente.classList.remove("hidden");
-        }
-    }
-
-    // Esconde o "príncipezinho" e o balão de instruções após 4 segundos
-    setTimeout(() => principezinhoinicio?.classList.add("hidden"), 4000);
-    setTimeout(() => balaoinstrucao?.classList.add("hidden"), 4000);
 
     // Função para tornar um elemento arrastável na página
     function makeDraggable(element, scaleInside) {
