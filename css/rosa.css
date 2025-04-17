@@ -72,8 +72,8 @@
   height: 70%;
   border-radius: 10px;
   z-index: 2;
-  border: 2px dashed #00c3ff;
-  background-color: rgba(0, 195, 255, 0.1);
+  /*border: 2px dashed #00c3ff;
+  background-color: rgba(0, 195, 255, 0.1); */
 }
 
 /* Rosa */
@@ -147,5 +147,24 @@ body {
 }
 
 .animacao-sol {
-  animation: girarEOscilar 2s ease-in-out;
+  animation: girarEOscilar 2.5s ease-in-out;
+}
+
+
+/* Estrelas */
+.estrela-animada {
+  position: absolute;
+  animation: piscarEstrela 3s infinite ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes piscarEstrela {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }

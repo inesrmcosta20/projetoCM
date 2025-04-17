@@ -9,13 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const balaoFalas = [
-        "balao-fala1",
-        "balao-fala2",
-        "balao-fala3"
+        { id: "balao-fala1", objeto: "cupula" },
+        { id: "balao-fala2", objeto: "regador" },
+        { id: "balao-fala3", objeto: "sol" }
     ];
-
-    let etapaAtual = 0;
-    let ordemCorreta = ["cupula", "regador", "sol"];
 
     const posicoesFinais = {
         "regador": { left: "37%", top: "35%", rotate: "20deg" },
@@ -24,19 +21,70 @@ document.addEventListener("DOMContentLoaded", function () {
         "sol": { left: "35%", top: "30%" }
     };
 
-    // Áudios
     const somErro = document.getElementById("audio-erro");
     const somAcerto = document.getElementById("audio-acerto");
 
+    const rosa = document.getElementById("rosa");
+    let frameAtual = 0;
+    let intervaloRosa;
+
+    function embaralhar(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    let ordemFalas = embaralhar([...balaoFalas]);
+    let etapaAtual = 0;
+
+    function iniciarAnimacaoRosa() {
+        if (intervaloRosa) return;
+
+        let direcao = 1;
+
+        intervaloRosa = setInterval(() => {
+            rosa.src = `imagens/rosa/movimento/rosa${frameAtual}.png`;
+
+            frameAtual += direcao;
+
+            if (frameAtual === 15) {
+                direcao = -1;
+            } else if (frameAtual === 0) {
+                direcao = 1;
+            }
+        }, 100);
+    }
+
+    function pararAnimacaoRosa() {
+        clearInterval(intervaloRosa);
+        intervaloRosa = null;
+    }
+
     function mostrarBalao(etapa) {
-        balaoFalas.forEach((id, i) => {
+        balaoFalas.forEach(({ id }) => {
             const el = document.getElementById(id);
-            if (!el) return;
-            el.style.display = (i === etapa) ? "block" : "none";
+            if (el) el.style.display = "none";
         });
+
+        const falaAtual = ordemFalas[etapa];
+        const balao = document.getElementById(falaAtual.id);
+        if (balao) balao.style.display = "block";
+
+        if (falaAtual.objeto === "cupula") {
+            iniciarAnimacaoRosa();
+        } else {
+            pararAnimacaoRosa();
+        }
     }
 
     mostrarBalao(etapaAtual);
+
+    const balao1 = document.getElementById("balao-fala1");
+    if (balao1 && balao1.style.display !== "none") {
+        iniciarAnimacaoRosa();
+    }
 
     function makeDraggable(element, scaleInside) {
         let isDragging = false;
@@ -80,28 +128,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 elemRect.bottom > zonaRect.top &&
                 elemRect.top < zonaRect.bottom;
 
-            const correto = element.id === ordemCorreta[etapaAtual];
+            const objetoEsperado = ordemFalas[etapaAtual].objeto;
+            const correto = element.id === objetoEsperado;
 
             if (intersecta && correto) {
-                // Toca som de acerto
                 somAcerto.currentTime = 0;
                 somAcerto.play();
+
+                if (element.id === "cupula") pararAnimacaoRosa();
 
                 const final = posicoesFinais[element.id];
                 element.style.left = final.left;
                 element.style.top = final.top;
-
-                if (element.id === "sol") {
-                    element.classList.add("animacao-sol");
-                    element.style.transform = `scale(${scaleInside}) rotate(0deg)`;
-                } else {
-                    element.style.transform = `scale(${scaleInside}) rotate(${final.rotate || "0deg"})`;
-                }
-
+                element.style.transform = `scale(${scaleInside}) rotate(${final.rotate || "0deg"})`;
                 element.style.transformOrigin = "center";
                 element.style.pointerEvents = "none";
 
-                // Avança após 2.5s
+                if (element.id === "sol") {
+                    element.classList.add("animacao-sol");
+                }
+
                 setTimeout(() => {
                     element.style.left = `${startX}px`;
                     element.style.top = `${startY}px`;
@@ -113,17 +159,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                     etapaAtual++;
-                    if (etapaAtual < balaoFalas.length) {
+                    if (etapaAtual < ordemFalas.length) {
                         mostrarBalao(etapaAtual);
                     } else {
-                        console.log("Jogo concluído!");
+                        ordemFalas = embaralhar([...balaoFalas]);
+                        etapaAtual = 0;
+                        mostrarBalao(etapaAtual);
                     }
                 }, 2500);
-
             } else if (intersecta && !correto) {
                 somErro.currentTime = 0;
                 somErro.play();
-
                 element.style.left = `${startX}px`;
                 element.style.top = `${startY}px`;
                 element.style.transform = "scale(1)";
@@ -145,4 +191,43 @@ document.addEventListener("DOMContentLoaded", function () {
     Object.keys(objetos).forEach(id => {
         makeDraggable(objetos[id], escalas[id]);
     });
+
+    // Estrelas
+
+    const numEstrelas = 50;
+    const main = document.querySelector("main");
+
+    function criarEstrela() {
+        const estrela = document.createElement("img");
+        estrela.src = "imagens/rosa/estrela.png";
+        estrela.classList.add("estrela-animada");
+
+        // Tamanho aleatório 
+        const size = Math.floor(Math.random() * 15) + 10;
+        estrela.style.width = `${size}px`;
+
+        // Posição aleatória no ecrã
+        const x = Math.random() * 100;  // Posição horizontal em % da largura da tela
+        const y = Math.random() * 100;  // Posição vertical em % da altura da tela
+        estrela.style.left = `${x}vw`;
+        estrela.style.top = `${y}vh`;
+
+        // Animação com delay aleatório para garantir que cada estrela comece em um tempo diferente
+        estrela.style.animationDelay = `${Math.random() * 5}s`;
+
+        main.appendChild(estrela);
+
+        // Reconfigura a posição após cada ciclo de animação
+        estrela.addEventListener('animationiteration', function () {
+            // Nova posição aleatória após o ciclo de animação
+            const newX = Math.random() * 100;
+            const newY = Math.random() * 100;
+            estrela.style.left = `${newX}vw`;
+            estrela.style.top = `${newY}vh`;
+        });
+    }
+
+    for (let i = 0; i < numEstrelas; i++) {
+        criarEstrela();
+    }
 });
