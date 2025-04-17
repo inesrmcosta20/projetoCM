@@ -14,21 +14,6 @@
     opacity: 0.5;
   }
   
-/* Som */
-.sound-controls {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    display: flex;
-    z-index: 10000;
-}
-
-.sound-controls img {
-    width: 40px;
-    height: auto;
-    cursor: pointer;
-}
-
   
   body {
     margin: 0;
@@ -74,7 +59,7 @@
     width: 300px;
     height: 300px;
     transform-origin: center;
-    animation: rotatePlanet 20s linear infinite;
+    animation: rotatePlanet 15s linear infinite;
 }
 
 .luz {
@@ -85,26 +70,26 @@
     height: auto;
     transform-origin: center -130px;
     pointer-events: none;
+    
 
 }
 
 #luz1 {
     transform: rotate(0deg) translateY(100px);
-  
-    animation: rotateLamp1 20s linear infinite;
+    animation: rotateLamp1 15s linear infinite;
 }
 
 #luz2 {
     transform:  rotate(120deg) translateY(100px);
     
-    animation: rotateLamp2 20s linear infinite;
+    animation: rotateLamp2 15s linear infinite;
 }
 
 #luz3 {
     transform: rotate(240deg) translateY(100px) ;
     
 
-    animation: rotateLamp3 20s linear infinite;
+    animation: rotateLamp3 15s linear infinite;
 }
 
 @keyframes rotatePlanet {
