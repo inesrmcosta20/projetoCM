@@ -9,6 +9,17 @@ document.addEventListener("DOMContentLoaded", function () {
   somOn.style.display = "none";
   somOff.style.display = "block";
 
+  // Tenta iniciar o áudio automaticamente
+  function startAudio() {
+    audio.play().catch(e => {
+      console.log("Autoplay prevented, showing paused state");
+      somOff.style.display = "block";
+      somOn.style.display = "none";
+    });
+  }
+    // Inicia o áudio quando a página carrega
+    startAudio();
+    
   // Controlo do som
   function toggleAudio() {
     if (audio.paused) {

@@ -1,5 +1,7 @@
+//raposa.js
+
 // raposa.js
-<<<<<<< Updated upstream
+
 let video;
 let handPose;
 let hands;
@@ -16,9 +18,13 @@ const questions = [
   { id: "p1", answer: "positive" },  // thumbsup
   { id: "p2", answer: "positive" },  // 
   { id: "p3", answer: "positive" },  // thumbsup
-  { id: "p4", answer: "positive" },   // thumbsdown
-  { id: "p5", answer: "negative" }   // thumbsdown
+  { id: "p4", answer: "negative" },   // thumbsdown
+  { id: "p5", answer: "negative" },   // thumbsdown
+  { id: "p6", answer: "positive" },   // thumbsup
+  { id: "p7", answer: "negative" },   // thumbsup
+  { id: "p8", answer: "positive" },   // thumbsup
 ];
+let lastQuestionIndex = -1; // Para controlar a pergunta anterior
 
 // IDs das imagens da raposa em ordem
 const foxImages = ["raposa1", "raposa2", "raposa3"];
@@ -30,6 +36,25 @@ function modelReady() {
   });
 }
 
+// Modifique a função nextQuestion para seleção aleatória
+function nextQuestion() {
+    if (questions.length === 0) return;
+    
+    let availableQuestions = [...questions];
+    
+    // Se houver mais de uma pergunta, remova a última exibida
+    if (questions.length > 1 && lastQuestionIndex !== -1) {
+      availableQuestions.splice(lastQuestionIndex, 1);
+    }
+    
+    // Seleciona uma pergunta aleatória entre as disponíveis
+    const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+    currentQuestion = questions.findIndex(q => q.id === availableQuestions[randomIndex].id);
+    lastQuestionIndex = currentQuestion;
+    
+    showQuestion(currentQuestion);
+  }
+  
 function setup() {
     // Cria um canvas com tamanho proporcional à webcam (640x480 padrão)
     const canvas = createCanvas(500, 375); // 500x375 mantém proporção 4:3
@@ -51,10 +76,9 @@ function setup() {
   // Inicializa o handpose
   handpose = ml5.handpose(video, { flipHorizontal: true }, modelReady);
   
-  // Mostra a primeira pergunta
-  if (questions.length > 0) {
-    showQuestion(currentQuestion);
-  }
+  // Inicia com uma pergunta aleatória
+  nextQuestion();
+  
 }
 
   function draw() {
@@ -173,7 +197,6 @@ function previousFox() {
     document.getElementById(foxImages[foxIndex]).style.display = "block";
   }
 }
-=======
 
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos da raposa
@@ -187,7 +210,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('p2'),
         document.getElementById('p3'),
         document.getElementById('p4'),
-        document.getElementById('p5')
+        document.getElementById('p5'), 
+        document.getElementById('p6'), 
+        document.getElementById('p7'), 
+        document.getElementById('p8'), 
     ];
     
     // Configuração da webcam e handpose
@@ -205,15 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
             canvas = document.createElement('canvas');
             document.body.appendChild(canvas);
             
-            // Estilizar o canvas para ficar em background
-            canvas.style.position = 'fixed';
-            canvas.style.top = '0';
-            canvas.style.left = '0';
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-            canvas.style.zIndex = '-1';
-            canvas.style.opacity = '0'; // Tornamos transparente para não ver a webcam
-            canvas.style.pointerEvents = 'none';
+            
             
             // Obter stream da webcam
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -343,9 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-  
-    
+
     // Inicializar tudo
     init();
 });
->>>>>>> Stashed changes
