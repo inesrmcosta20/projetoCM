@@ -157,6 +157,7 @@ h2 {
     pointer-events: auto; /* Permite clique mesmo com container desativado */
 }
 
+
 /* Posicionamento individual das peças */
 .peça-tirantes {
     top: 30%;
@@ -176,7 +177,6 @@ h2 {
 }
 
 
-
 .peça-helices{
     top: 48%;
     left: 85%;
@@ -187,7 +187,7 @@ h2 {
 
 
 .peça-corpo {
-    top: 57%;
+    top: 52%;
     left: 8%;
     width: 10vw;
     z-index: 8;
@@ -196,13 +196,12 @@ h2 {
 
 
 .peça-rodas {
-    top: 49%;
+    top: 47%;
     left: 60%;
     width: 10vw;
     z-index: 5;
-    rotate: 170deg;
+    rotate: 160deg;
 }
-
 
 
 .peça-placaCima {
@@ -213,12 +212,13 @@ h2 {
     rotate: -10deg;
 }
 
-/* Efeito Hover - Aplicado aos links */
-.peças-cenario a img:hover {
+/* Efeito Hover - Aplicado às peças */
+.peças-cenario a:not(.peça-rodas) img:hover {
     transform: translateY(-15px);
 }
 
- .peça-rodas a img:hover  {
+/* Hover para a peça-rodas */
+.peças-cenario .peça-rodas:hover {
     transform: translateY(15px);
 }
 
