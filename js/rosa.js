@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Zona de Sucesso 
     const zonaSucesso = document.getElementById("zona-sucesso");
 
-    // Objetos arrastáveis
     const objetos = {
         "cupula": document.getElementById("cupula"),
         "regador": document.getElementById("regador"),
@@ -10,14 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
         "guarda-chuva": document.getElementById("guarda-chuva")
     };
 
-    // Associar os balões de fala aos objetos correspondentes
     const balaoFalas = [
         { id: "balao-fala1", objeto: "cupula" },
         { id: "balao-fala2", objeto: "regador" },
         { id: "balao-fala3", objeto: "sol" }
     ];
 
-    // Posições finais que cada objeto deve ocupar quando colocado corretamente
     const posicoesFinais = {
         "regador": { left: "37%", top: "35%", rotate: "20deg" },
         "guarda-chuva": { left: "47%", top: "35%", rotate: "-25deg" },
@@ -25,16 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "sol": { left: "35%", top: "30%" }
     };
 
-    // Sons Errado/Correto
-    const somErrado = document.getElementById("audio-errado");
-    const somCorreto = document.getElementById("audio-correto");
+    const somErro = document.getElementById("audio-erro");
+    const somAcerto = document.getElementById("audio-acerto");
 
-    // Referência à imagem da rosa animada
     const rosa = document.getElementById("rosa");
     let frameAtual = 0;
     let intervaloRosa;
 
-    // Randomizar a ordem dos balões de fala
     function embaralhar(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -43,10 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return array;
     }
 
-    let ordemFalas = embaralhar([...balaoFalas]); // Ordem aleatória dos balões de fala
+    let ordemFalas = embaralhar([...balaoFalas]);
     let etapaAtual = 0;
 
-    // Inicia a animação da rosa 
     function iniciarAnimacaoRosa() {
         if (intervaloRosa) return;
 
@@ -54,20 +46,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         intervaloRosa = setInterval(() => {
             rosa.src = `imagens/rosa/movimento/rosa${frameAtual}.png`;
+
             frameAtual += direcao;
 
-            if (frameAtual === 15) direcao = -1;
-            else if (frameAtual === 0) direcao = 1;
+            if (frameAtual === 15) {
+                direcao = -1;
+            } else if (frameAtual === 0) {
+                direcao = 1;
+            }
         }, 100);
     }
 
-    // Pára a animação da rosa
     function pararAnimacaoRosa() {
         clearInterval(intervaloRosa);
         intervaloRosa = null;
     }
 
-    // Mostra o balão de fala correspondente à etapa atual
     function mostrarBalao(etapa) {
         balaoFalas.forEach(({ id }) => {
             const el = document.getElementById(id);
@@ -78,17 +72,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const balao = document.getElementById(falaAtual.id);
         if (balao) balao.style.display = "block";
 
-        if (falaAtual.objeto === "cupula") iniciarAnimacaoRosa();
-        else pararAnimacaoRosa();
+        if (falaAtual.objeto === "cupula") {
+            iniciarAnimacaoRosa();
+        } else {
+            pararAnimacaoRosa();
+        }
     }
 
     mostrarBalao(etapaAtual);
 
-    // Caso o primeiro balão já esteja visível, inicia a animação da rosa
     const balao1 = document.getElementById("balao-fala1");
-    if (balao1 && balao1.style.display !== "none") iniciarAnimacaoRosa();
+    if (balao1 && balao1.style.display !== "none") {
+        iniciarAnimacaoRosa();
+    }
 
-    // Torna um objeto movível
     function makeDraggable(element, scaleInside) {
         let isDragging = false;
         let offsetX, offsetY;
@@ -99,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function () {
         element.style.position = "absolute";
         element.style.transition = "transform 0.3s ease, left 0.2s ease, top 0.2s ease";
 
-        // Início do mover o objeto
         element.addEventListener("mousedown", function (e) {
             isDragging = true;
             element.style.cursor = "grabbing";
@@ -109,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
             element.style.zIndex = 1000;
         });
 
-        // Movimento durante o mover o objeto
         document.addEventListener("mousemove", function (e) {
             if (isDragging) {
                 let newX = e.clientX - offsetX;
@@ -119,13 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Fim do mover o objeto
         document.addEventListener("mouseup", function () {
             if (!isDragging) return;
             isDragging = false;
             element.style.cursor = "grab";
 
-            // Verifica se o objeto foi posicionado na zona correta
             let elemRect = element.getBoundingClientRect();
             let zonaRect = zonaSucesso.getBoundingClientRect();
 
@@ -139,8 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const correto = element.id === objetoEsperado;
 
             if (intersecta && correto) {
-                somCorreto.currentTime = 0;
-                somCorreto.play();
+                somAcerto.currentTime = 0;
+                somAcerto.play();
 
                 if (element.id === "cupula") pararAnimacaoRosa();
 
@@ -151,36 +144,36 @@ document.addEventListener("DOMContentLoaded", function () {
                 element.style.transformOrigin = "center";
                 element.style.pointerEvents = "none";
 
-                if (element.id === "sol") element.classList.add("animacao-sol");
+                if (element.id === "sol") {
+                    element.classList.add("animacao-sol");
+                }
 
-                // Após um tempo, volta à posição inicial e avança para a próxima etapa
                 setTimeout(() => {
                     element.style.left = `${startX}px`;
                     element.style.top = `${startY}px`;
                     element.style.transform = "scale(1)";
                     element.style.pointerEvents = "auto";
 
-                    if (element.id === "sol") element.classList.remove("animacao-sol");
+                    if (element.id === "sol") {
+                        element.classList.remove("animacao-sol");
+                    }
 
                     etapaAtual++;
                     if (etapaAtual < ordemFalas.length) {
                         mostrarBalao(etapaAtual);
                     } else {
-                        // Reinicia o ciclo
                         ordemFalas = embaralhar([...balaoFalas]);
                         etapaAtual = 0;
                         mostrarBalao(etapaAtual);
                     }
                 }, 2500);
             } else if (intersecta && !correto) {
-                // Se foi posicionado na zona correta mas não é o objeto correto
-                somErrado.currentTime = 0;
-                somErrado.play();
+                somErro.currentTime = 0;
+                somErro.play();
                 element.style.left = `${startX}px`;
                 element.style.top = `${startY}px`;
                 element.style.transform = "scale(1)";
             } else {
-                // Se não foi posicionado na zona correta
                 element.style.left = `${startX}px`;
                 element.style.top = `${startY}px`;
                 element.style.transform = "scale(1)";
@@ -188,7 +181,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Escala a aplicar a cada objeto quando for posicionado corretamente
     const escalas = {
         "cupula": 3.5,
         "regador": 2.5,
@@ -196,35 +188,38 @@ document.addEventListener("DOMContentLoaded", function () {
         "guarda-chuva": 3
     };
 
-    // Torna todos os objetos movíveis
     Object.keys(objetos).forEach(id => {
         makeDraggable(objetos[id], escalas[id]);
     });
 
-    //Animação de Estrelas
+    // Estrelas
+
     const numEstrelas = 50;
     const main = document.querySelector("main");
 
-    // Cria uma estrela com posição e atraso aleatórios
     function criarEstrela() {
         const estrela = document.createElement("img");
         estrela.src = "imagens/rosa/estrela.png";
         estrela.classList.add("estrela-animada");
 
+        // Tamanho aleatório 
         const size = Math.floor(Math.random() * 15) + 10;
         estrela.style.width = `${size}px`;
 
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
+        // Posição aleatória no ecrã
+        const x = Math.random() * 100;  // Posição horizontal em % da largura da tela
+        const y = Math.random() * 100;  // Posição vertical em % da altura da tela
         estrela.style.left = `${x}vw`;
         estrela.style.top = `${y}vh`;
 
+        // Animação com delay aleatório para garantir que cada estrela comece em um tempo diferente
         estrela.style.animationDelay = `${Math.random() * 5}s`;
 
         main.appendChild(estrela);
 
-        // Muda a posição da estrela cada vez que a animação recomeça
+        // Reconfigura a posição após cada ciclo de animação
         estrela.addEventListener('animationiteration', function () {
+            // Nova posição aleatória após o ciclo de animação
             const newX = Math.random() * 100;
             const newY = Math.random() * 100;
             estrela.style.left = `${newX}vw`;
@@ -232,7 +227,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Cria o número de estrelas definidas
     for (let i = 0; i < numEstrelas; i++) {
         criarEstrela();
     }
