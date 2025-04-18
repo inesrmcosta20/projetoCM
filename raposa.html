@@ -7,14 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Raposa</title>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Raposa</title>
 
   <link rel="stylesheet" href="css/raposa.css">
-  
   <link rel="stylesheet" href="css/homepage.css">
   
+<!-- uso da câmara-->
+
 </head>
 
 <body>
@@ -25,12 +23,14 @@
 
       <main>
         <div>
-            <!-- <img src="imagens/floresta/raposa1.png"  id="raposa1">-->
-           <img src="imagens/raposa/floresta/raposa1.png"  id="raposa2">
+           <img src="imagens/raposa/floresta/raposa1.png"  id="raposa1"> <!-- virada para a esquerda-->
+           <img src="imagens/raposa/floresta/raposa2.png"  id="raposa2" style="display:none"> <!-- virada para a direita-->
+           <img src="imagens/raposa/floresta/raposa1.png"  id="raposa3"  style="display:none"> <!-- virada para a esquerda-->
         </div>
        
         <div class="floresta">
-            <img src="imagens/raposa/floresta/ceu-raposa.png"  id="ceu-raposa">
+           <!-- <img src="imagens/raposa/floresta/ceu-raposa.png"  id="ceu-raposa">-->
+
             <img src="imagens/raposa/floresta/cam6-raposa.png"  class="floresta-img" id="floresta6"> <!-- mais à frente -->
             <img src="imagens/raposa/floresta/cam5-raposa.png"    class="floresta-img"  id="floresta5">
             <img src="imagens/raposa/floresta/cam4-raposa.png"  class="floresta-img"  id="floresta4">
@@ -40,13 +40,21 @@
 
         </div>
 
-        <div id="perguntas">
-            <img src="imagens/raposa/perguntas/a.png"  class="pergunta" id="a">
-            <img src="imagens/raposa/perguntas/b.png"  class="pergunta" id="b">
-            <img src="imagens/raposa/perguntas/c.png"  class="pergunta" id="c">
-            <img src="imagens/raposa/perguntas/d.png"  class="pergunta" id="d">
-            <img src="imagens/raposa/perguntas/f.png"  class="pergunta" id="e">
+     
+     <div  class="perguntas">
+        <img src="imagens/raposa/perguntas/p1.png" alt="p1" id="p1" class="pergunta">
+        <img src="imagens/raposa/perguntas/p2.png" alt="p2" id="p2" class="pergunta" style="display:none;">
+        <img src="imagens/raposa/perguntas/p3.png" alt="p3" id="p3" class="pergunta" style="display:none;">
+        <img src="imagens/raposa/perguntas/p4.png" alt="p4" id="p4" class="pergunta" style="display:none;">
+        <img src="imagens/raposa/perguntas/p5.png" alt="p5" id="p5" class="pergunta"style="display:none;">
         </div>
       </main>
+
+       <!-- JS -->
+
+<!-- Adicione no head do seu HTML -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
+  <script src="js/raposa.js" ></script>
     </body>
     </html>

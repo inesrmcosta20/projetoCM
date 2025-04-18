@@ -34,7 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let frameAtual = 0;
     let intervaloRosa;
 
+<<<<<<< Updated upstream
     // Randomizar a ordem dos balões de fala
+=======
+    //random balão de fala
+>>>>>>> Stashed changes
     function embaralhar(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
