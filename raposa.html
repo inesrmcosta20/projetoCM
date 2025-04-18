@@ -12,7 +12,8 @@
   <link rel="stylesheet" href="css/homepage.css">
   
 <!-- uso da câmara-->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+<script src="https://unpkg.com/ml5@0.6.0/dist/ml5.min.js"></script>
 </head>
 
 <body>
@@ -20,8 +21,10 @@
         <a href="homepage.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>  
       </header>
 
+      <div id="webcam-container" style="position: fixed; top: 20px; right: 20px; width: 500px; z-index: 50;"></div>
 
       <main>
+       
         <div>
            <img src="imagens/raposa/floresta/raposa1.png"  id="raposa1"> <!-- virada para a esquerda-->
            <img src="imagens/raposa/floresta/raposa2.png"  id="raposa2" style="display:none"> <!-- virada para a direita-->
@@ -52,9 +55,6 @@
 
        <!-- JS -->
 
-<!-- Adicione no head do seu HTML -->
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
-  <script src="js/raposa.js" ></script>
+ <script src="js/raposa.js" ></script>
     </body>
     </html>

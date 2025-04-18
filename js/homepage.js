@@ -1,4 +1,3 @@
-//homepage.js
 document.addEventListener("DOMContentLoaded", function () {
   const aviao = document.getElementById("aviao");
   const pecasCenario = document.querySelector(".peças-cenario");
@@ -28,13 +27,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Quando a animação do avião termina
   aviao.addEventListener("animationend", function () {
-    console.log("Animação terminou!"); // <-- Isto deve aparecer na consola
+    console.log("Animação terminou"); 
     aviao.src = "imagens/cenario/avião-sombra.png";
 
   
     setTimeout(() => {
       pecasCenario.style.opacity = "1";
-      pecasCenario.classList.add("active"); // Adiciona a classe active
+      pecasCenario.classList.add("active"); 
     }, 300)
   });  
 });
