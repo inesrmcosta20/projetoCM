@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 luz.src = imgLuzAcesa;
                 lightOn.currentTime = 0;
                 lightOn.play();
-                tempoDesligar[index] = Date.now() + 2000 + Math.random() * 4000;
+                tempoDesligar[index] = Date.now() + 1000 + Math.random() * 2000;
                 registerInteraction();
             }
         });
