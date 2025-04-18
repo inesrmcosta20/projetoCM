@@ -9,7 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const planeta = document.getElementById('planeta');
     const acendedor = document.getElementById('acendedor');
     const pau = document.getElementById('pau');
-    
+    const canvas = document.body;
+
+    // Configuração do pau
+    const MAX_ANGLE = 10; // Ângulo máximo (80° para cada lado)
+    const MIN_ANGLE = -180; // Ângulo mínimo
+    let anchorPoint = { x: 0, y: 0 }; // Será calculado dinamicamente
+
     // Áudios
     const lightOn = new Audio('audios/lightOn.mp3');
     const lightOff = new Audio('audios/lightOff.mp3');
@@ -23,26 +29,25 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentRotation = 0;
     let lastTimestamp = null;
     let animationId = null;
-    let baseSpeed = 20; // segundos para uma rotação completa (valor inicial)
+    let baseSpeed = 20;
     let currentSpeed = baseSpeed;
-    const minSpeed = 3; // velocidade máxima (tempo mínimo por rotação)
+    const minSpeed = 3;
     
-    startAnimation(); // Inicia animação lenta imediatamente
+    // Inicializa a animação dos candeeiros
+    startAnimation();
 
     // Caminhos das imagens
     const imgLuzAcesa = 'imagens/candeeiro/luz.png';
     const imgLuzApagada = 'imagens/candeeiro/semluz.png';
 
-    // Função de animação principal
+    // ===== FUNÇÕES DOS CANDEIROS =====
     function animate(timestamp) {
         if (!lastTimestamp) lastTimestamp = timestamp;
         const deltaTime = timestamp - lastTimestamp;
         lastTimestamp = timestamp;
         
-        // Atualiza a rotação baseada no tempo e velocidade
         currentRotation += (deltaTime / 1000) * (360 / currentSpeed);
         
-        // Aplica as transformações
         planeta.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
         luzes[0].style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
         luzes[1].style.transform = `translate(-50%, -50%) rotate(${currentRotation + 120}deg)`;
@@ -51,13 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
         animationId = requestAnimationFrame(animate);
     }
 
-    // Função para atualizar a velocidade
     function updateSpeed(newSpeed) {
         currentSpeed = newSpeed;
-        console.log(`Velocidade atualizada: ${currentSpeed}s por rotação`);
     }
 
-    // Função para aumentar a velocidade gradualmente
     function increaseSpeed() {
         if (currentSpeed > minSpeed) {
             updateSpeed(currentSpeed - 1);
@@ -66,33 +68,25 @@ document.addEventListener('DOMContentLoaded', function() {
         return false;
     }
 
-    // Inicia a animação quando ocorre a primeira interação
     function startAnimation() {
         if (!animationId) {
             animationId = requestAnimationFrame(animate);
         }
     }
 
-    // Registra interação e inicia o aumento progressivo de velocidade
     function registerInteraction() {
         startAnimation();
-        
-        // Aumenta a velocidade a cada 5 segundos após 15 segundos iniciais
         setTimeout(() => {
             if (increaseSpeed()) {
                 const speedInterval = setInterval(() => {
-                    if (!increaseSpeed()) {
-                        clearInterval(speedInterval);
-                    }
+                    if (!increaseSpeed()) clearInterval(speedInterval);
                 }, 5000);
             }
         }, 15000);
     }
 
-    // Atualização do estado das lâmpadas
     function updateLights() {
         const now = Date.now();
-        
         for (let i = 0; i < 3; i++) {
             if (aceso[i] && now > tempoDesligar[i]) {
                 aceso[i] = false;
@@ -101,31 +95,65 @@ document.addEventListener('DOMContentLoaded', function() {
                 lightOff.play().catch(e => console.error("Erro no som:", e));
             }
         }
-        
         requestAnimationFrame(updateLights);
     }
 
-    // Event listeners para as luzes
+    // ===== FUNÇÕES DO PAU =====
+    function calculateAnchorPoint() {
+        const rect = pau.getBoundingClientRect();
+        // Ponto de ancoragem na base do pau (ajuste os valores conforme necessário)
+        return {
+            x: rect.left + rect.width / 2,
+            y: rect.bottom - (rect.height * 0.1) // Ajuste este valor para o ponto correto
+        };
+    }
+
+    function updatePauPosition(e) {
+        anchorPoint = calculateAnchorPoint();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // Calcula o ângulo baseado na posição do mouse
+        let angle = Math.atan2(mouseY - anchorPoint.y, mouseX - anchorPoint.x) * (180 / Math.PI);
+        
+        // Ajusta o ângulo para o sistema de coordenadas (0° = vertical para cima)
+        angle = 90 - angle;
+        
+        // Limita o ângulo e inverte a direção se necessário
+        angle = Math.max(MIN_ANGLE, Math.min(MAX_ANGLE, angle));
+        
+        pau.style.transform = `rotate(${angle}deg)`;
+    }
+
+    function initPau() {
+        // Posição inicial
+        pau.style.transform = 'rotate(90deg)';
+        // Atualiza o ponto de ancoragem inicial
+        anchorPoint = calculateAnchorPoint();
+    }
+
+    // ===== INICIALIZAÇÃO =====
     luzes.forEach((luz, index) => {
+        luz.src = imgLuzApagada;
+        luz.style.pointerEvents = 'auto';
         luz.addEventListener('click', function() {
             if (!aceso[index]) {
                 aceso[index] = true;
                 luz.src = imgLuzAcesa;
-                
                 lightOn.currentTime = 0;
-                lightOn.play().catch(e => console.error("Erro no som:", e));
+                lightOn.play();
                 tempoDesligar[index] = Date.now() + 2000 + Math.random() * 4000;
-                
                 registerInteraction();
             }
         });
     });
 
-    // Inicialização
-    luzes.forEach(luz => {
-        luz.src = imgLuzApagada;
-        luz.style.pointerEvents = 'auto';
-    });
+    // Inicializa o pau
+    initPau();
+    
+    // Event listeners
+    document.addEventListener('mousemove', updatePauPosition);
+    window.addEventListener('resize', initPau); // Recalcula ao redimensionar
     
     updateLights();
 });
