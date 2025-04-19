@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "regador": { left: "37%", top: "35%", rotate: "20deg" },
         "guarda-chuva": { left: "47%", top: "35%", rotate: "-25deg" },
         "cupula": { left: "54%", top: "50%" },
-        "sol": { left: "35%", top: "30%" }
+        "sol": { left: "70%", top: "27%" }
     };
 
     // Áudio para respostas erradas e corretas
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function criarEstrela() {
         const estrela = document.createElement("img");
-        estrela.src = "imagens/rosa/estrela.png";
+        estrela.src = "imagens/rosa/cenario/estrela.png";
         estrela.classList.add("estrela-animada");
 
         // Tamanho aleatório

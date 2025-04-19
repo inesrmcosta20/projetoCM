@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Quando a animação do avião termina
   aviao.addEventListener("animationend", function () {
     console.log("Animação terminou"); 
-    aviao.src = "imagens/cenario/avião-sombra.png";
+    aviao.src = "imagens/homepage-cenário/avião-sombra.png";
 
   
     setTimeout(() => {
