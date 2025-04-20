@@ -1,46 +1,6 @@
 /* Balões de Fala */
 /* Está um grande vendaval! */
-#balao-fala1 {
-  position: fixed;
-  left: 65%;
-  bottom: 55%;
-  width: 15vw;
-  height: auto;
-  z-index: 5;
-}
-
-/* Estou a desidratar! */
-#balao-fala2 {
-  position: fixed;
-  left: 65%;
-  bottom: 55%;
-  width: 15vw;
-  height: auto;
-  z-index: 5;
-}
-
-/* Estou a congelar! */
-#balao-fala3 {
-  position: fixed;
-  left: 33%;
-  bottom: 55%;
-  width: 15vw;
-  height: auto;
-  z-index: 5;
-}
-
-/* O ar está muito seco! */
-#balao-fala4 {
-  position: fixed;
-  left: 33%;
-  bottom: 35%;
-  width: 15vw;
-  height: auto;
-  z-index: 5;
-}
-
-/* As pétalas estão a murchar! */
-#balao-fala5 {
+#balao-fala1_dir {
   position: fixed;
   left: 37%;
   bottom: 73%;
@@ -49,41 +9,21 @@
   z-index: 5;
 }
 
-/* Há insetos a picar-me! */
-#balao-fala6 {
+/* Estou a desidratar! */
+#balao-fala2_esq {
   position: fixed;
-  left: 55%;
+  left: 65%;
+  bottom: 55%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/* Tenho frio! */
+#balao-fala3_esq {
+  position: fixed;
+  left: 54%;
   bottom: 70%;
-  width: 15vw;
-  height: auto;
-  z-index: 5;
-}
-
-/* Estou cheia de pó! */
-#balao-fala7 {
-  position: fixed;
-  left: 33%;
-  bottom: 20%;
-  width: 15vw;
-  height: auto;
-  z-index: 5;
-}
-
-/* As minhas raízes estão a ficar sem espaço! */
-#balao-fala8 {
-  position: fixed;
-  left: 65%;
-  bottom: 20%;
-  width: 15vw;
-  height: auto;
-  z-index: 5;
-}
-
-/* Estou sem nutrientes! */
-#balao-fala9 {
-  position: fixed;
-  left: 65%;
-  bottom: 35%;
   width: 15vw;
   height: auto;
   z-index: 5;
