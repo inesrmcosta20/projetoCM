@@ -95,22 +95,6 @@
 
 
 
-/* Animação da Raposa */
-
-/*@keyframes raposaAnimation {
-    0%,30% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-    }
-    40%, 60% { 
-      transform: translateY(10vh) scale(0.6); 
-    
-    }
-    90% {
-      transform: translateY(0) scale(1);
-      
-    }
-  }*/
 
   .perguntas{
     position:absolute; 
@@ -151,7 +135,7 @@
       z-index: 5;
       left: 56%;
       bottom: 15%;
-      animation: raposaAnimation 7s infinite ease-in-out;
+      animation: raposaAnimationD 7s infinite ease-in-out;
       /* 7s = 5s de animação + 2s de pausa (distribuídos) */
       /* ease-in-out para transição suave */
   }
@@ -159,10 +143,45 @@
   #raposa4 {
     position: absolute;
     width: 15%;
-    z-index: 7;
-    left: 20%;
-    bottom: 5%;
-    /*animation: raposaAnimation 7s infinite ease-in-out;
+    z-index: 5;
+    left: 17%;
+    bottom: 25%;
+    animation: raposaAnimationE 7s infinite ease-in-out;
     /* 7s = 5s de animação + 2s de pausa (distribuídos) */
     /* ease-in-out para transição suave */
+}
+
+
+
+/* Animação da Raposa */
+
+@keyframes raposaAnimationD {
+  0%,30% {
+    transform: translateY(0) scale(0.4);
+    opacity: 1;
+  }
+  40%, 60% { 
+    transform: translateX(-5vh) translateY(10vh) scale(1); 
+  
+  }
+  90% {
+    transform: translateY(0) scale(0.4);
+    
+  }
+}
+
+
+@keyframes raposaAnimationE {
+  0%,30% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  40%, 60% { 
+    transform: translateY(5vh)  scale(0.4); 
+  
+  }
+  90% {
+    transform: translateY(0) scale(1);
+    
+  }
 }
