@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Zona onde o objeto deve ser colocado corretamente
     const zonaSucesso = document.getElementById("zona-sucesso");
 
-    // Referência aos objetos interativos
     const objetos = {
         "cupula": document.getElementById("cupula"),
         "regador": document.getElementById("regador"),
@@ -10,14 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
         "guarda-chuva": document.getElementById("guarda-chuva")
     };
 
-    // Lista dos balões de fala com o objeto correto para cada um
     const balaoFalas = [
         { id: "balao-fala1_dir", objeto: "cupula" },
         { id: "balao-fala2_esq", objeto: "regador" },
         { id: "balao-fala3_esq", objeto: "sol" }
     ];
 
-    // Posições finais para cada objeto ao ser colocado corretamente
     const posicoesFinais = {
         "regador": { left: "37%", top: "35%", rotate: "20deg" },
         "guarda-chuva": { left: "47%", top: "35%", rotate: "-25deg" },
@@ -25,69 +21,76 @@ document.addEventListener("DOMContentLoaded", function () {
         "sol": { left: "70%", top: "27%" }
     };
 
-    // Áudios de feedback
     const somErrado = document.getElementById("audio-errado");
     const somCorreto = document.getElementById("audio-correto");
-
-    // Animação da rosa
     const rosa = document.getElementById("rosa");
+
     let frameAtual = 0;
     let intervaloRosa;
 
-    // Função para embaralhar os balões sem repetir o mesmo objeto duas vezes seguidas
-    function randomizarSemRepetir(array) {
-        let resultado = [];
-        let anterior = null;
-        let tentativas = 0;
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
 
-        while (resultado.length < array.length && tentativas < 100) {
-            const copia = [...array];
-            if (anterior !== null) {
-                const indiceAnterior = copia.findIndex(f => f.objeto === anterior);
-                if (indiceAnterior !== -1) {
-                    copia.splice(indiceAnterior, 1);
-                }
+    function randomizarSemRepetir(array, evitarInicialCom = null) {
+        if (array.length <= 1) return [...array];
+
+        let tentativas = 0;
+        while (tentativas < 1000) {
+            let resultado = [];
+            let restantes = [...array];
+
+            let candidatosIniciais = evitarInicialCom
+                ? restantes.filter(item => item.objeto !== evitarInicialCom)
+                : [...restantes];
+
+            if (candidatosIniciais.length === 0) return shuffleArray(array);
+
+            let primeiro = candidatosIniciais[Math.floor(Math.random() * candidatosIniciais.length)];
+            resultado.push(primeiro);
+            restantes = restantes.filter(item => item !== primeiro);
+            let anterior = primeiro;
+
+            while (restantes.length > 0) {
+                let candidatos = restantes.filter(item => item.objeto !== anterior.objeto);
+                if (candidatos.length === 0) break;
+
+                let proximo = candidatos[Math.floor(Math.random() * candidatos.length)];
+                resultado.push(proximo);
+                restantes = restantes.filter(item => item !== proximo);
+                anterior = proximo;
             }
 
-            const escolhido = copia[Math.floor(Math.random() * copia.length)];
-            resultado.push(escolhido);
-            anterior = escolhido.objeto;
+            if (resultado.length === array.length) return resultado;
             tentativas++;
         }
 
-        // Caso não consiga, retorna aleatório comum
-        return resultado.length === array.length ? resultado : [...array].sort(() => Math.random() - 0.5);
+        return shuffleArray(array);
     }
 
-    // Inicializa a ordem dos balões embaralhada
-    let ordemFalas = randomizarSemRepetir([...balaoFalas]);
+    let ordemFalas = randomizarSemRepetir(balaoFalas);
     let etapaAtual = 0;
 
-    // Inicia a animação da rosa
     function iniciarAnimacaoRosa() {
         if (intervaloRosa) return;
-
         let direcao = 1;
-
         intervaloRosa = setInterval(() => {
             rosa.src = `imagens/rosa/movimento/rosa${frameAtual}.png`;
             frameAtual += direcao;
-
-            if (frameAtual === 15) {
-                direcao = -1;
-            } else if (frameAtual === 0) {
-                direcao = 1;
-            }
+            if (frameAtual === 15) direcao = -1;
+            else if (frameAtual === 0) direcao = 1;
         }, 100);
     }
 
-    // Pára a animação da rosa
     function pararAnimacaoRosa() {
         clearInterval(intervaloRosa);
         intervaloRosa = null;
     }
 
-    // Exibe o balão de fala correspondente à etapa atual
     function mostrarBalao(etapa) {
         balaoFalas.forEach(({ id }) => {
             const el = document.getElementById(id);
@@ -98,23 +101,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const balao = document.getElementById(falaAtual.id);
         if (balao) balao.style.display = "block";
 
-        if (falaAtual.objeto === "cupula") {
-            iniciarAnimacaoRosa();
-        } else {
-            pararAnimacaoRosa();
-        }
+        if (falaAtual.objeto === "cupula") iniciarAnimacaoRosa();
+        else pararAnimacaoRosa();
     }
 
-    // Mostra o primeiro balão
     mostrarBalao(etapaAtual);
 
-    // Se a primeira fala é da cúpula, inicia animação da rosa
-    const balao1 = document.getElementById("balao-fala1_dir");
-    if (balao1 && balao1.style.display !== "none") {
-        iniciarAnimacaoRosa();
-    }
+    const escalas = {
+        "cupula": 3.5,
+        "regador": 2.5,
+        "sol": 3,
+        "guarda-chuva": 3
+    };
 
-    // Torna um objeto arrastável
+    Object.keys(objetos).forEach(id => {
+        makeDraggable(objetos[id], escalas[id]);
+    });
+
     function makeDraggable(element, scaleInside) {
         let isDragging = false;
         let offsetX, offsetY;
@@ -125,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
         element.style.position = "absolute";
         element.style.transition = "transform 0.3s ease, left 0.2s ease, top 0.2s ease";
 
-        // Ao clicar no objeto
         element.addEventListener("mousedown", function (e) {
             isDragging = true;
             element.style.cursor = "grabbing";
@@ -135,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
             element.style.zIndex = 1000;
         });
 
-        // Ao mover o mouse com o botão pressionado
         document.addEventListener("mousemove", function (e) {
             if (isDragging) {
                 let newX = e.clientX - offsetX;
@@ -145,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
 
-        // Ao soltar o botão do mouse
         document.addEventListener("mouseup", function () {
             if (!isDragging) return;
             isDragging = false;
@@ -153,8 +153,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let elemRect = element.getBoundingClientRect();
             let zonaRect = zonaSucesso.getBoundingClientRect();
-
-            // Verifica se o objeto está dentro da zona
             let intersecta =
                 elemRect.right > zonaRect.left &&
                 elemRect.left < zonaRect.right &&
@@ -174,15 +172,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 element.style.left = final.left;
                 element.style.top = final.top;
                 element.style.transform = `scale(${scaleInside}) rotate(${final.rotate || "0deg"})`;
-                element.style.transformOrigin = "center";
                 element.style.pointerEvents = "none";
 
                 if (element.id === "sol") {
                     element.classList.add("animacao-sol");
                 }
 
-                // Passa para a próxima etapa após um tempo
-                setTimeout(() => {
+                const resetarElemento = () => {
                     element.style.left = `${startX}px`;
                     element.style.top = `${startY}px`;
                     element.style.transform = "scale(1)";
@@ -196,14 +192,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (etapaAtual < ordemFalas.length) {
                         mostrarBalao(etapaAtual);
                     } else {
-                        // Reinicia o ciclo
-                        ordemFalas = randomizarSemRepetir([...balaoFalas]);
+                        const ultimoObjeto = ordemFalas[ordemFalas.length - 1]?.objeto;
+                        ordemFalas = randomizarSemRepetir(balaoFalas, ultimoObjeto);
                         etapaAtual = 0;
                         mostrarBalao(etapaAtual);
                     }
-                }, 2500);
+                };
+
+                if (element.id === "regador") {
+                    animarRegador(element, resetarElemento);
+                } else {
+                    setTimeout(resetarElemento, 2500);
+                }
+
             } else {
-                // Objeto errado ou fora da zona
                 somErrado.currentTime = 0;
                 somErrado.play();
                 element.style.left = `${startX}px`;
@@ -213,20 +215,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Escala ao posicionar corretamente
-    const escalas = {
-        "cupula": 3.5,
-        "regador": 2.5,
-        "sol": 3,
-        "guarda-chuva": 3
-    };
+    function animarRegador(element, callback) {
+        let frame = 0;
+        const totalFrames = 10;
+        const caminhoBase = "imagens/rosa/objetos/regador/regador";
+        const intervalo = 150;
 
-    // Ativa a movimentação para todos os objetos
-    Object.keys(objetos).forEach(id => {
-        makeDraggable(objetos[id], escalas[id]);
-    });
+        const animar = setInterval(() => {
+            if (frame < totalFrames) {
+                element.src = `${caminhoBase}${frame}.png`;
+                frame++;
+            } else {
+                clearInterval(animar);
+                element.src = `${caminhoBase}0.png`;
+                if (callback) callback();
+            }
+        }, intervalo);
+    }
 
-    // Animação de estrelas cintilando
     const numEstrelas = 50;
     const main = document.querySelector("main");
 
@@ -247,16 +253,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         main.appendChild(estrela);
 
-        // Reposiciona após cada animação
         estrela.addEventListener('animationiteration', function () {
-            const newX = Math.random() * 100;
-            const newY = Math.random() * 100;
-            estrela.style.left = `${newX}vw`;
-            estrela.style.top = `${newY}vh`;
+            estrela.style.left = `${Math.random() * 100}vw`;
+            estrela.style.top = `${Math.random() * 100}vh`;
         });
     }
 
-    // Cria várias estrelas
     for (let i = 0; i < numEstrelas; i++) {
         criarEstrela();
     }
