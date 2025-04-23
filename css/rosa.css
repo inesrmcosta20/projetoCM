@@ -153,21 +153,3 @@ body {
   animation: girarEOscilar 2.5s ease-in-out;
 }
 
-
-/* Estrelas */
-.estrela-animada {
-  position: absolute;
-  animation: piscarEstrela 3s infinite ease-in-out;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes piscarEstrela {
-  0%, 100% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-}

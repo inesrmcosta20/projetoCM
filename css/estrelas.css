@@ -1,0 +1,19 @@
+
+/* Estrelas */
+.estrela-animada {
+    position: absolute;
+    animation: piscarEstrela 3s infinite ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  @keyframes piscarEstrela {
+    0%, 100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  
