@@ -29,9 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentRotation = 0;
     let lastTimestamp = null;
     let animationId = null;
-    let baseSpeed = 20;
-    let currentSpeed = baseSpeed;
-    const minSpeed = 3;
+    const baseSpeed = 20; // Velocidade constante
     
     // Inicializa a animação dos candeeiros
     startAnimation();
@@ -46,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const deltaTime = timestamp - lastTimestamp;
         lastTimestamp = timestamp;
         
-        currentRotation += (deltaTime / 1000) * (360 / currentSpeed);
+        currentRotation += (deltaTime / 1000) * (360 / baseSpeed);
         
         planeta.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
         luzes[0].style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
@@ -56,33 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
         animationId = requestAnimationFrame(animate);
     }
 
-    function updateSpeed(newSpeed) {
-        currentSpeed = newSpeed;
-    }
-
-    function increaseSpeed() {
-        if (currentSpeed > minSpeed) {
-            updateSpeed(currentSpeed - 1);
-            return true;
-        }
-        return false;
-    }
-
     function startAnimation() {
         if (!animationId) {
             animationId = requestAnimationFrame(animate);
         }
-    }
-
-    function registerInteraction() {
-        startAnimation();
-        setTimeout(() => {
-            if (increaseSpeed()) {
-                const speedInterval = setInterval(() => {
-                    if (!increaseSpeed()) clearInterval(speedInterval);
-                }, 5000);
-            }
-        }, 15000);
     }
 
     function updateLights() {
@@ -143,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 lightOn.currentTime = 0;
                 lightOn.play();
                 tempoDesligar[index] = Date.now() + 1000 + Math.random() * 2000;
-                registerInteraction();
             }
         });
     });
