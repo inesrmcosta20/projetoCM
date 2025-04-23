@@ -1,4 +1,5 @@
 // candeeiros.js
+// candeeiros.js
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos do DOM
     const luzes = [
@@ -46,6 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         currentRotation += (deltaTime / 1000) * (360 / baseSpeed);
         
+
+     //rodar laneta
         planeta.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
         luzes[0].style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
         luzes[1].style.transform = `translate(-50%, -50%) rotate(${currentRotation + 120}deg)`;
@@ -130,4 +133,26 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', initPau); // Recalcula ao redimensionar
     
     updateLights();
+});
+
+
+
+function myFunction() {
+    const popup = document.getElementById("popup");
+    popup.classList.toggle("show");
+    
+    // Fechar o popup após 5 segundos
+    setTimeout(function() {
+        popup.classList.remove("show");
+    }, 5000);
+}
+
+// Fechar o popup ao clicar em qualquer lugar
+document.addEventListener('click', function(event) {
+    const popup = document.getElementById("popup");
+    const helpIcon = document.querySelector('.desistir img');
+    
+    if (!popup.contains(event.target) && event.target !== helpIcon) {
+        popup.classList.remove("show");
+    }
 });
