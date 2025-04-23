@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "regador": { left: "37%", top: "35%", rotate: "20deg" },
         "guarda-chuva": { left: "47%", top: "35%", rotate: "-25deg" },
         "cupula": { left: "54%", top: "50%" },
-        "sol": { left: "70%", top: "27%" }
+        "sol": { left: "37%", top: "27%" }
     };
 
     const somErrado = document.getElementById("audio-errado");
