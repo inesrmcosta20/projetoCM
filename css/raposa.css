@@ -1,19 +1,4 @@
-/* Seta Retroceder */
-#seta-retroceder {
-    position: absolute;
-    top: 20px;
-    left: 25px;
-    display: flex;
-    z-index: 10000;
-    width: 40px;
-    height: auto;
-    cursor: pointer;
-  }
-  
-  #seta-retroceder:hover {
-    opacity: 0.5;
-  }
-  
+
 
   /* Estilo para o container da webcam */
 .webcam-container {

@@ -136,23 +136,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-function myFunction() {
-    const popup = document.getElementById("popup");
-    popup.classList.toggle("show");
-    
-    // Fechar o popup após 5 segundos
-    setTimeout(function() {
-        popup.classList.remove("show");
-    }, 5000);
-}
-
-// Fechar o popup ao clicar em qualquer lugar
-document.addEventListener('click', function(event) {
-    const popup = document.getElementById("popup");
-    const helpIcon = document.querySelector('.desistir img');
-    
-    if (!popup.contains(event.target) && event.target !== helpIcon) {
-        popup.classList.remove("show");
-    }
-});
