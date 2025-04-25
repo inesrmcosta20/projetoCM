@@ -1,5 +1,3 @@
-// candeeiros.js
-// candeeiros.js
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos do DOM
     const luzes = [
@@ -9,14 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     const planeta = document.getElementById('planeta');
     const acendedor = document.getElementById('acendedor');
-    const pau = document.getElementById('pau');
-    const canvas = document.body;
+    const botao = document.querySelector('.botao');
+    const fullScreenDiv = document.querySelector('.fullScreen');
 
-    // Configuração do pau
-    const MAX_ANGLE = 10; // Ângulo máximo (80° para cada lado)
-    const MIN_ANGLE = -180; // Ângulo mínimo
-    let anchorPoint = { x: 0, y: 0 }; // Será calculado dinamicamente
-
+    // Contador de interações
+    let interactionCount = 0;
+    
     // Áudios
     const lightOn = new Audio('audios/lightOn.mp3');
     const lightOff = new Audio('audios/lightOff.mp3');
@@ -39,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const imgLuzAcesa = 'imagens/candeeiro/luz.png';
     const imgLuzApagada = 'imagens/candeeiro/semluz.png';
 
-    // ===== FUNÇÕES DOS CANDEIROS =====
     function animate(timestamp) {
         if (!lastTimestamp) lastTimestamp = timestamp;
         const deltaTime = timestamp - lastTimestamp;
@@ -47,12 +42,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         currentRotation += (deltaTime / 1000) * (360 / baseSpeed);
         
-
-     //rodar laneta
-        planeta.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-        luzes[0].style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
-        luzes[1].style.transform = `translate(-50%, -50%) rotate(${currentRotation + 120}deg)`;
-        luzes[2].style.transform = `translate(-50%, -50%) rotate(${currentRotation + 240}deg)`;
+        // rodar planeta
+        if (planeta) planeta.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+        if (luzes[0]) luzes[0].style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+        if (luzes[1]) luzes[1].style.transform = `translate(-50%, -50%) rotate(${currentRotation + 120}deg)`;
+        if (luzes[2]) luzes[2].style.transform = `translate(-50%, -50%) rotate(${currentRotation + 240}deg)`;
         
         animationId = requestAnimationFrame(animate);
     }
@@ -68,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 0; i < 3; i++) {
             if (aceso[i] && now > tempoDesligar[i]) {
                 aceso[i] = false;
-                luzes[i].src = imgLuzApagada;
+                if (luzes[i]) luzes[i].src = imgLuzApagada;
                 lightOff.currentTime = 0;
                 lightOff.play().catch(e => console.error("Erro no som:", e));
             }
@@ -76,63 +70,69 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(updateLights);
     }
 
-    // ===== FUNÇÕES DO PAU =====
-    function calculateAnchorPoint() {
-        const rect = pau.getBoundingClientRect();
-        // Ponto de ancoragem na base do pau (ajuste os valores conforme necessário)
-        return {
-            x: rect.left + rect.width / 2,
-            y: rect.bottom - (rect.height * 0.1) // Ajuste este valor para o ponto correto
-        };
+    function showButton() {
+        botao.style.display = 'block';
+        setTimeout(() => {
+            botao.style.opacity = '1';
+        }, 10);
     }
 
-    function updatePauPosition(e) {
-        anchorPoint = calculateAnchorPoint();
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
+    function showFullscreenImage() {
+        fullScreenDiv.innerHTML = '<img src="imagens/candeeiro/principe com fundo.png" alt="Imagem em tela cheia">';
+        fullScreenDiv.style.display = 'flex';
         
-        // Calcula o ângulo baseado na posição do mouse
-        let angle = Math.atan2(mouseY - anchorPoint.y, mouseX - anchorPoint.x) * (180 / Math.PI);
+        setTimeout(() => {
+            fullScreenDiv.style.opacity = '1';
+        }, 10);
         
-        // Ajusta o ângulo para o sistema de coordenadas (0° = vertical para cima)
-        angle = 90 - angle;
-        
-        // Limita o ângulo e inverte a direção se necessário
-        angle = Math.max(MIN_ANGLE, Math.min(MAX_ANGLE, angle));
-        
-        pau.style.transform = `rotate(${angle}deg)`;
+        // Fechar ao clicar
+        fullScreenDiv.addEventListener('click', () => {
+            fullScreenDiv.style.opacity = '0';
+            setTimeout(() => {
+                fullScreenDiv.style.display = 'none';
+                fullScreenDiv.innerHTML = '';
+            }, 300);
+        });
     }
 
-    function initPau() {
-        // Posição inicial
-        pau.style.transform = 'rotate(90deg)';
-        // Atualiza o ponto de ancoragem inicial
-        anchorPoint = calculateAnchorPoint();
+    // configuração do botão com rato 
+    if (botao) {
+        botao.addEventListener('click', showFullscreenImage);
+        botao.addEventListener('mouseenter', () => {
+            botao.style.backgroundColor = '#ff6b6b';
+            botao.style.color = 'white';
+        });
+        botao.addEventListener('mouseleave', () => {
+            botao.style.backgroundColor = '#AEB1E5';
+            botao.style.color = 'white';
+        });
     }
 
-    // ===== INICIALIZAÇÃO =====
-    luzes.forEach((luz, index) => {
-        luz.src = imgLuzApagada;
-        luz.style.pointerEvents = 'auto';
-        luz.addEventListener('click', function() {
-            if (!aceso[index]) {
-                aceso[index] = true;
-                luz.src = imgLuzAcesa;
-                lightOn.currentTime = 0;
-                lightOn.play();
-                tempoDesligar[index] = Date.now() + 1000 + Math.random() * 2000;
+    // Inicialização das luzes
+    if (luzes && luzes.length > 0) {
+        luzes.forEach((luz, index) => {
+            if (luz) {
+                luz.src = imgLuzApagada;
+                luz.style.pointerEvents = 'auto';
+                luz.addEventListener('click', function() {
+                    if (!aceso[index]) {
+                        aceso[index] = true;
+                        luz.src = imgLuzAcesa;
+                        lightOn.currentTime = 0;
+                        lightOn.play();
+                        tempoDesligar[index] = Date.now() + 1000 + Math.random() * 2000;
+                        
+                        interactionCount++;
+                        console.log(`Interação número: ${interactionCount}`);
+                        
+                        if (interactionCount === 5) {
+                            showButton();
+                        }
+                    }
+                });
             }
         });
-    });
-
-    // Inicializa o pau
-    initPau();
-    
-    // Event listeners
-    document.addEventListener('mousemove', updatePauPosition);
-    window.addEventListener('resize', initPau); // Recalcula ao redimensionar
+    }
     
     updateLights();
 });
-
-
