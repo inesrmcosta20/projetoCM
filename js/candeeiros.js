@@ -106,7 +106,13 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
+// Adicione o event listener para o botão Desistir
+document.addEventListener('DOMContentLoaded', function() {
+    const desistirBtn = document.querySelector('.desistir');
+    if (desistirBtn) {
+        desistirBtn.addEventListener('click', mostrarFullscreen);
+    }
+});
 
 
 // Função para mostrar o fullscreen
@@ -118,11 +124,25 @@ function mostrarFullscreen() {
         <a class="close" onclick="fecharFullscreen()">×</a>
         <div class="fullScreen-img-container">
             <img src="imagens/candeeiro/principe.png" id="posicao1" alt="Imagem 1">
-            <img src="imagens/candeeiro/mensagem.png" id="posicao2" alt="Imagem 2">
-            
+            <img src="imagens/candeeiro/mensagem.png" id="posicao2" alt="Imagem 2"> 
         </div>
+         <button id="homeButton">Finalizar</button>
     `;
     
+    homeButton.addEventListener('click', function() {
+        const imagemAtivar = 'corpo';
+        const imagemDesativar = 'peça-corpo';
+      
+        // Marca que a animação do corpo deve ser executada
+        localStorage.setItem('corpoAnimado', 'false');
+        localStorage.setItem('imagemParaMostrar', imagemAtivar);
+        localStorage.setItem('imagemParaEsconder', imagemDesativar);
+      
+        window.location.href = "homepage.html"; 
+      });
+    
+
+
     fullscreenContainer.style.display = 'flex';
 }
 // Função para fechar o fullscreen
@@ -131,10 +151,3 @@ function fecharFullscreen() {
     fullscreenContainer.style.display = 'none';
 }
 
-// Adicione o event listener para o botão Desistir
-document.addEventListener('DOMContentLoaded', function() {
-    const desistirBtn = document.querySelector('.desistir');
-    if (desistirBtn) {
-        desistirBtn.addEventListener('click', mostrarFullscreen);
-    }
-});
