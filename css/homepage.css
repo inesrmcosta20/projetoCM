@@ -1,3 +1,11 @@
+
+/* Body */
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
 /* Tipografia */
 h1 {
     font-family: "La Belle Aurore", sans-serif;
@@ -238,9 +246,15 @@ h2 {
     cursor: pointer;
 }
 
-/* Body */
-body {
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
+.peças-aviao{
+    position:absolute; 
+    width: 100%;
+    height: 100%;
+}
+/* Peças do avião - ativadas */
+#peça-corpo{
+   top: 20%; 
+   width:30%;
+    z-index:15; 
+
 }

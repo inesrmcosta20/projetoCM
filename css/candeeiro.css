@@ -160,14 +160,15 @@
 }*/
 
 /* Posições específicas */
-.fullScreen-img.posicao1 {
+#posicao1 {
     position: absolute;
-   bottom: 0%;
-    left: 80%;
+   bottom: -5%;
+    left: 60%;
+    width:35%; 
 }
 
-.fullScreen-img.posicao2 {
-    position: absolute;
-    top: 30%;
-    right: 15%;
+#posicao2 {
+    top: 20%;
+    left: 15%;
+    width: 60%;
 }
