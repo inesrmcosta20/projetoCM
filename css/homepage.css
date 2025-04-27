@@ -95,7 +95,7 @@ h2 {
     height: auto;
     z-index: 10;
 
-   /* animation: moveAviao 5s ease-out forwards;*/
+    animation: moveAviao 5s ease-out forwards;
 }
 
 /* Animação do avião */
@@ -298,7 +298,7 @@ h2 {
     width: 24vw;
     transform: rotate(25deg);
 
-    /*animation: moveCorpo 5s ease-out forwards;*/
+    animation: moveCorpo 5s ease-out forwards;
 }
 #tirantes{
     display:none; 

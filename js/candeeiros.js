@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentRotation = 0;
     let lastTimestamp = null;
     let animationId = null;
-    const baseSpeed = 10; // Velocidade constante
+    const baseSpeed = 15; // Velocidade constante
 
     // Caminhos das imagens
     const imgLuzAcesa = 'imagens/candeeiro/luz.png';
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         interactionCount++;
                         console.log(`Interação número: ${interactionCount}`);
                         
-                        if (interactionCount === 5) {
+                        if (interactionCount === 10) {
                             showButton();
                         }
                     }

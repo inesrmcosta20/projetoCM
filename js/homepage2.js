@@ -44,7 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
   somOn.addEventListener("click", toggleAudio);
 
 
+function animaAviao{
 
+}
     // Quando a animação do avião termina
   aviao.addEventListener("animationend", function () {
     console.log("Animação terminou"); 
@@ -59,7 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-
+function animaCorpo{
+  
+}
 // ativar imagem da peça específica 
 document.addEventListener('DOMContentLoaded', function() {
     const imagemIdMostrar = localStorage.getItem('imagemParaMostrar');
