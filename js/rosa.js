@@ -206,7 +206,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 };
 
-                
                 if (element.id === "regador") {
                     animarRegador(element, resetarElemento);
                 } else {
