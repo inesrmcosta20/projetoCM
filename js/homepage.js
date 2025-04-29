@@ -4,78 +4,80 @@ document.addEventListener("DOMContentLoaded", function () {
   const somOn = document.getElementById("som-on");
   const somOff = document.getElementById("som-off");
   const audio = document.getElementById("background-music");
-  const corpo = document.getElementById("corpo");
 
-
-  
-  // Inicializa ícones de som
+  // Inicializa ícones
   somOn.style.display = "none";
   somOff.style.display = "block";
 
-  // Tenta iniciar o áudio automaticamente
+  // Inicia o áudio de acordo com o estado guardado no localStorage
   function startAudio() {
-    audio.play().catch(e => {
-     
-      console.log("Autoplay prevented, showing paused state");
-      somOff.style.display = "block";
-      somOn.style.display = "none";
-    });
-  }
-    // Inicia o áudio quando a página carrega
-    startAudio();
-    
-  // Controlo do som
-  function toggleAudio() {
-    if (audio.paused) {
-      audio.play();
-      somOff.style.display = "none";
-      somOn.style.display = "block";
+    const somLigado = localStorage.getItem('somLigado');
+    if (somLigado === 'true') {
+      audio.play().then(() => {
+        somOn.style.display = "block";
+        somOff.style.display = "none";
+      }).catch(() => {
+        somOn.style.display = "none";
+        somOff.style.display = "block";
+      });
     } else {
-      audio.pause();
-      somOff.style.display = "block";
       somOn.style.display = "none";
+      somOff.style.display = "block";
     }
   }
 
+  // Alterna o estado do áudio e atualiza o localStorage
+  function toggleAudio() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        somOn.style.display = "block";
+        somOff.style.display = "none";
+        localStorage.setItem('somLigado', 'true');
+      }).catch(() => {
+        console.log("Autoplay bloqueado");
+      });
+    } else {
+      audio.pause();
+      somOn.style.display = "none";
+      somOff.style.display = "block";
+      localStorage.setItem('somLigado', 'false');
+    }
+  }
+
+  // Eventos nos ícones de som
   somOff.addEventListener("click", toggleAudio);
   somOn.addEventListener("click", toggleAudio);
 
+  // Executa ao carregar a página
+  startAudio();
 
-
-
-    // Quando a animação do avião termina
+  // Quando a animação do avião termina
   aviao.addEventListener("animationend", function () {
-    console.log("Animação terminou"); 
     aviao.src = "imagens/homepage-cenário/avião-sombra.png";
 
-  
     setTimeout(() => {
       pecasCenario.style.opacity = "1";
-      pecasCenario.classList.add("active"); 
-    }, 300)
-  }); 
+      pecasCenario.classList.add("active");
+    }, 300);
+  });
 
-});
+  // Mostrar ou esconder peças do avião com base no localStorage
+  const imagemIdMostrar = localStorage.getItem('imagemParaMostrar');
+  const imagemIdEsconder = localStorage.getItem('imagemParaEsconder');
 
-
-// ativar imagem da peça específica 
-document.addEventListener('DOMContentLoaded', function() {
-    const imagemIdMostrar = localStorage.getItem('imagemParaMostrar');
-    const imagemIdEsconder = localStorage.getItem('imagemParaEsconder');
-
-    if (imagemIdMostrar) {
-        const imagemParaMostrar = document.getElementById(imagemIdMostrar);
-        if (imagemParaMostrar) {
-            imagemParaMostrar.style.display = 'block';
-        }
-        localStorage.removeItem('imagemParaMostrar');
+  if (imagemIdMostrar) {
+    const imagemParaMostrar = document.getElementById(imagemIdMostrar);
+    if (imagemParaMostrar) {
+      imagemParaMostrar.style.display = 'block';
     }
+    localStorage.removeItem('imagemParaMostrar');
+  }
 
-    if (imagemIdEsconder) {
-        const imagemParaEsconder = document.getElementById(imagemIdEsconder);
-        if (imagemParaEsconder) {
-            imagemParaEsconder.style.display = 'none';
-        }
-        localStorage.removeItem('imagemParaEsconder');
+  if (imagemIdEsconder) {
+    const imagemParaEsconder = document.getElementById(imagemIdEsconder);
+    if (imagemParaEsconder) {
+      imagemParaEsconder.style.display = 'none';
     }
+    localStorage.removeItem('imagemParaEsconder');
+  }
 });
