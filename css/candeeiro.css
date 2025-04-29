@@ -140,12 +140,12 @@
     top: 30px;
     right: 30px;
     color: white;
-    font-size: 60px;
+    font-size: 70px;
     cursor: pointer;
     z-index: 1001;
 }
 .close:hover{
-scale:105%;
+scale:107%;
 }
 
 
