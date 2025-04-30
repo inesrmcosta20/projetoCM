@@ -61,7 +61,7 @@ const aviao = document.getElementById('aviao');
 const aviao2 = document.getElementById('aviao2');
 const pecasCenario = document.querySelector('.peças-cenario');
 
-// Posições e transformações para cada etapa da animação (sem opacity)
+// Posições e transformações para cada etapa da animação
 const keyframes = [
   { time: 0,    top: -10, left: 100, rotate: 10,   scale: 0 },
   { time: 500,  top: 10,  left: 90,  rotate: 15,   scale: 0.5 },
