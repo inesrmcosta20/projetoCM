@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-/// Função para mostrar o fullscreen
+// Função para mostrar o fullscreen
 function mostrarFullscreen() {
     const fullscreenContainer = document.getElementById('fullscreen-container');
     document.body.classList.add('fullscreen-active');
@@ -130,19 +130,22 @@ function mostrarFullscreen() {
          <button id="homeButton">Finalizar</button>
     `;
     
-    document.getElementById('homeButton').addEventListener('click', function() {
-        // Atualizar peças ativas no localStorage
-        const pecasAtivas = JSON.parse(localStorage.getItem('pecasAtivas') || {});
-        pecasAtivas['acendedor-candeeiros.html'] = 'corpo';
-        localStorage.setItem('pecasAtivas', JSON.stringify(pecasAtivas));
-        
-        // Voltar para a homepage sem refresh
-        window.history.back();
-    });
+    homeButton.addEventListener('click', function() {
+        const imagemAtivar = 'corpo';
+        const imagemDesativar = 'peça-corpo';
+      
+        // Marca que a animação do corpo deve ser executada
+        localStorage.setItem('corpoAnimado', 'false');
+        localStorage.setItem('imagemParaMostrar', imagemAtivar);
+        localStorage.setItem('imagemParaEsconder', imagemDesativar);
+      
+        window.location.href = "homepage.html"; 
+      });
     
+
+
     fullscreenContainer.style.display = 'flex';
 }
-
 // Função para fechar o fullscreen
 function fecharFullscreen() {
     const fullscreenContainer = document.getElementById('fullscreen-container');
