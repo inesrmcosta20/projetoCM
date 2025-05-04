@@ -47,16 +47,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function randomizarSemRepetir(array, evitarInicialCom = null) {
         if (array.length <= 1) return [...array];
-        let tentativas = 0;
 
+        let tentativas = 0;
         while (tentativas < 1000) {
             let resultado = [];
             let restantes = [...array];
+
             let candidatosIniciais = evitarInicialCom
                 ? restantes.filter(item => item.objeto !== evitarInicialCom)
                 : [...restantes];
 
-            if (!candidatosIniciais.length) return shuffleArray(array);
+            if (candidatosIniciais.length === 0) return shuffleArray(array);
 
             let primeiro = candidatosIniciais[Math.floor(Math.random() * candidatosIniciais.length)];
             resultado.push(primeiro);
@@ -65,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             while (restantes.length > 0) {
                 let candidatos = restantes.filter(item => item.objeto !== anterior.objeto);
-                if (!candidatos.length) break;
+                if (candidatos.length === 0) break;
 
                 let proximo = candidatos[Math.floor(Math.random() * candidatos.length)];
                 resultado.push(proximo);
@@ -139,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
         element.addEventListener("mousedown", function (e) {
             isDragging = true;
             element.style.cursor = "grabbing";
+            e.preventDefault();
             offsetX = e.clientX - element.getBoundingClientRect().left;
             offsetY = e.clientY - element.getBoundingClientRect().top;
             element.style.zIndex = 1000;
@@ -158,10 +160,9 @@ document.addEventListener("DOMContentLoaded", function () {
             isDragging = false;
             element.style.cursor = "grab";
 
-            const elemRect = element.getBoundingClientRect();
-            const zonaRect = zonaSucesso.getBoundingClientRect();
-
-            const intersecta =
+            let elemRect = element.getBoundingClientRect();
+            let zonaRect = zonaSucesso.getBoundingClientRect();
+            let intersecta =
                 elemRect.right > zonaRect.left &&
                 elemRect.left < zonaRect.right &&
                 elemRect.bottom > zonaRect.top &&
@@ -191,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     element.style.top = `${startY}px`;
                     element.style.transform = "scale(1)";
                     element.style.pointerEvents = "auto";
+
                     if (element.id === "sol") {
                         element.classList.remove("animacao-sol");
                     }
@@ -240,7 +242,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }, intervalo);
     }
 
-    // Estrelas no fundo
     const numEstrelas = 50;
     const main = document.querySelector("main");
 

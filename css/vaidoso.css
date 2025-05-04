@@ -1,3 +1,13 @@
+/* Vaidoso */
+#vaidoso{
+    position: absolute;
+    bottom: -3%;
+    left: 45%;
+    transform: translateX(-50%);
+    z-index: 3;
+    width: 80%;
+}
+
 /* Background Noite */
 #noite-vaidoso {
     width: 100%;
