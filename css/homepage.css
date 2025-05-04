@@ -156,8 +156,6 @@ h2 {
 
 
 
-
-
 /* Peças do Avião */
 .peças-cenario {
     position: absolute;
@@ -331,7 +329,7 @@ h2 {
 
 
 
-/* Animação a peça corpo 
+/* Animação a peça corpo */
 @keyframes moveCorpo {
     0% {
         top: 52%;
