@@ -261,22 +261,6 @@ h2 {
 }
 
 
-/* Som */
-.sound-controls {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    display: flex;
-    z-index: 10000;
-}
-
-.sound-controls img {
-    width: 40px;
-    height: auto;
-    cursor: pointer;
-}
-
-
 /* Peças puzzle sobre o avião */
 
 .peças-aviao >img {
