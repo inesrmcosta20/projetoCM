@@ -37,53 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let frameAtual = 0;
     let intervaloRosa;
 
-    function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-    }
-
-    function randomizarSemRepetir(array, evitarInicialCom = null) {
-        if (array.length <= 1) return [...array];
-
-        let tentativas = 0;
-        while (tentativas < 1000) {
-            let resultado = [];
-            let restantes = [...array];
-
-            let candidatosIniciais = evitarInicialCom
-                ? restantes.filter(item => item.objeto !== evitarInicialCom)
-                : [...restantes];
-
-            if (candidatosIniciais.length === 0) return shuffleArray(array);
-
-            let primeiro = candidatosIniciais[Math.floor(Math.random() * candidatosIniciais.length)];
-            resultado.push(primeiro);
-            restantes = restantes.filter(item => item !== primeiro);
-            let anterior = primeiro;
-
-            while (restantes.length > 0) {
-                let candidatos = restantes.filter(item => item.objeto !== anterior.objeto);
-                if (candidatos.length === 0) break;
-
-                let proximo = candidatos[Math.floor(Math.random() * candidatos.length)];
-                resultado.push(proximo);
-                restantes = restantes.filter(item => item !== proximo);
-                anterior = proximo;
-            }
-
-            if (resultado.length === array.length) return resultado;
-            tentativas++;
-        }
-
-        return shuffleArray(array);
-    }
-
-    let ordemFalas = randomizarSemRepetir(balaoFalas);
-    let etapaAtual = 0;
-
     function iniciarAnimacaoRosa() {
         if (intervaloRosa) return;
         let direcao = 1;
@@ -100,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
         intervaloRosa = null;
     }
 
-    // 💧 Funções de chuva
     const chuvaContainer = document.createElement("div");
     chuvaContainer.id = "chuva";
     document.body.appendChild(chuvaContainer);
@@ -123,13 +75,38 @@ document.addEventListener("DOMContentLoaded", function () {
         chuvaContainer.style.display = 'none';
     }
 
+    const estrelasContainer = document.createElement("div");
+    estrelasContainer.id = "estrelas";
+    document.body.appendChild(estrelasContainer);
+
+    function criarEstrelas() {
+        for (let i = 0; i < 50; i++) {
+            const estrela = document.createElement("div");
+            estrela.className = "estrela";
+            estrela.style.left = `${Math.random() * 100}vw`;
+            estrela.style.top = `${Math.random() * 100}vh`;
+            estrela.style.animationDuration = `${Math.random() * 2 + 3}s`;
+            estrela.style.animationDelay = `${Math.random() * 2}s`;
+            estrelasContainer.appendChild(estrela);
+        }
+    }
+
+    function removerEstrelas() {
+        estrelasContainer.innerHTML = '';
+    }
+
+    let etapaAtual = 0;
+    let todosBaloesMostrados = false;
+
     function mostrarBalao(etapa) {
+        if (todosBaloesMostrados) return;
+
         balaoFalas.forEach(({ id }) => {
             const el = document.getElementById(id);
             if (el) el.style.display = "none";
         });
 
-        const falaAtual = ordemFalas[etapa];
+        const falaAtual = balaoFalas[etapa];
         const balao = document.getElementById(falaAtual.id);
         if (balao) balao.style.display = "block";
 
@@ -194,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 elemRect.bottom > zonaRect.top &&
                 elemRect.top < zonaRect.bottom;
 
-            const objetoEsperado = ordemFalas[etapaAtual].objeto;
+            const objetoEsperado = balaoFalas[etapaAtual].objeto;
             const correto = element.id === objetoEsperado;
 
             if (intersecta && correto) {
@@ -224,13 +201,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                     etapaAtual++;
-                    if (etapaAtual < ordemFalas.length) {
+                    if (etapaAtual < balaoFalas.length) {
                         mostrarBalao(etapaAtual);
                     } else {
-                        const ultimoObjeto = ordemFalas[ordemFalas.length - 1]?.objeto;
-                        ordemFalas = randomizarSemRepetir(balaoFalas, ultimoObjeto);
-                        etapaAtual = 0;
-                        mostrarBalao(etapaAtual);
+                        todosBaloesMostrados = true;
+
+                        const ultimoBalao = document.getElementById("balao-fala4_esq");
+                        if (ultimoBalao) ultimoBalao.style.display = "none";
+
+                        pararChuva();
                     }
                 };
 
@@ -283,7 +262,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const y = Math.random() * 100;
         estrela.style.left = `${x}vw`;
         estrela.style.top = `${y}vh`;
-
         estrela.style.animationDelay = `${Math.random() * 5}s`;
 
         main.appendChild(estrela);
