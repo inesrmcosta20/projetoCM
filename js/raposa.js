@@ -1,6 +1,6 @@
 //raposa.js
 
-// raposa.js
+
 
 let video;
 let handPose;

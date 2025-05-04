@@ -130,13 +130,13 @@ width:100%;
   width: 15vw;
   height: auto;
   
-  > img{
-    position:absolute; 
-    width:100%; 
-    
- }
+ 
 }
-
+.perguntaC> img{
+  position:absolute; 
+  width:100%; 
+  
+}
 
 
 #raposa1 {
