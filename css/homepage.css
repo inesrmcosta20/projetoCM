@@ -87,18 +87,33 @@ h2 {
 }
 
 
-
 /* Avião */
-.aviao {
+
+#aviao {
     position: absolute;
     width: 10vw;
     height: auto;
     z-index: 10;
+    
 
-    animation: moveAviao 5s ease-out forwards;
+  /* animation: moveAviao 5s ease-out forwards;*/
 }
 
-/* Animação do avião */
+
+#aviao2 {
+    position: absolute;
+    display:none; 
+    width: 10vw;
+    height: auto;
+    z-index: 10;
+    top: 70%;
+        left: 45%;
+        transform: rotate(385deg) scale(4);
+        display: none; /* Começa escondido */
+
+   
+}
+/* Animação do avião 
 @keyframes moveAviao {
     0% {
         top: -10%;
@@ -135,7 +150,11 @@ h2 {
         left: 45%;
         transform: rotate(385deg) scale(4);
     }
-}
+}*/
+
+
+
+
 
 /* Peças do Avião */
 .peças-cenario {
@@ -148,11 +167,19 @@ h2 {
     transition: opacity 0.5s ease-in-out;
     
     pointer-events: none; /* Inicialmente desativado */
+
+
 }
 
-.peças-cenario.active {
-    pointer-events: auto; /* Ativado quando a animação terminar */
+.peças-cenario:not(.active) {
+    opacity: 0;
+    pointer-events: none;
 }
+.peças-cenario.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 
 /* Links das peças - agora com posicionamento absoluto */
 .peças-cenario a {
@@ -229,22 +256,6 @@ h2 {
 /* Hover para a peça-rodas */
 .peças-cenario .peça-rodas:hover {
     transform: translateY(15px);
-}
-
-
-/* Som */
-.sound-controls {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    display: flex;
-    z-index: 10000;
-}
-
-.sound-controls img {
-    width: 40px;
-    height: auto;
-    cursor: pointer;
 }
 
 
