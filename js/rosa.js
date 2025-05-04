@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const balaoFalas = [
         { id: "balao-fala1_dir", objeto: "cupula" },
         { id: "balao-fala2_esq", objeto: "regador" },
-        { id: "balao-fala3_esq", objeto: "sol" }
+        { id: "balao-fala3_esq", objeto: "sol" },
+        { id: "balao-fala4_esq", objeto: "guarda-chuva" }
     ];
 
     const posicoesFinais = {
@@ -26,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const musicaFundo = document.getElementById("background-music-jogo");
     const rosa = document.getElementById("rosa");
 
-    // Inicia música de fundo se ativada no localStorage
     if (localStorage.getItem("somAtivo") === "true") {
         musicaFundo.volume = 0.5;
         musicaFundo.play().catch(e => {
@@ -100,6 +100,29 @@ document.addEventListener("DOMContentLoaded", function () {
         intervaloRosa = null;
     }
 
+    // 💧 Funções de chuva
+    const chuvaContainer = document.createElement("div");
+    chuvaContainer.id = "chuva";
+    document.body.appendChild(chuvaContainer);
+
+    function iniciarChuva() {
+        chuvaContainer.innerHTML = '';
+        chuvaContainer.style.display = 'block';
+
+        for (let i = 0; i < 100; i++) {
+            const pingo = document.createElement("div");
+            pingo.className = "pingo";
+            pingo.style.left = `${Math.random() * 100}vw`;
+            pingo.style.animationDelay = `${Math.random() * 2}s`;
+            chuvaContainer.appendChild(pingo);
+        }
+    }
+
+    function pararChuva() {
+        chuvaContainer.innerHTML = '';
+        chuvaContainer.style.display = 'none';
+    }
+
     function mostrarBalao(etapa) {
         balaoFalas.forEach(({ id }) => {
             const el = document.getElementById(id);
@@ -112,6 +135,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (falaAtual.objeto === "cupula") iniciarAnimacaoRosa();
         else pararAnimacaoRosa();
+
+        if (falaAtual.objeto === "guarda-chuva") iniciarChuva();
+        else pararChuva();
     }
 
     mostrarBalao(etapaAtual);

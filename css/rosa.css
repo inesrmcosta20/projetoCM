@@ -29,6 +29,16 @@
   z-index: 5;
 }
 
+/* Está a chover imenso! */
+#balao-fala4_esq {
+  position: fixed;
+  left: 65%;
+  bottom: 55%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
 /* Objetos */
 .objetos {
   z-index: 4;
@@ -154,5 +164,37 @@ body {
   }
   50% {
     opacity: 1;
+  }
+}
+
+#chuva {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  display: none;
+  overflow: hidden;
+}
+
+.pingo {
+  position: absolute;
+  top: -20px; /* Inicialmente fora da tela */
+  width: 2px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  animation: cair 1s linear infinite;
+}
+
+@keyframes cair {
+  0% {
+    top: -20px; /* Começa fora da tela no topo */
+    opacity: 1;
+  }
+  100% {
+    top: 100vh; /* Vai até o final da tela */
+    opacity: 0;
   }
 }
