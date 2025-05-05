@@ -206,7 +206,7 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: rgba(127, 169, 188, 0.9);
-  display: none;
+  display: none; 
   flex-direction: column;
   justify-content: center;
   align-items: center;
