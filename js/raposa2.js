@@ -157,7 +157,7 @@ function mostrarBotaoSucesso() {
 
 /* ----------- P5.js ----------- */
 function setup() {
-  const canvas = createCanvas(500, 375);
+  const canvas = createCanvas(400, 250);
   canvas.parent('webcam-container');
 
   video = createCapture(VIDEO);
