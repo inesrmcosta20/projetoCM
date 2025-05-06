@@ -148,6 +148,25 @@ body {
   animation: girarEOscilar 2.5s ease-in-out;
 }
 
+
+/* Estrelas */
+.estrela-animada {
+  position: absolute;
+  animation: piscarEstrela 3s infinite ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes piscarEstrela {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 #chuva {
   position: fixed;
   top: 0;
@@ -179,76 +198,3 @@ body {
     opacity: 0;
   }
 }
-<<<<<<< HEAD
-
-/* Adicione isto ao seu arquivo candeeiro.css */
-.fullScreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(127, 169, 188, 0.9);
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.fullScreen .close {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  color: white;
-  font-size: 70px;
-  cursor: pointer;
-  z-index: 1001;
-}
-.close:hover{
-scale:107%;
-}
-
-
-
-.fullScreen-img {
-
-  object-fit: contain;
-  transition: transform 0.10s ease;
-}
-
-/* Adicione ao seu arquivo candeeiro.css */
-/*.fullScreen-active #seta-retroceder {
-  display: none;
-}*/
-
-/* Posições específicas */
-#posicao1 {
-  position: absolute;
- bottom: -5%;
-  left: 60%;
-  width:35%; 
-}
-
-#posicao2 {
-  top: 20%;
-  left: 15%;
-  width: 60%;
-}
-
-#homeButton{
-position:absolute; 
-top: 54%;
-  left: 35%;
-  padding: 10px 30px;
-background-color:rgb(255, 183, 0) ;
-color: black;
-font-size: 20px;
-border-radius: 10px;
-transition: background-color 0.3s ease;
-}
-#homeButton:hover{
-  background-color:rgb(255, 140, 0) ;  
-}
-=======
->>>>>>> 14476055e9e5235074046f89f29635293cbbea2d

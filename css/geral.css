@@ -93,7 +93,7 @@
 }
 
 
-
+/* POPUP full screen final dos jogos  */
 /* Botão laranja voltar à homepage no popup principe */
 #homeButton{
     position:absolute; 
@@ -111,8 +111,7 @@
     }
 
 
-    
-/* POPUP full screen final dos jogos  */
+/*fundo*/
 .fullScreen {
     position: fixed;
     top: 0;
