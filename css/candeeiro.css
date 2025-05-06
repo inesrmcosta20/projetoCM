@@ -120,42 +120,6 @@
     background-color: #AEB1E5;  
 }
 
-/* Adicione isto ao seu arquivo candeeiro.css */
-.fullScreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(127, 169, 188, 0.9);
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.fullScreen .close {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    color: white;
-    font-size: 70px;
-    cursor: pointer;
-    z-index: 1001;
-}
-.close:hover{
-scale:107%;
-}
-
-
-
-.fullScreen-img {
-
-    object-fit: contain;
-    transition: transform 0.10s ease;
-}
-
 /* Adicione ao seu arquivo candeeiro.css */
 /*.fullScreen-active #seta-retroceder {
     display: none;

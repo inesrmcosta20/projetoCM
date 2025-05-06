@@ -210,6 +210,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (ultimoBalao) ultimoBalao.style.display = "none";
 
                         pararChuva();
+                        mostrarFullscreen(); 
+
                     }
                 };
 
@@ -276,3 +278,43 @@ document.addEventListener("DOMContentLoaded", function () {
         criarEstrela();
     }
 });
+
+
+// Função para mostrar o fullscreen
+function mostrarFullscreen() {
+    const fullscreenContainer = document.getElementById('fullscreen-container');
+    document.body.classList.add('fullscreen-active');
+    
+    fullscreenContainer.innerHTML = `
+        <a class="close" onclick="fecharFullscreen()">×</a>
+        
+        <div class="fullScreen-img-container">
+            <img src="imagens/candeeiro/principe.png" id="posicao1" alt="Imagem 1">
+            <img src="imagens/candeeiro/mensagem.png" id="posicao2" alt="Imagem 2"> 
+        </div>
+         <button id="homeButton">Finalizar</button>
+    `;
+    
+    homeButton.addEventListener('click', function() {
+        const imagemAtivar = 'corpo';
+        const imagemDesativar = 'peça-corpo';
+      
+        // Marca que a animação do corpo deve ser executada
+        localStorage.setItem('corpoAnimado', 'false');
+        localStorage.setItem('imagemParaMostrar', imagemAtivar);
+        localStorage.setItem('imagemParaEsconder', imagemDesativar);
+      
+        window.location.href = "homepage.html"; 
+      });
+    
+
+
+    fullscreenContainer.style.display = 'flex';
+}
+// Função para fechar o fullscreen
+function fecharFullscreen() {
+    const fullscreenContainer = document.getElementById('fullscreen-container');
+    fullscreenContainer.style.display = 'none';
+}
+
+

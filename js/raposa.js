@@ -21,8 +21,7 @@ const questions = [
   { id: "p4", answer: "negative" },   // thumbsdown
   { id: "p5", answer: "negative" },   // thumbsdown
   { id: "p6", answer: "positive" },   // thumbsup
-  { id: "p7", answer: "negative" },   // thumbsup
-  { id: "p8", answer: "positive" },   // thumbsup
+
 ];
 let lastQuestionIndex = -1; // Para controlar a pergunta anterior
 
