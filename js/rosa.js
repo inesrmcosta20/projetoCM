@@ -185,8 +185,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         document.getElementById("balao-fala4_esq").style.display = "none";
                         pararChuva();
+<<<<<<< HEAD
 
                         mostrarFullscreen();
+=======
+                        mostrarFullscreen(); 
+
+>>>>>>> 14476055e9e5235074046f89f29635293cbbea2d
                     }
                 }
             }
@@ -209,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
         element.style.transform = "scale(1)";
     }
 });
+<<<<<<< HEAD
     }
 
 function animarRegador(element, callback) {
@@ -262,6 +268,15 @@ function mostrarFullscreen() {
     const fullscreenContainer = document.getElementById('fullscreen-container');
     document.body.classList.add('fullscreen-active');
 
+=======
+
+
+// Função para mostrar o fullscreen
+function mostrarFullscreen() {
+    const fullscreenContainer = document.getElementById('fullscreen-container');
+    document.body.classList.add('fullscreen-active');
+    
+>>>>>>> 14476055e9e5235074046f89f29635293cbbea2d
     fullscreenContainer.innerHTML = `
         <a class="close" onclick="fecharFullscreen()">×</a>
         
@@ -271,19 +286,34 @@ function mostrarFullscreen() {
         </div>
          <button id="homeButton">Finalizar</button>
     `;
+<<<<<<< HEAD
 
     homeButton.addEventListener('click', function () {
         const imagemAtivar = 'corpo';
         const imagemDesativar = 'peça-corpo';
 
+=======
+    
+    homeButton.addEventListener('click', function() {
+        const imagemAtivar = 'corpo';
+        const imagemDesativar = 'peça-corpo';
+      
+>>>>>>> 14476055e9e5235074046f89f29635293cbbea2d
         // Marca que a animação do corpo deve ser executada
         localStorage.setItem('corpoAnimado', 'false');
         localStorage.setItem('imagemParaMostrar', imagemAtivar);
         localStorage.setItem('imagemParaEsconder', imagemDesativar);
+<<<<<<< HEAD
 
         window.location.href = "homepage.html";
     });
 
+=======
+      
+        window.location.href = "homepage.html"; 
+      });
+    
+>>>>>>> 14476055e9e5235074046f89f29635293cbbea2d
 
 
     fullscreenContainer.style.display = 'flex';
@@ -294,3 +324,7 @@ function fecharFullscreen() {
     fullscreenContainer.style.display = 'none';
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 14476055e9e5235074046f89f29635293cbbea2d

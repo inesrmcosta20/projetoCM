@@ -91,52 +91,27 @@
 
 
 
-  .perguntaA{
-     
-    width:10%;  
-    position: absolute;
-    left: 20%;
- top: 20%;
-    
+  #p1, #p2, #p4, #p7{
+    position: fixed; 
+    width:20%;  
+
+   
+  left: 27%;
+  top: 20%;
+  height: auto;
   }
 
-.perguntaA> img{
-  position:absolute; 
-  
-  width:100%; 
- 
-  left: 37%;
- top: 20%;
-}
 
-.perguntaB {
-  position: absolute;
-  left: 65%;
-  bottom: 55%;
-  width: 15vw;
-  height: auto;
+
+#p3, #p5, #p6, #p8 {
+  position:  fixed;
+  left: 35%;
+ top: 25%;
+  width:20%; 
+
   
 }
 
-.perguntaB> img{
-position:absolute; 
-width:100%; 
-
-}
-.perguntaC {
-  position: absolute;
-  left: 54%;
-  top: 30%;
-  width: 15vw;
-  height: auto;
-  
- 
-}
-.perguntaC> img{
-  position:absolute; 
-  width:100%; 
-  
-}
 
 
 #raposa1 {

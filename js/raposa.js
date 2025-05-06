@@ -16,18 +16,17 @@ let webcamContainer;
 // Configuração das perguntas e respostas
 const questions = [
   { id: "p1", answer: "positive" },  // thumbsup
-  { id: "p2", answer: "positive" },  // 
+  { id: "p2", answer: "positive" },  // thumbsup
   { id: "p3", answer: "positive" },  // thumbsup
   { id: "p4", answer: "negative" },   // thumbsdown
   { id: "p5", answer: "negative" },   // thumbsdown
   { id: "p6", answer: "positive" },   // thumbsup
-  { id: "p7", answer: "negative" },   // thumbsup
-  { id: "p8", answer: "positive" },   // thumbsup
+
 ];
 let lastQuestionIndex = -1; // Para controlar a pergunta anterior
 
 // IDs das imagens da raposa em ordem
-const foxImages = ["raposa1", "raposa2", "raposa3"];
+const foxImages = ["raposa1", "raposa2", "raposa3", "raposa4"];
 
 function modelReady() {
   console.log('hand pose loaded');
@@ -203,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const raposa1 = document.getElementById('raposa1');
     const raposa2 = document.getElementById('raposa2');
     const raposa3 = document.getElementById('raposa3');
+    const raposa4 = document.getElementById('raposa4');
     
     // Elementos das perguntas
     const perguntas = [

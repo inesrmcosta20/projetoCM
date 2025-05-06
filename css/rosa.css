@@ -179,6 +179,7 @@ body {
     opacity: 0;
   }
 }
+<<<<<<< HEAD
 
 /* Adicione isto ao seu arquivo candeeiro.css */
 .fullScreen {
@@ -249,3 +250,5 @@ transition: background-color 0.3s ease;
 #homeButton:hover{
   background-color:rgb(255, 140, 0) ;  
 }
+=======
+>>>>>>> 14476055e9e5235074046f89f29635293cbbea2d
