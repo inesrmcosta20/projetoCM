@@ -97,7 +97,7 @@
 /* Botão laranja voltar à homepage no popup principe */
 #homeButton{
     position:absolute; 
-    top: 54%;
+    top: 53%;
         left: 35%;
         padding: 12px 35px;
     background-color:rgb(255, 183, 0) ;
