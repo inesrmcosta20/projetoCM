@@ -289,8 +289,8 @@ function mostrarFullscreen() {
         <a class="close" onclick="fecharFullscreen()">×</a>
         
         <div class="fullScreen-img-container">
-            <img src="imagens/candeeiro/principe.png" id="posicao1" alt="Imagem 1">
-            <img src="imagens/candeeiro/mensagem.png" id="posicao2" alt="Imagem 2"> 
+            <img src="imagens/principe.png" id="posicao1" alt="Imagem 1">
+            <img src="imagens/rosa/mensagem.png" id="posicao2" alt="Imagem 2"> 
         </div>
          <button id="homeButton">Finalizar</button>
     `;
