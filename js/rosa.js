@@ -286,7 +286,7 @@ function mostrarFullscreen() {
     document.body.classList.add('fullscreen-active');
     
     fullscreenContainer.innerHTML = `
-        <a class="close" onclick="fecharFullscreen()">×</a>
+     
         
         <div class="fullScreen-img-container">
             <img src="imagens/principe.png" id="posicao1" alt="Imagem 1">
@@ -311,10 +311,6 @@ function mostrarFullscreen() {
 
     fullscreenContainer.style.display = 'flex';
 }
-// Função para fechar o fullscreen
-function fecharFullscreen() {
-    const fullscreenContainer = document.getElementById('fullscreen-container');
-    fullscreenContainer.style.display = 'none';
-}
+
 
 
