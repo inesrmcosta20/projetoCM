@@ -104,7 +104,7 @@ window.addEventListener('load', startAnimation);
 
 
   // Mostrar ou esconder peças do avião com base no localStorage
-  const imagemIdMostrar =getItem('imagemParaMostrar');
+  const imagemIdMostrar =  localStorage.getItem('imagemParaMostrar');
   const imagemIdEsconder = localStorage.getItem('imagemParaEsconder');
 
   if (imagemIdMostrar) {
@@ -123,3 +123,8 @@ window.addEventListener('load', startAnimation);
     localStorage.removeItem('imagemParaEsconder');
   }
 });
+
+
+/*localStorage animar*/
+/*verificar localhost (variável 1º vez) = true
+verificar de passa para false e fazer console da variável boolleana */
