@@ -10,14 +10,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=La+Belle+Aurore&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=La+Belle+Aurore&family=Nunito+Sans:wght@200..1000&family=Poppins:wght@100..900&family=Quicksand:wght@300..700&display=swap"
     rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/rei.css">
   <link rel="stylesheet" href="css/homepage.css">
+  <link rel="stylesheet" href="css/estrelas.css">
   <link rel="stylesheet" href="css/geral.css">
-
+  
+  <!-- Script do face-api.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
 </head>
 
 <body>
@@ -33,28 +36,31 @@
       <source src="audios/sucess2.mp3" type="audio/mp3">
     </audio>
 
-    <a href="homepage.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>
-
+    <a href="homepage.html">
+      <img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder">
+    </a>
   </header>
 
   <main>
     <!-- Cenário -->
     <img src="imagens/rei/noite-rei.png" alt="noite-rei" id="noite-rei">
     <img src="imagens/rei/rei.png" alt="rei" id="rei">
+    <img src="imagens/rei/planeta.png" alt="planeta" id="planeta">
+    <img src="imagens/rei/manto.png" alt="manto" id="manto">
 
+    <div id="webcam-container"></div>
 
-
-    <div class="ajuda"   >
-      <img  src="imagens/icones/help-icon g.png" onclick="myPopUp()"> 
-          <span class="popuptext" id="popup" dislay="none">Cumpre as ordens do rei através de gestos</span>
-      </div>
+    <div class="ajuda">
+      <img src="imagens/icones/help-icon g.png" onclick="myPopUp()">
+      <span class="popuptext" id="popup">Cumpre as ordens do rei através de gestos</span>
+    </div>
   </main>
 
-
   <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
   <script src="js/rei.js"></script>
+  <script src="js/estrelas.js"></script>
   <script src="js/geral.js"></script>
-  
 </body>
 
 </html>

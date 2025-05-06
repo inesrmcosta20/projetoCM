@@ -26,6 +26,16 @@
     z-index: 2;
 }
 
+#microfone{
+    width: 45px;
+    height: 60px;
+    position: absolute;
+    top: 550px;
+    left: 550px;
+    z-index: 3;
+}
+
+
 /* Seta Retroceder */
 #seta-retroceder {
     position: absolute;
