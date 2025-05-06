@@ -8,12 +8,12 @@
     width: 40px;
     height: auto;
     cursor: pointer;
-  }
-  
-  #seta-retroceder:hover {
+}
+
+#seta-retroceder:hover {
     opacity: 0.5;
-  }
-  
+}
+
 
 
 /* Som */
@@ -57,8 +57,8 @@
 .popuptext {
     visibility: hidden;
     width: 300px;
-    background-color: #FFFFC3 ;
-    color:#080D4A ;
+    background-color: #FFFFC3;
+    color: #080D4A;
     text-align: center;
     border-radius: 10px;
     padding: 15px;
@@ -66,7 +66,7 @@
     bottom: 80px;
     right: 20px;
     z-index: 101;
-   /* box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    /* box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     border: 1px solid #fff;*/
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -95,20 +95,21 @@
 
 /* POPUP full screen final dos jogos  */
 /* Botão laranja voltar à homepage no popup principe */
-#homeButton{
-    position:absolute; 
-    top: 53%;
-        left: 35%;
-        padding: 12px 35px;
-    background-color:rgb(255, 183, 0) ;
+#homeButton {
+    position: absolute;
+    top: 55%;
+    left: 35%;
+    padding: 12px 35px;
+    background-color: rgb(255, 183, 0);
     color: black;
     font-size: 20px;
     border-radius: 10px;
     transition: background-color 0.3s ease;
-    }
-    #homeButton:hover{
-        background-color:rgb(255, 140, 0) ;  
-    }
+}
+
+#homeButton:hover {
+    background-color: rgb(255, 140, 0);
+}
 
 
 /*fundo*/
@@ -124,9 +125,9 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
-  .fullScreen .close {
+}
+
+.fullScreen .close {
     position: absolute;
     top: 30px;
     right: 30px;
@@ -134,26 +135,28 @@
     font-size: 70px;
     cursor: pointer;
     z-index: 1001;
-  }
-  .close:hover{
-  scale:107%;
-  }
-  
-  
-  .fullScreen-img {
-  
+}
+
+.close:hover {
+    scale: 107%;
+}
+
+
+.fullScreen-img {
+
     object-fit: contain;
     transition: transform 0.10s ease;
-  }
-  
-  /* Posições específicas */
-  /*principezinho*/
+}
+
+/* Posições específicas */
+/*principezinho*/
 #posicao1 {
     position: absolute;
-   bottom: -5%;
+    bottom: -5%;
     left: 60%;
-    width:35%; 
+    width: 35%;
 }
+
 /*balão de fala principezinho*/
 #posicao2 {
     top: 20%;

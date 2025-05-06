@@ -1,4 +1,4 @@
-/* Balões de Fala */
+/* Balões de Fala Com Objeto */
 /* Está um grande vendaval! */
 #balao-fala1_dir {
   position: fixed;
@@ -34,6 +34,37 @@
   position: fixed;
   left: 65%;
   bottom: 55%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/* Balões de Fala Sem Objeto - Etapa Cúpula*/
+/*O solo está muito seco!*/
+#balao-fala5_esq{
+  position: fixed;
+  left: 57%;
+  bottom: 73%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*O solo está muito seco!*/
+#balao-fala6_esq{
+  position: fixed;
+  left: 55%;
+  bottom: 30%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*O solo está muito seco!*/
+#balao-fala7_esq{
+  position: fixed;
+  left: 65%;
+  bottom: 35%;
   width: 15vw;
   height: auto;
   z-index: 5;

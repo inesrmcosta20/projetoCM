@@ -1,7 +1,7 @@
 //som entre páginas
 
 document.addEventListener("DOMContentLoaded", function () {
-   
+
   const somOn = document.getElementById("som-on");
   const somOff = document.getElementById("som-off");
   const audio = document.getElementById("background-music");
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Inicia o áudio de acordo com o estado guardado no localStorage
   function startAudio() {
     const somLigado = localStorage.getItem('somLigado');
-    
+
     if (somLigado === 'true') {
       audio.play().then(() => {
         somOn.style.display = "block";
@@ -52,25 +52,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Executa ao carregar a página
   startAudio();
-  
-}); 
+
+});
 
 function myPopUp() {
-    const popup = document.getElementById("popup");
-    popup.classList.toggle("show");
-    
-    // Fechar o popup após 10 segundos
-    setTimeout(function() {
-        popup.classList.remove("show");
-    }, 10000);
+  const popup = document.getElementById("popup");
+  popup.classList.toggle("show");
+
+  // Fechar o popup após 10 segundos
+  setTimeout(function () {
+    popup.classList.remove("show");
+  }, 10000);
 }
 
 // Fechar o popup ao clicar em qualquer lugar
-document.addEventListener('click', function(event) {
-    const popup = document.getElementById("popup");
-    const helpIcon = document.querySelector('.ajuda img');
-    
-    if (!popup.contains(event.target) && event.target !== helpIcon) {
-        popup.classList.remove("show");
-    }
+document.addEventListener('click', function (event) {
+  const popup = document.getElementById("popup");
+  const helpIcon = document.querySelector('.ajuda img');
+
+  if (!popup.contains(event.target) && event.target !== helpIcon) {
+    popup.classList.remove("show");
+  }
 });
