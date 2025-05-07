@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let frameAtual = 0;
     let intervaloRosa;
+    const MAX_FRAMES_ROSA = 15;
 
     function iniciarAnimacaoRosa() {
         if (intervaloRosa) return;
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         intervaloRosa = setInterval(() => {
             rosa.src = `imagens/rosa/movimento/rosa${frameAtual}.png`;
             frameAtual += direcao;
-            if (frameAtual === 15) direcao = -1;
+            if (frameAtual === MAX_FRAMES_ROSA) direcao = -1;
             else if (frameAtual === 0) direcao = 1;
         }, 100);
     }
@@ -60,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function iniciarChuva() {
         chuvaContainer.innerHTML = '';
         chuvaContainer.style.display = 'block';
-
         for (let i = 0; i < 100; i++) {
             const pingo = document.createElement("div");
             pingo.className = "pingo";
@@ -73,26 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function pararChuva() {
         chuvaContainer.innerHTML = '';
         chuvaContainer.style.display = 'none';
-    }
-
-    const estrelasContainer = document.createElement("div");
-    estrelasContainer.id = "estrelas";
-    document.body.appendChild(estrelasContainer);
-
-    function criarEstrelas() {
-        for (let i = 0; i < 50; i++) {
-            const estrela = document.createElement("div");
-            estrela.className = "estrela";
-            estrela.style.left = `${Math.random() * 100}vw`;
-            estrela.style.top = `${Math.random() * 100}vh`;
-            estrela.style.animationDuration = `${Math.random() * 2 + 3}s`;
-            estrela.style.animationDelay = `${Math.random() * 2}s`;
-            estrelasContainer.appendChild(estrela);
-        }
-    }
-
-    function removerEstrelas() {
-        estrelasContainer.innerHTML = '';
     }
 
     let etapaAtual = 0;
@@ -110,11 +90,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const balao = document.getElementById(falaAtual.id);
         if (balao) balao.style.display = "block";
 
-        if (falaAtual.objeto === "cupula") iniciarAnimacaoRosa();
-        else pararAnimacaoRosa();
-
-        if (falaAtual.objeto === "guarda-chuva") iniciarChuva();
-        else pararChuva();
+        if (falaAtual.objeto === "cupula") {
+            iniciarAnimacaoRosa();
+        } else {
+            pararAnimacaoRosa();
+        }
     }
 
     mostrarBalao(etapaAtual);
@@ -203,15 +183,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     etapaAtual++;
                     if (etapaAtual < balaoFalas.length) {
                         mostrarBalao(etapaAtual);
-                    } else {
+                    }
+
+                    // Se o objeto atual for o guarda-chuva, mostrar fullscreen
+                    if (element.id === "guarda-chuva") {
                         todosBaloesMostrados = true;
-
-                        const ultimoBalao = document.getElementById("balao-fala4_esq");
-                        if (ultimoBalao) ultimoBalao.style.display = "none";
-
                         pararChuva();
-                        mostrarFullscreen(); 
-
+                        mostrarFullscreen();
                     }
                 };
 
@@ -249,68 +227,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }, intervalo);
     }
 
-    const numEstrelas = 50;
-    const main = document.querySelector("main");
+    function mostrarFullscreen() {
+        const fullscreenContainer = document.getElementById('fullscreen-container');
+        document.body.classList.add('fullscreen-active');
 
-    function criarEstrela() {
-        const estrela = document.createElement("img");
-        estrela.src = "imagens/rosa/cenario/estrela.png";
-        estrela.classList.add("estrela-animada");
+        fullscreenContainer.innerHTML = `
+            <div class="fullScreen-img-container">
+                <img src="imagens/principe.png" id="posicao1" alt="principe">
+                <img src="imagens/rosa/mensagem.png" id="posicao2" alt="mensagem"> 
+            </div>
+            <button id="homeButton">Finalizar</button>
+        `;
 
-        const size = Math.floor(Math.random() * 15) + 10;
-        estrela.style.width = `${size}px`;
-
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        estrela.style.left = `${x}vw`;
-        estrela.style.top = `${y}vh`;
-        estrela.style.animationDelay = `${Math.random() * 5}s`;
-
-        main.appendChild(estrela);
-
-        estrela.addEventListener('animationiteration', function () {
-            estrela.style.left = `${Math.random() * 100}vw`;
-            estrela.style.top = `${Math.random() * 100}vh`;
+        const homeButton = document.getElementById('homeButton');
+        homeButton.addEventListener('click', function () {
+            window.location.href = "homepage.html";
         });
-    }
 
-    for (let i = 0; i < numEstrelas; i++) {
-        criarEstrela();
+        fullscreenContainer.style.display = 'flex';
     }
 });
-
-
-// Função para mostrar o fullscreen
-function mostrarFullscreen() {
-    const fullscreenContainer = document.getElementById('fullscreen-container');
-    document.body.classList.add('fullscreen-active');
-    
-    fullscreenContainer.innerHTML = `
-     
-        
-        <div class="fullScreen-img-container">
-            <img src="imagens/principe.png" id="posicao1" alt="Imagem 1">
-            <img src="imagens/rosa/mensagem.png" id="posicao2" alt="Imagem 2"> 
-        </div>
-         <button id="homeButton">Finalizar</button>
-    `;
-    
-    homeButton.addEventListener('click', function() {
-        const imagemAtivar = 'corpo';
-        const imagemDesativar = 'peça-corpo';
-      
-        // Marca que a animação do corpo deve ser executada
-        localStorage.setItem('corpoAnimado', 'false');
-        localStorage.setItem('imagemParaMostrar', imagemAtivar);
-        localStorage.setItem('imagemParaEsconder', imagemDesativar);
-      
-        window.location.href = "homepage.html"; 
-      });
-    
-
-
-    fullscreenContainer.style.display = 'flex';
-}
-
-
-
