@@ -15,6 +15,18 @@ document.addEventListener("DOMContentLoaded", function () {
         { id: "balao-fala4_esq", objeto: "guarda-chuva" }
     ];
 
+    const falaCupulaExtras = [
+        "balao-fala5_esq",
+        "balao-fala6_esq",
+        "balao-fala7_dir"
+    ];
+
+    const falaSincronizada = {
+        "balao-fala1_dir": ["balao-fala5_esq", "balao-fala6_esq", "balao-fala7_dir"],
+        "balao-fala2_esq": ["balao-fala8_esq", "balao-fala9_dir"],
+        "balao-fala3_esq": ["balao-fala10_esq"]
+    };
+
     const posicoesFinais = {
         "regador": { left: "37%", top: "35%", rotate: "20deg" },
         "guarda-chuva": { left: "47%", top: "35%", rotate: "-25deg" },
@@ -29,9 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (localStorage.getItem("somAtivo") === "true") {
         musicaFundo.volume = 0.5;
-        musicaFundo.play().catch(e => {
-            console.warn("Autoplay bloqueado pelo navegador:", e);
-        });
+        musicaFundo.play().catch(e => console.warn("Autoplay bloqueado:", e));
     }
 
     let frameAtual = 0;
@@ -81,14 +91,30 @@ document.addEventListener("DOMContentLoaded", function () {
     function mostrarBalao(etapa) {
         if (todosBaloesMostrados) return;
 
-        balaoFalas.forEach(({ id }) => {
+        // Oculta todos os balões principais e extras
+        [...balaoFalas.map(b => b.id), ...Object.values(falaSincronizada).flat()].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.style.display = "none";
         });
 
         const falaAtual = balaoFalas[etapa];
-        const balao = document.getElementById(falaAtual.id);
-        if (balao) balao.style.display = "block";
+        const balaoPrincipal = document.getElementById(falaAtual.id);
+        if (balaoPrincipal) balaoPrincipal.style.display = "block";
+
+        // Mostrar os balões sincronizados, se houver
+        if (falaSincronizada[falaAtual.id]) {
+            falaSincronizada[falaAtual.id].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = "block";
+            });
+        }
+
+        // Verifica se é o balão da chuva
+        if (falaAtual.id === "balao-fala4_esq") {
+            iniciarChuva();
+        } else {
+            pararChuva();
+        }
 
         if (falaAtual.objeto === "cupula") {
             iniciarAnimacaoRosa();
@@ -96,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pararAnimacaoRosa();
         }
     }
+
 
     mostrarBalao(etapaAtual);
 
@@ -185,7 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         mostrarBalao(etapaAtual);
                     }
 
-                    // Se o objeto atual for o guarda-chuva, mostrar fullscreen
                     if (element.id === "guarda-chuva") {
                         todosBaloesMostrados = true;
                         pararChuva();
@@ -231,13 +257,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const fullscreenContainer = document.getElementById('fullscreen-container');
         document.body.classList.add('fullscreen-active');
 
-        fullscreenContainer.innerHTML = `
-            <div class="fullScreen-img-container">
+        fullscreenContainer.innerHTML =
+            `<div class="fullScreen-img-container">
                 <img src="imagens/principe.png" id="posicao1" alt="principe">
                 <img src="imagens/rosa/mensagem.png" id="posicao2" alt="mensagem"> 
             </div>
-            <button id="homeButton">Finalizar</button>
-        `;
+            <button id="homeButton">Finalizar</button>`;
 
         const homeButton = document.getElementById('homeButton');
         homeButton.addEventListener('click', function () {
@@ -246,4 +271,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
         fullscreenContainer.style.display = 'flex';
     }
+
 });

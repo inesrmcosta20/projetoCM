@@ -73,6 +73,39 @@
   display: none; /* Escondido inicialmente */
 }
 
+/* Balões de Fala Sem Objeto - Etapa Regador */
+#balao-fala8_esq {
+  position: fixed;
+  left: 57%;
+  bottom: 74%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+  display: none; /* Escondido inicialmente */
+}
+
+/*Estou cheia de pó!*/
+#balao-fala9_dir {
+  position: fixed;
+  left: 37%;
+  bottom: 77%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+  display: none; /* Escondido inicialmente */
+}
+
+/* Balões de Fala Sem Objeto - Etapa Sol */
+#balao-fala10_esq {
+  position: fixed;
+  left: 65%;
+  bottom: 50%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+  display: none; /* Escondido inicialmente */
+}
+
 
 /* Objetos */
 .objetos {
