@@ -152,3 +152,61 @@ function fecharFullscreen() {
     fullscreenContainer.style.display = 'none';
 }
 
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const baloes = {
+        A: ["balao-fala1", "balao-fala4"],
+        B: ["balao-fala2", "balao-fala6"],
+        C: ["balao-fala3", "balao-fala5"]
+    };
+
+    const baloesAtivos = {
+        A: false,
+        B: false,
+        C: false
+    };
+
+    function mostrarBalao(classe) {
+        if (baloesAtivos[classe]) return;
+
+        const ids = baloes[classe];
+        const balaoId = ids[Math.floor(Math.random() * ids.length)];
+        const balao = document.getElementById(balaoId);
+
+        // Ativar balão
+        balao.style.display = "block";
+        balao.style.opacity = "1";
+        baloesAtivos[classe] = true;
+
+        // Tempo de vida entre 4 a 7 segundos antes do fade out
+        const tempoDeVida = Math.random() * 3000 + 4000;
+
+        setTimeout(() => {
+            // Inicia o fade-out com transition
+            balao.style.opacity = "0";
+
+            // Aguarda 2 segundos para esconder o elemento completamente
+            setTimeout(() => {
+                balao.style.display = "none";
+                balao.style.opacity = "1"; // Reset para reutilização
+                baloesAtivos[classe] = false;
+            }, 2000);
+
+        }, tempoDeVida);
+    }
+
+    // Intervalos desencontrados por classe
+    setInterval(() => {
+        if (Math.random() < 0.5) mostrarBalao("A");
+    }, 5000);
+
+    setInterval(() => {
+        if (Math.random() < 0.5) mostrarBalao("B");
+    }, 6000);
+
+    setInterval(() => {
+        if (Math.random() < 0.5) mostrarBalao("C");
+    }, 7000);
+});
