@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Contador de interações
     let interactionCount = 0;
-
-
-
+    let baloesAtivados = false;
 
     // Áudios
     const lightOn = new Audio('audios/lightOn.mp3');
@@ -68,6 +66,63 @@ document.addEventListener('DOMContentLoaded', function () {
         requestAnimationFrame(updateLights);
     }
 
+    // Função para ativar os balões de fala
+    function ativarBaloes() {
+        const baloes = {
+            A: ["balao-fala1", "balao-fala4", "balao-fala7"],
+            B: ["balao-fala2", "balao-fala6", "balao-fala8"],
+            C: ["balao-fala3", "balao-fala5", "balao-fala9"]
+        };
+
+        const baloesAtivos = {
+            A: false,
+            B: false,
+            C: false
+        };
+
+        function mostrarBalao(classe) {
+            if (baloesAtivos[classe]) return;
+
+            const ids = baloes[classe];
+            const balaoId = ids[Math.floor(Math.random() * ids.length)];
+            const balao = document.getElementById(balaoId);
+
+            // Ativar balão
+            balao.style.display = "block";
+            balao.style.opacity = "1";
+            baloesAtivos[classe] = true;
+
+            // Tempo de vida entre 4 a 7 segundos antes do fade out
+            const tempoDeVida = Math.random() * 3000 + 4000;
+
+            setTimeout(() => {
+                // Inicia o fade-out com transition
+                balao.style.opacity = "0";
+
+                // Aguarda 2 segundos para esconder o elemento completamente
+                setTimeout(() => {
+                    balao.style.display = "none";
+                    balao.style.opacity = "1"; // Reset para reutilização
+                    baloesAtivos[classe] = false;
+                }, 2000);
+
+            }, tempoDeVida);
+        }
+
+        // Intervalos desencontrados por classe
+        setInterval(() => {
+            if (Math.random() < 0.5) mostrarBalao("A");
+        }, 5000);
+
+        setInterval(() => {
+            if (Math.random() < 0.5) mostrarBalao("B");
+        }, 6000);
+
+        setInterval(() => {
+            if (Math.random() < 0.5) mostrarBalao("C");
+        }, 7000);
+    }
+
     // Inicialização das luzes com clique
     if (luzes && luzes.length > 0) {
         luzes.forEach((luz, index) => {
@@ -85,6 +140,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         interactionCount++;
                         console.log(`Interação número: ${interactionCount}`);
                         
+                        // Ativar balões após 4 interações
+                        if (interactionCount === 4 && !baloesAtivados) {
+                            baloesAtivados = true;
+                            ativarBaloes();
+                        }
+                        
                         if (interactionCount === 10) {
                             showButton();
                         }
@@ -93,120 +154,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
     function showButton() {
         const botao = document.querySelector(".desistir");
         if (botao) {
             botao.style.display = "block";
         }
-        }
-   
+    }
 
     startAnimation();
     updateLights();
-});
-
-
-// Adicione o event listener para o botão Desistir
-document.addEventListener('DOMContentLoaded', function() {
-    const desistirBtn = document.querySelector('.desistir');
-    if (desistirBtn) {
-        desistirBtn.addEventListener('click', mostrarFullscreen);
-    }
-});
-
-
-// Função para mostrar o fullscreen
-function mostrarFullscreen() {
-    const fullscreenContainer = document.getElementById('fullscreen-container');
-    document.body.classList.add('fullscreen-active');
-    
-    fullscreenContainer.innerHTML = `
-        <a class="close" onclick="fecharFullscreen()">×</a>
-        
-        <div class="fullScreen-img-container">
-            <img src="imagens/principe.png" id="posicao1" alt="Imagem 1">
-            <img src="imagens/candeeiro/mensagem.png" id="posicao2" alt="Imagem 2"> 
-        </div>
-         <button id="homeButton">Finalizar</button>
-    `;
-    
-    homeButton.addEventListener('click', function() {
-        const imagemAtivar = 'corpo';
-        const imagemDesativar = 'peça-corpo';
-      
-        // Marca que a animação do corpo deve ser executada
-        localStorage.setItem('corpoAnimado', 'false');
-        localStorage.setItem('imagemParaMostrar', imagemAtivar);
-        localStorage.setItem('imagemParaEsconder', imagemDesativar);
-      
-        window.location.href = "homepage.html"; 
-      });
-    
-
-
-    fullscreenContainer.style.display = 'flex';
-}
-// Função para fechar o fullscreen
-function fecharFullscreen() {
-    const fullscreenContainer = document.getElementById('fullscreen-container');
-    fullscreenContainer.style.display = 'none';
-}
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const baloes = {
-        A: ["balao-fala1", "balao-fala4"],
-        B: ["balao-fala2", "balao-fala6"],
-        C: ["balao-fala3", "balao-fala5"]
-    };
-
-    const baloesAtivos = {
-        A: false,
-        B: false,
-        C: false
-    };
-
-    function mostrarBalao(classe) {
-        if (baloesAtivos[classe]) return;
-
-        const ids = baloes[classe];
-        const balaoId = ids[Math.floor(Math.random() * ids.length)];
-        const balao = document.getElementById(balaoId);
-
-        // Ativar balão
-        balao.style.display = "block";
-        balao.style.opacity = "1";
-        baloesAtivos[classe] = true;
-
-        // Tempo de vida entre 4 a 7 segundos antes do fade out
-        const tempoDeVida = Math.random() * 3000 + 4000;
-
-        setTimeout(() => {
-            // Inicia o fade-out com transition
-            balao.style.opacity = "0";
-
-            // Aguarda 2 segundos para esconder o elemento completamente
-            setTimeout(() => {
-                balao.style.display = "none";
-                balao.style.opacity = "1"; // Reset para reutilização
-                baloesAtivos[classe] = false;
-            }, 2000);
-
-        }, tempoDeVida);
-    }
-
-    // Intervalos desencontrados por classe
-    setInterval(() => {
-        if (Math.random() < 0.5) mostrarBalao("A");
-    }, 5000);
-
-    setInterval(() => {
-        if (Math.random() < 0.5) mostrarBalao("B");
-    }, 6000);
-
-    setInterval(() => {
-        if (Math.random() < 0.5) mostrarBalao("C");
-    }, 7000);
 });
