@@ -1,191 +1,242 @@
-let video;
-let handpose;
-let predictions = [];
-
-let perguntasArray = [];        // Array com os elementos DOM das perguntas
-let perguntasRestantes = [];    // Perguntas ainda não usadas
-let perguntaAtual = null;       // Referência à pergunta atual
-let perguntaAtualId = '';       // ID da pergunta atual, para mapeamento de resposta
-
+// Global variables
+let video, handpose, predictions = [];
+let perguntasDisponiveis = [];
+let perguntaAtual = null;
 let raposaIndex = 1;
-let cooldown = false;
-let esperandoNovaPergunta = false; // tempo de pausa entre perguntas
+let emCooldown = false;
+let tempoEspera = 3000; // 3 seconds between questions
+let emojiAtivo = false;
+let emojiGesto = null;
+let jogoCompleto = false;
 
-let somCorreto = new Audio('audios/correto.mp3');
-let somIncorreto = new Audio('audios/errado.mp3');
-
-let respostaCerta = {
+// Correct answers mapping
+const respostasCorretas = {
+  p: 'thumbs_up',
+  p0: 'thumbs_up',
   p1: 'thumbs_up',
   p2: 'thumbs_up',
-  p3: 'thumbs_up',
+  p3: 'thumbs_down',
   p4: 'thumbs_down',
-  p5: 'thumbs_down',
-  p6: 'thumbs_up',
-  p7: 'thumbs_down',
-  p8: 'thumbs_up'
+  p5: 'thumbs_up', 
+  p6: 'thumbs_down', 
+   p7: 'thumbs_up',
+  p8: 'thumbs_down', 
+  p9: 'thumbs_up', 
+   p10: 'thumbs_up' 
 };
 
+// Feedback sounds
+const somCorreto = new Audio('audios/correto.mp3');
+const somIncorreto = new Audio('audios/errado.mp3');
+
+// Handpose model initialization
 function modelReady() {
-  console.log("Modelo Handpose carregado!");
+  console.log("Handpose model ready!");
   handpose.on("predict", results => {
     predictions = results;
   });
-
+  
   inicializarPerguntas();
-  iniciarJogo();
+  mostrarNovaPergunta();
 }
 
+// Initialize questions
 function inicializarPerguntas() {
-  perguntasArray = Array.from(document.querySelectorAll('.perguntaA'));
-  perguntasRestantes = [...perguntasArray];
-}
-
-function iniciarJogo() {
-  raposaIndex = 1;
+  perguntasDisponiveis = Array.from(document.querySelectorAll('.perguntaA'));
   esconderTodasPerguntas();
-  mostrarPerguntaAleatoria();
-  mostrarRaposaAtual();
 }
 
+// Hide all questions
 function esconderTodasPerguntas() {
-  perguntasArray.forEach(p => p.style.display = 'none');
+  perguntasDisponiveis.forEach(p => p.style.display = 'none');
 }
 
-function mostrarPerguntaAleatoria() {
+// Show random question
+function mostrarNovaPergunta() {
+  if (jogoCompleto) return;
+  
   if (perguntaAtual) perguntaAtual.style.display = 'none';
-
-  if (perguntasRestantes.length === 0) {
-    perguntasRestantes = [...perguntasArray];
+  
+  if (perguntasDisponiveis.length === 0) {
+    perguntasDisponiveis = Array.from(document.querySelectorAll('.perguntaA'));
   }
-
-  const indice = Math.floor(Math.random() * perguntasRestantes.length);
-  perguntaAtual = perguntasRestantes[indice];
-  perguntasRestantes.splice(indice, 1);
-
+  
+  let novaPergunta;
+  do {
+    const randomIndex = Math.floor(Math.random() * perguntasDisponiveis.length);
+    novaPergunta = perguntasDisponiveis[randomIndex];
+  } while (perguntasDisponiveis.length > 1 && novaPergunta === perguntaAtual);
+  
+  perguntaAtual = novaPergunta;
   perguntaAtual.style.display = 'block';
-  console.log("Nova pergunta:", perguntaAtual.id);
-
-  // Bloqueia a detecção por 2 segundos
-  esperandoNovaPergunta = true;
+  
+  // Activate cooldown
+  emCooldown = true;
+  emojiAtivo = false;
+  
   setTimeout(() => {
-    esperandoNovaPergunta = false;
-  }, 2000);
+    emCooldown = false;
+  }, tempoEspera);
 }
 
-
-function mostrarRaposaAtual() {
+// Update fox position
+function atualizarRaposa() {
   for (let i = 1; i <= 5; i++) {
-    let raposa = document.getElementById('raposa' + i);
-    if (raposa) {
-      raposa.style.display = (i === raposaIndex) ? 'block' : 'none';
-      if (i === raposaIndex) {
-        console.log(" Raposa exibida:", 'raposa' + i);
-      }
-    }
+    const raposa = document.getElementById(`raposa${i}`);
+    if (raposa) raposa.style.display = i === raposaIndex ? 'block' : 'none';
   }
 }
 
-function verificarResposta(gesture) {
-  if (cooldown || esperandoNovaPergunta) return;
+// Show feedback emoji
+function mostrarEmoji(gesto) {
+  emojiGesto = gesto;
+  emojiAtivo = true;
+  
+  setTimeout(() => {
+    emojiAtivo = false;
+  }, tempoEspera);
+}
 
-  cooldown = true;
-  setTimeout(() => cooldown = false, 2000);
-
-  let perguntaAtualId = perguntaAtual.id;
-  let gestoEsperado = respostaCerta[perguntaAtualId];
-
-  if (!gestoEsperado) {
-    console.warn("⚠️ Pergunta não mapeada:", perguntaAtualId);
-    return;
-  }
-
-  if (gesture === gestoEsperado) {
+// Verify answer
+function verificarResposta(gesto) {
+  if (emCooldown || !perguntaAtual || jogoCompleto) return;
+  
+  const respostaEsperada = respostasCorretas[perguntaAtual.id];
+  
+  if (gesto === respostaEsperada) {
     somCorreto.play();
-    console.log("✅ Resposta correta:", gesture);
-
-    if (raposaIndex < 5) {
-      raposaIndex++;
-      mostrarRaposaAtual();
-    } else {
-      mostrarRaposaAtual();
-      mostrarBotaoSucesso();
-    }
+    if (raposaIndex < 5) raposaIndex++;
+    emojiAtual = '👍';
   } else {
     somIncorreto.play();
-    console.log("❌ Resposta incorreta:", gesture, "| Esperado:", gestoEsperado);
     if (raposaIndex > 1) raposaIndex--;
-    mostrarRaposaAtual();
+    emojiAtual = '👎';
   }
-
-  mostrarPerguntaAleatoria(); // Chamada em ambos os casos
+  
+  tempoUltimoEmoji = millis(); // Registra o momento que o emoji foi mostrado
+  atualizarRaposa();
+  mostrarNovaPergunta();
+  
+  if (raposaIndex === 5) {
+    mostrarBotaoSucesso();
+  }
 }
 
-
-function detectarGesto(landmarks) {
-  const thumbTip = landmarks[4];
-  const indexTip = landmarks[8];
-  const wrist = landmarks[0];
-
-  let dy = thumbTip[1] - wrist[1];
-  let dx = Math.abs(thumbTip[0] - indexTip[0]);
-
-  if (dy < -40 && dx < 50) return 'thumbs_up';
-  if (dy > 40 && dx < 50) return 'thumbs_down';
+// Detect hand gesture
+function detectarGesto() {
+  if (!predictions || predictions.length === 0) return null;
+  
+  for (let prediction of predictions) {
+    const annotations = prediction.annotations;
+    const thumbTip = annotations.thumb[3];
+    const wrist = annotations.palmBase[0];
+    
+    const verticalDiff = thumbTip[1] - wrist[1];
+    const MIN_VERTICAL_DIFF = 50;
+    
+    if (verticalDiff < -MIN_VERTICAL_DIFF) return 'thumbs_up';
+    if (verticalDiff > MIN_VERTICAL_DIFF) return 'thumbs_down';
+  }
+  
   return null;
 }
 
+// Show success button
 function mostrarBotaoSucesso() {
-  if (document.getElementById("botao-final")) return;
-
+  jogoCompleto = true;
+  
+  // Stop hand detection
+  if (handpose) {
+    handpose.off("predict");
+    predictions = [];
+  }
+  
+  // Stop webcam
+  if (video) {
+    video.stop();
+    video.remove();
+    video = null;
+  }
+  
+  // Hide all questions
+  esconderTodasPerguntas();
+  
+  // Hide webcam container
+  const webcamContainer = document.getElementById('webcam-container');
+  if (webcamContainer) {
+    webcamContainer.style.display = 'none';
+  }
+  
+  // Create success button
   const btn = document.createElement('button');
   btn.id = "botao-final";
-  btn.innerText = "Parabéns! Avançar";
-  btn.style.position = 'absolute';
+  btn.textContent = "Parabéns! Avançar";
+  btn.style.position = 'fixed';
   btn.style.top = '50%';
   btn.style.left = '50%';
   btn.style.transform = 'translate(-50%, -50%)';
-  btn.style.padding = '1em 2em';
-  btn.style.fontSize = '1.5em';
-  btn.style.zIndex = 100;
+  btn.style.zIndex = '1000';
+  btn.style.padding = '15px 30px';
   btn.style.backgroundColor = '#4CAF50';
-  btn.style.color = '#fff';
+  btn.style.color = 'white';
   btn.style.border = 'none';
-  btn.style.borderRadius = '10px';
-  btn.onclick = () => alert("Você completou o desafio da raposa!");
+  btn.style.borderRadius = '5px';
+  btn.style.fontSize = '18px';
+  btn.style.cursor = 'pointer';
+  btn.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+  
+  btn.onclick = () => {
+    window.location.href = "proxima-pagina.html";
+  };
+  
   document.body.appendChild(btn);
 }
 
-/* ----------- P5.js ----------- */
+// p5.js setup
 function setup() {
-  const canvas = createCanvas(400, 250);
+  const canvas = createCanvas(320, 240);
   canvas.parent('webcam-container');
-
+  
   video = createCapture(VIDEO);
   video.size(width, height);
-
-  canvas.elt.style.border = '3px solid white';
-  canvas.elt.style.borderRadius = '8px';
-  canvas.elt.style.boxShadow = '0 0 20px rgba(0,0,0,0.5)';
-
-  handpose = ml5.handpose(video, { flipHorizontal: true }, modelReady);
+  video.hide();
+  
+  handpose = ml5.handpose(video, { 
+    flipHorizontal: true,
+    maxContinuousChecks: Infinity,
+    detectionConfidence: 0.8,
+    scoreThreshold: 0.75
+  }, modelReady);
 }
 
+// p5.js draw loop
 function draw() {
+  if (jogoCompleto) return;
+  
   clear();
-
-  if (video) {
-    push();
-    translate(width, 0);
-    scale(-1, 1);
-    image(video, 0, 0, width, height);
-    pop();
-  }
-
-  if (predictions.length > 0) {
-    const gesture = detectarGesto(predictions[0].landmarks);
-    if (gesture) {
-      verificarResposta(gesture);
+  
+  // Mirror webcam
+  push();
+  translate(width, 0);
+  scale(-1, 1);
+  image(video, 0, 0, width, height);
+  pop();
+  
+  // Draw thumb tip when active
+  if (!emCooldown && predictions && predictions.length > 0) {
+    const prediction = predictions[0];
+    const thumbTip = prediction.annotations.thumb[3];
+    
+    //polegar
+    fill(0, 255, 0);
+    noStroke();
+    ellipse(thumbTip[0], thumbTip[1], 15);
+    
+    // Detect gestures
+    const gesto = detectarGesto();
+    if (gesto) {
+      verificarResposta(gesto);
     }
   }
+  
 }
-

@@ -1,5 +1,5 @@
-
-  /* Estilo para o container da webcam */
+/* raposa2.css */
+/* Estilo para o container da webcam */
 
 #webcam-container {
   position: fixed;
@@ -106,54 +106,12 @@
 }
 
 
-.perguntas{
-     
-  width:100%;  
-  position: absolute;
-  left: 0%;
- top: 0%;
- z-index: 50; 
-
-}
-
-
-    #p, #p0, #p1, #p2{
-    position: fixed; 
-    width:18%;  
-
-   
-  left: 27%;
-  top: 20%;
-  height: auto;
-  }
-
-
-
-#p3, #p4, #p5, #p6{
-  position:  fixed;
-  left: 30%;
- top: 35%;
-  width:18%; 
-
-  
-}
- #p7, #p8, #p9, #p10 {
-  position:  fixed;
-  left: 40%;
- top: 40%;
-  width:18%; 
-
-  
-}
-
-
 #raposa1 {
   position: absolute;
   width: 6%;
   z-index: 2;
   left: 43%;
   bottom: 25%;
-   animation: raposaAnimationD 7s infinite ease-in-out;
 }
 
 
@@ -164,7 +122,7 @@
     z-index: 4;
     left: 10%;
     bottom: 25%;
-     animation: raposaAnimationE 7s infinite ease-in-out;
+
 }
 
   
@@ -176,9 +134,7 @@
       z-index: 5;
       left: 56%;
       bottom: 15%;
-   /*   animation: raposaAnimationD 7s infinite ease-in-out;
-      /* 7s = 5s de animação + 2s de pausa (distribuídos) */
-      /* ease-in-out para transição suave */
+  
   }
 
   #raposa4 {
@@ -188,9 +144,7 @@
     z-index: 5;
     left: 20%;
     bottom: 10%;
-   /* animation: raposaAnimationE 7s infinite ease-in-out;
-    /* 7s = 5s de animação + 2s de pausa (distribuídos) */
-    /* ease-in-out para transição suave */
+
 }
 
 #raposa5 {
@@ -202,36 +156,67 @@
     bottom: 2%;
 }
 
-/* Animação da Raposa */
 
-@keyframes raposaAnimationD {
-  0%,30% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  40%, 60% { 
-    transform: translateX(-6vh) translateY(2vh) scale(0.7); 
-  
-  }
-  80%,100%{
-    transform: translateY(0) scale(1);
-    
-  }
+
+/* falta implementar */
+/* Estilos base para os balões */
+.perguntaA, .perguntaB {
+  position: absolute;
+  z-index: 10;
+  transition: all 0.3s ease;
+  display: none;
 }
 
+/* Posições específicas para cada raposa */
+/* Raposa 1 */
+body.raposa1 .perguntaA {
+  left: 30%;
+  bottom: 40%;
+  width: 16%;
+}
 
-@keyframes raposaAnimationE {
-  0%,30% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  40%, 60% { 
-    transform: translateY(5vh) translateX(4vh)  scale(0.7); 
-  
-  }
-  80%,100%{
-    transform: translateY(0) scale(1);
-    
-  }
+body.raposa1 .perguntaB {
+  left: 46%;
+  bottom: 40%;
+  width: 14%;
+}
+
+/* Raposa 2 */
+body.raposa2 .perguntaA {
+  left: 2%;
+  bottom: 45%;
+  width: 14%;
+}
+
+body.raposa2 .perguntaB {
+  left: 12%;
+  bottom: 40%;
+  width: 15%;
+}
+
+/* Raposa 3 */
+body.raposa3 .perguntaA {
+  left: 52%;
+  bottom: 37%;
+  width: 15%;
+}
+
+body.raposa3 .perguntaB {
+  left: 60%;
+  bottom: 37%;
+  width: 16%;
+}
+
+/* Raposa 4 */
+body.raposa4 .perguntaA {
+  left: 15%;
+  bottom: 45%;
+  width: 18%;
+}
+
+body.raposa4 .perguntaB {
+  left: 25%;
+  bottom: 45%;
+  width: 18%;
 }
 

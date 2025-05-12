@@ -1,367 +1,279 @@
 //raposa.js
 
 
+let video, handpose, predictions = [];
+let perguntasDisponiveis = [];
+let perguntaAtual = null;
+let raposaIndex = 1;
+let emCooldown = false;
+let tempoEspera = 3000; // 3 seconds between questions
 
-let video;
-let handPose;
-let hands;
-let currentQuestion = 0;
-let foxIndex = 0;
-let lastPose = null;
-let poseTimeout = null;
+let emojiGesto = null;
+let jogoCompleto = false;
+// Inicializa com a raposa1
+document.body.classList.add('raposa1');
 
-let webcamContainer;
+// Correct answers mapping
+const respostasCorretas = {
+  p: 'thumbs_up',
+  p0: 'thumbs_up',
+  p1: 'thumbs_up',
+  p2: 'thumbs_up',
+  p3: 'thumbs_down',
+  p4: 'thumbs_down',
+  p5: 'thumbs_up', 
+  p6: 'thumbs_down', 
+   p7: 'thumbs_up',
+  p8: 'thumbs_down', 
+  p9: 'thumbs_up', 
+   p10: 'thumbs_up' 
+};
 
+// Feedback sounds
+const somCorreto = new Audio('audios/correto.mp3');
+const somIncorreto = new Audio('audios/errado.mp3');
 
-// Configuração das perguntas e respostas
-const questions = [
-  { id: "p1", answer: "positive" },  // thumbsup
-  { id: "p2", answer: "positive" },  // thumbsup
-  { id: "p3", answer: "positive" },  // thumbsup
-  { id: "p4", answer: "negative" },   // thumbsdown
-  { id: "p5", answer: "negative" },   // thumbsdown
-  { id: "p6", answer: "positive" },   // thumbsup
-
-];
-let lastQuestionIndex = -1; // Para controlar a pergunta anterior
-
-// IDs das imagens da raposa em ordem
-const foxImages = ["raposa1", "raposa2", "raposa3", "raposa4"];
-
+// Handpose model initialization
 function modelReady() {
-  console.log('hand pose loaded');
-  handpose.on('predict', results => {
-    hands = results;
+  console.log("Handpose model ready!");
+  handpose.on("predict", results => {
+    predictions = results;
   });
+  
+  inicializarPerguntas();
+  mostrarNovaPergunta();
 }
 
-// Modifique a função nextQuestion para seleção aleatória
-function nextQuestion() {
-    if (questions.length === 0) return;
-    
-    let availableQuestions = [...questions];
-    
-    // Se houver mais de uma pergunta, remova a última exibida
-    if (questions.length > 1 && lastQuestionIndex !== -1) {
-      availableQuestions.splice(lastQuestionIndex, 1);
-    }
-    
-    // Seleciona uma pergunta aleatória entre as disponíveis
-    const randomIndex = Math.floor(Math.random() * availableQuestions.length);
-    currentQuestion = questions.findIndex(q => q.id === availableQuestions[randomIndex].id);
-    lastQuestionIndex = currentQuestion;
-    
-    showQuestion(currentQuestion);
+// Initialize questions
+function inicializarPerguntas() {
+  perguntasDisponiveis = Array.from(document.querySelectorAll('.perguntas .perguntaA, .perguntas .perguntaB'));
+  esconderTodasPerguntas();
+}
+
+// Hide all questions
+function esconderTodasPerguntas() {
+  document.querySelectorAll('.perguntas .perguntaA, .perguntas .perguntaB').forEach(p => p.style.display = 'none');
+}
+
+
+// Show random question
+function mostrarNovaPergunta() {
+  if (jogoCompleto || raposaIndex === 5) return;
+  
+  if (perguntaAtual) perguntaAtual.style.display = 'none';
+  
+  if (perguntasDisponiveis.length === 0) {
+    perguntasDisponiveis = Array.from(document.querySelectorAll('.perguntas .perguntaA, .perguntas .perguntaB'));
   }
   
-function setup() {
-    // Cria um canvas com tamanho proporcional à webcam (640x480 padrão)
-    const canvas = createCanvas(500, 375); // 500x375 mantém proporção 4:3
-    canvas.parent('webcam-container'); // Associa ao container
-    
-   
-    
-    // Configura a webcam
-    video = createCapture(VIDEO);
-    video.size(width, height);
-    video.hide();
-    
-    
-    // Estilo adicional para o canvas
-  canvas.elt.style.border = '3px solid white';
-  canvas.elt.style.borderRadius = '8px';
-  canvas.elt.style.boxShadow = '0 0 20px rgba(0,0,0,0.5)';
+  // Seleciona aleatoriamente qualquer pergunta disponível
+  let randomIndex;
+  let novaPergunta;
   
-  // Inicializa o handpose
-  handpose = ml5.handpose(video, { flipHorizontal: true }, modelReady);
+  // Se houver mais de uma pergunta, evita repetição imediata
+  if (perguntasDisponiveis.length > 1) {
+    do {
+      randomIndex = Math.floor(Math.random() * perguntasDisponiveis.length);
+      novaPergunta = perguntasDisponiveis[randomIndex];
+    } while (novaPergunta === perguntaAtual);
+  } else {
+    randomIndex = 0;
+    novaPergunta = perguntasDisponiveis[randomIndex];
+  }
   
-  // Inicia com uma pergunta aleatória
-  nextQuestion();
+  perguntaAtual = novaPergunta;
+  perguntaAtual.style.display = 'block';
   
+  // Activate cooldown
+  emCooldown = true;
+  
+  setTimeout(() => {
+    emCooldown = false;
+  }, tempoEspera);
 }
 
-  function draw() {
-    // Limpa apenas o canvas da webcam
-    clear();
+// Update fox position
+function atualizarRaposa() {
+  // Remove todas as classes de raposa do body
+  document.body.classList.remove('raposa1', 'raposa2', 'raposa3', 'raposa4', 'raposa5');
+  
+  // Adiciona a classe correspondente à raposa atual
+  document.body.classList.add(`raposa${raposaIndex}`);
+  
+  // Atualiza a exibição das raposas
+  for (let i = 1; i <= 5; i++) {
+    const raposa = document.getElementById(`raposa${i}`);
+    if (raposa) raposa.style.display = i === raposaIndex ? 'block' : 'none';
+  }
+  
+  // Força o redesenho para garantir as transições
+  if (perguntaAtual) {
+    perguntaAtual.style.animation = 'none';
+    void perguntaAtual.offsetWidth; // Trigger reflow
+    perguntaAtual.style.animation = null;
+  }
+}
+
+
+// Verify answer
+
+function verificarResposta(gesto) {
+  if (emCooldown || !perguntaAtual || jogoCompleto) return;
+  
+  const respostaEsperada = respostasCorretas[perguntaAtual.id];
+  
+  if (gesto === respostaEsperada) {
+    somCorreto.play();
+    if (raposaIndex < 5) raposaIndex++;
+    emojiAtual = '👍';
+  } else {
+    somIncorreto.play();
+    if (raposaIndex > 1) raposaIndex--;
+    emojiAtual = '👎';
+  }
+  
+  atualizarRaposa();
+  
+  if (raposaIndex === 5) {
+    jogoCompleto = true;
+    mostrarBotaoSucesso();
+  } else {
+    mostrarNovaPergunta();
+  }
+}
+
+// Detect hand gesture
+function detectarGesto() {
+  if (!predictions || predictions.length === 0) return null;
+  
+  for (let prediction of predictions) {
+    const annotations = prediction.annotations;
+    const thumbTip = annotations.thumb[3];
+    const wrist = annotations.palmBase[0];
     
-    // Desenha a webcam no canvas
-    if (video) {
-      // Desenha o vídeo espelhado 
+    const verticalDiff = thumbTip[1] - wrist[1];
+    const MIN_VERTICAL_DIFF = 50;
+    
+    if (verticalDiff < -MIN_VERTICAL_DIFF) return 'thumbs_up';
+    if (verticalDiff > MIN_VERTICAL_DIFF) return 'thumbs_down';
+  }
+  
+  return null;
+}
+
+// Show success button
+function mostrarBotaoSucesso() {
+  // Primeiro verifica se handpose existe e tem o método off
+  if (handpose && typeof handpose.off === 'function') {
+    try {
+      handpose.off("predict"); // Remove o listener corretamente
+    } catch (error) {
+      console.log("Erro ao remover listener:", error);
+    }
+  }
+  
+  predictions = []; // Limpa as predições
+  
+  // Para a webcam de forma segura
+  if (video && typeof video.stop === 'function') {
+    try {
+      video.stop();
+      video.remove();
+    } catch (error) {
+      console.log("Erro ao parar video:", error);
+    }
+    video = null;
+  }
+  // Esconde todos os balões
+  esconderTodasPerguntas();
+  
+  // Esconde o container da webcam
+  const webcamContainer = document.getElementById('webcam-container');
+  if (webcamContainer) {
+    webcamContainer.style.display = 'none';
+  }
+  
+  // Pausa os sons
+  if (somCorreto) somCorreto.pause();
+  if (somIncorreto) somIncorreto.pause();
+  
+  // Cria o botão final
+  criarBotaoFinal();
+}
+
+function criarBotaoFinal() {
+  // Verifica se o botão já existe para não criar duplicados
+  if (document.getElementById('botao-final')) return;
+  
+  const btn = document.createElement('button');
+  btn.id = "botao-final";
+  btn.textContent = "Parabéns! Avançar";
+  btn.style.position = 'fixed';
+  btn.style.top = '50%';
+  btn.style.left = '50%';
+  btn.style.transform = 'translate(-50%, -50%)';
+  btn.style.zIndex = '1000';
+  btn.style.padding = '15px 30px';
+  btn.style.backgroundColor = '#4CAF50';
+  btn.style.color = 'white';
+  btn.style.border = 'none';
+  btn.style.borderRadius = '5px';
+  btn.style.fontSize = '18px';
+  btn.style.cursor = 'pointer';
+  btn.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
+  
+  btn.onclick = () => {
+    window.location.href = "proxima-pagina.html";
+  };
+  
+  document.body.appendChild(btn);
+}
+
+// p5.js setup
+function setup() {
+  const canvas = createCanvas(320, 240);
+  canvas.parent('webcam-container');
+  
+  video = createCapture(VIDEO);
+  video.size(width, height);
+  video.hide();
+  
+  handpose = ml5.handpose(video, { 
+    flipHorizontal: true,
+    maxContinuousChecks: Infinity,
+    detectionConfidence: 0.8,
+    scoreThreshold: 0.75
+  }, modelReady);
+}
+
+// p5.js draw loop
+function draw() {
+  if (jogoCompleto) return;
+  
+  clear();
+  
+  // Mirror webcam
   push();
   translate(width, 0);
   scale(-1, 1);
   image(video, 0, 0, width, height);
   pop();
-    }
+  
+  // Draw thumb tip when active
+  if (!emCooldown && predictions && predictions.length > 0) {
+    const prediction = predictions[0];
+    const thumbTip = prediction.annotations.thumb[3];
     
-    detectPose();
-  }
-  function positionWebcam(x, y) {
-    if (webcamContainer) {
-      webcamContainer.style('right', x + 'px');
-      webcamContainer.style('top', y + 'px');
+    //polegar
+    fill(0, 255, 0);
+    noStroke();
+    ellipse(thumbTip[0], thumbTip[1], 15);
+    
+    // Detect gestures
+    const gesto = detectarGesto();
+    if (gesto) {
+      verificarResposta(gesto);
     }
   }
   
-function showQuestion(index) {
-    // Esconde todas as perguntas primeiro
-    document.querySelectorAll('.pergunta').forEach(q => {
-      q.style.display = 'none';
-    });
-    
-    // Mostra a pergunta atual
-    if (questions[index] && document.getElementById(questions[index].id)) {
-      document.getElementById(questions[index].id).style.display = "block";
-    }
-  }
-  
-function detectPose() {
-  if (hands && hands.length > 0) {
-    for (let hand of hands) {
-      let annotations = hand.annotations;
-      let thumb = annotations.thumb;
-      let ty = thumb[3][1];
-
-      let thumbsup = true;
-      let thumbsdown = true;
-
-      let parts = Object.keys(annotations);
-      for (let part of parts) {
-        for (let position of annotations[part]) {
-          let [x, y, z] = position;
-          if (y < ty) thumbsup = false;
-          if (y > ty) thumbsdown = false;
-        }
-      }
-
-      // Detecta a pose atual
-      let currentPose = null;
-      if (thumbsup) currentPose = "positive";
-      if (thumbsdown) currentPose = "negative";
-
-      // Verifica se a pose mudou e é válida
-      if (currentPose && currentPose !== lastPose) {
-        lastPose = currentPose;
-        
-        // Limpa timeout anterior
-        if (poseTimeout) clearTimeout(poseTimeout);
-        
-        // Espera 1 segundo antes de verificar a resposta
-        poseTimeout = setTimeout(() => {
-          checkAnswer(currentPose);
-        }, 1000);
-      }
-    }
-  }
 }
-
-function checkAnswer(pose) {
-    if (questions.length === 0) return;
-    
-    const correctAnswer = questions[currentQuestion].answer;
-    
-    // Muda a pergunta independentemente de acerto ou erro
-    nextQuestion();
-    
-    // Controla a raposa conforme acerto/erro
-    if (pose === correctAnswer) {
-      nextFox();
-    } else {
-      previousFox();
-    }
-  }
-
-  function nextQuestion() {
-    if (questions.length === 0) return;
-    
-    // Avança para próxima pergunta
-    currentQuestion = (currentQuestion + 1) % questions.length;
-    showQuestion(currentQuestion);
-  }
-  
-function nextFox() {
-  // Avança a raposa se não estiver na última imagem
-  if (foxIndex < foxImages.length - 1) {
-    document.getElementById(foxImages[foxIndex]).style.display = "none";
-    foxIndex++;
-    document.getElementById(foxImages[foxIndex]).style.display = "block";
-  }
-}
-
-function previousFox() {
-  // Recua a raposa se não estiver na primeira imagem
-  if (foxIndex > 0) {
-    document.getElementById(foxImages[foxIndex]).style.display = "none";
-    foxIndex--;
-    document.getElementById(foxImages[foxIndex]).style.display = "block";
-  }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Elementos da raposa
-    const raposa1 = document.getElementById('raposa1');
-    const raposa2 = document.getElementById('raposa2');
-    const raposa3 = document.getElementById('raposa3');
-    const raposa4 = document.getElementById('raposa4');
-    
-    // Elementos das perguntas
-    const perguntas = [
-        document.getElementById('p1'),
-        document.getElementById('p2'),
-        document.getElementById('p3'),
-        document.getElementById('p4'),
-        document.getElementById('p5'), 
-        document.getElementById('p6'), 
-        document.getElementById('p7'), 
-        document.getElementById('p8'), 
-    ];
-    
-    // Configuração da webcam e handpose
-    let video;
-    let canvas;
-    let ctx;
-    let model;
-    let currentPergunta = 0;
-    
-    // Inicializar a webcam e o modelo
-    async function init() {
-        try {
-            // Criar elementos de vídeo e canvas
-            video = document.createElement('video');
-            canvas = document.createElement('canvas');
-            document.body.appendChild(canvas);
-            
-            
-            
-            // Obter stream da webcam
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            video.srcObject = stream;
-            video.play();
-            
-            // Configurar canvas
-            ctx = canvas.getContext('2d');
-            
-            // Carregar modelo Handpose
-            model = await handpose.load();
-            
-            // Iniciar detecção
-            detectHand();
-            
-            // Mostrar a primeira pergunta
-            showPergunta(0);
-            
-        } catch (err) {
-            console.error("Erro ao inicializar:", err);
-            // Fallback para interação manual caso a webcam falhe
-            setupManualControls();
-        }
-    }
-    
-    // Função para detectar poses da mão
-    async function detectHand() {
-        // Redimensionar canvas para match com o vídeo
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        
-        // Detectar mãos
-        const predictions = await model.estimateHands(video);
-        
-        if (predictions.length > 0) {
-            const hand = predictions[0];
-            const thumbTip = hand.annotations.thumb[3];
-            const indexTip = hand.annotations.indexFinger[3];
-            
-            // Verificar se é thumbs up ou thumbs down
-            if (isThumbsUp(hand)) {
-                handleThumbsUp();
-            } else if (isThumbsDown(hand)) {
-                handleThumbsDown();
-            }
-        }
-        
-        // Continuar detecção
-        requestAnimationFrame(detectHand);
-    }
-    
-    // Verificar se é thumbs up
-    function isThumbsUp(hand) {
-        const thumbTip = hand.annotations.thumb[3];
-        const indexTip = hand.annotations.indexFinger[3];
-        const middleTip = hand.annotations.middleFinger[3];
-        
-        // Thumbs up: polegar para cima, outros dedos fechados
-        return thumbTip[1] < indexTip[1] &&  // Polegar acima do indicador
-               indexTip[1] > middleTip[1];   // Indicador abaixo do médio
-    }
-    
-    // Verificar se é thumbs down
-    function isThumbsDown(hand) {
-        const thumbTip = hand.annotations.thumb[3];
-        const indexTip = hand.annotations.indexFinger[3];
-        const middleTip = hand.annotations.middleFinger[3];
-        
-        // Thumbs down: polegar para baixo, outros dedos fechados
-        return thumbTip[1] > indexTip[1] &&  // Polegar abaixo do indicador
-               indexTip[1] < middleTip[1];   // Indicador acima do médio
-    }
-    
-    // Manipulador para thumbs up
-    function handleThumbsUp() {
-        console.log("Thumbs Up detectado!");
-        nextPergunta();
-    }
-    
-    // Manipulador para thumbs down
-    function handleThumbsDown() {
-        console.log("Thumbs Down detectado!");
-        previousPergunta();
-    }
-    
-    // Mostrar pergunta específica
-    function showPergunta(index) {
-        // Esconder todas as perguntas
-        perguntas.forEach(p => p.style.display = 'none');
-        
-        // Mostrar a pergunta atual
-        perguntas[index].style.display = 'block';
-        currentPergunta = index;
-        
-        // Atualizar animação da raposa conforme a pergunta
-        updateRaposaAnimation(index);
-    }
-    
-    // Próxima pergunta
-    function nextPergunta() {
-        if (currentPergunta < perguntas.length - 1) {
-            showPergunta(currentPergunta + 1);
-        }
-    }
-    
-    // Pergunta anterior
-    function previousPergunta() {
-        if (currentPergunta > 0) {
-            showPergunta(currentPergunta - 1);
-        }
-    }
-    
-    // Atualizar animação da raposa conforme a pergunta
-    function updateRaposaAnimation(perguntaIndex) {
-        // Esconder todas as raposas
-        raposa1.style.display = 'none';
-        raposa2.style.display = 'none';
-        raposa3.style.display = 'none';
-        
-        // Mostrar a raposa apropriada
-        if (perguntaIndex % 3 === 0) {
-            raposa1.style.display = 'block';
-        } else if (perguntaIndex % 3 === 1) {
-            raposa2.style.display = 'block';
-        } else {
-            raposa3.style.display = 'block';
-        }
-    }
-    
-
-    // Inicializar tudo
-    init();
-});
