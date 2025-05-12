@@ -170,3 +170,19 @@ if (pecaParaAnimar === 'corpo' && pecaCorpo) {
 if (sessionStorage.getItem('pecaCorpoDesativada') && pecaCenarioCorpo) {
     pecaCenarioCorpo.style.display = 'none';
 }
+
+
+
+// Controlo peca rodas
+const pecaRodas = document.getElementById('rodas');
+const pecaCenarioRodas = document.getElementById('peça-rodas');
+const pecaRodasAnimada = sessionStorage.getItem('pecaRodasAnimada');
+
+if (pecaRodasAnimada && pecaRodas) {
+    pecaRodas.style.display = 'block';
+    pecaRodas.classList.add('peca-final');
+}
+
+if (sessionStorage.getItem('pecaRodasDesativada') && pecaCenarioRodas) {
+    pecaCenarioRodas.style.display = 'none';
+}
