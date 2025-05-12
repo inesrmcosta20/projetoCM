@@ -207,7 +207,7 @@ function criarBotaoFinal() {
   
   const btn = document.createElement('button');
   btn.id = "botao-final";
-  btn.textContent = "Parabéns! Avançar";
+  btn.textContent = "Avançar";
   btn.style.position = 'fixed';
   btn.style.top = '50%';
   btn.style.left = '50%';
@@ -223,7 +223,7 @@ function criarBotaoFinal() {
   btn.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
   
   btn.onclick = () => {
-    window.location.href = "proxima-pagina.html";
+    window.location.href = "homepage.html";
   };
   
   document.body.appendChild(btn);

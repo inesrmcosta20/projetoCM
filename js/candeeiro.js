@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             ativarBaloes();
                         }
                         
-                        if (interactionCount === 10) {
+                        if (interactionCount === 15) {
                             showButton();
                         }
                     }

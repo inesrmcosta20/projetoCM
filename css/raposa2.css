@@ -156,6 +156,14 @@
     bottom: 2%;
 }
 
+#balao-fala12{
+    position: absolute;
+    width: 30%;
+    z-index: 7;
+    left: 60%;
+    bottom: 40%;
+     display: none;
+}
 
 
 /* falta implementar */
