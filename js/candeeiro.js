@@ -139,13 +139,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         interactionCount++;
                         console.log(`Interação número: ${interactionCount}`);
-                        
+
                         // Ativar balões após 4 interações
                         if (interactionCount === 4 && !baloesAtivados) {
                             baloesAtivados = true;
                             ativarBaloes();
                         }
-                        
+
                         if (interactionCount === 15) {
                             showButton();
                         }

@@ -1,6 +1,7 @@
 <!-- Acendedor de candeeiros -->
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,56 +11,58 @@
     <link rel="stylesheet" href="css/estrelas.css">
     <link rel="stylesheet" href="css/geral.css">
 
-    
+
 </head>
+
 <body>
-   <header>
-      <a href="homepage.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>
+    <header>
+        <a href="homepage.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>
     </header>
     <main>
-        <img src="imagens/candeeiro/fundo_lampiao.png" alt="fundo_lampiao"id="fundo_lampiao">
-       <div> 
-        <img src="imagens/candeeiro/acendedor.png" alt="acendedor"id="acendedor">
-       <container  id="pau-container"> <img src="imagens/candeeiro/pau.png" alt="pau"id="pau"></container>
-    </div>
-    
-    <div class = "planeta_candeeiro">
-        <img src="imagens/candeeiro/planeta.png" alt="planeta"  id="planeta">
-        <img src="imagens/candeeiro/luz.png" alt="luz1" class="luz" id="luz1">
-        <img src="imagens/candeeiro/luz.png" alt="luz2"   class="luz" id="luz2">
-        <img src="imagens/candeeiro/luz.png" alt="luz3"   class="luz" id="luz3">
-    </div>
+        <img src="imagens/candeeiro/fundo_lampiao.png" alt="fundo_lampiao" id="fundo_lampiao">
+        <div>
+            <img src="imagens/candeeiro/acendedor.png" alt="acendedor" id="acendedor">
+            <container id="pau-container"> <img src="imagens/candeeiro/pau.png" alt="pau" id="pau"></container>
+        </div>
+
+        <div class="planeta_candeeiro">
+            <img src="imagens/candeeiro/planeta.png" alt="planeta" id="planeta">
+            <img src="imagens/candeeiro/luz.png" alt="luz1" class="luz" id="luz1">
+            <img src="imagens/candeeiro/luz.png" alt="luz2" class="luz" id="luz2">
+            <img src="imagens/candeeiro/luz.png" alt="luz3" class="luz" id="luz3">
+        </div>
 
 
-    <div class="ajuda"   >
-    <img  src="imagens/icones/help-icon g.png" onclick="myPopUp()"> 
-        <span class="popuptext" id="popup" dislay="none">Clica nos candeeiros para os acender.</span>
-    </div>
-<!-- Balão de Fala Com Objeto -->
-<img src="imagens/candeeiro/baloes-fala/BalaoA1.png" alt="balao-fala1" class="balaoA" id="balao-fala1">
-<img src="imagens/candeeiro/baloes-fala/BalaoB1.png" alt="balao-fala2" class="balaoB"id="balao-fala2">
-<img src="imagens/candeeiro/baloes-fala/BalaoC1.png" alt="balao-fala3" class="balaoC"id="balao-fala3">
-<img src="imagens/candeeiro/baloes-fala/BalaoA2.png" alt="balao-fala4" class="balaoA"id="balao-fala4">
-<img src="imagens/candeeiro/baloes-fala/BalaoB2.png" alt="balao-fala6" class="balaoB"id="balao-fala6">
-<img src="imagens/candeeiro/baloes-fala/balaoC2.png" alt="balao-fala5" class="balaoC"id="balao-fala5">
-<img src="imagens/candeeiro/baloes-fala/BalaoA3.png" alt="balao-fala7" class="balaoA"id="balao-fala4">
-<img src="imagens/candeeiro/baloes-fala/BalaoB3.png" alt="balao-fala8" class="balaoC"id="balao-fala5">
-<img src="imagens/candeeiro/baloes-fala/BalaoC3.png" alt="balao-fala9" class="balaoB"id="balao-fala6">
+        <div class="ajuda">
+            <img src="imagens/icones/help-icon g.png" onclick="myPopUp()">
+            <span class="popuptext" id="popup" dislay="none">Clica nos candeeiros para os acender.</span>
+        </div>
+        <!-- Balão de Fala Com Objeto -->
+        <img src="imagens/candeeiro/baloes-fala/BalaoA1.png" alt="balao-fala1" class="balaoA" id="balao-fala1">
+        <img src="imagens/candeeiro/baloes-fala/BalaoB1.png" alt="balao-fala2" class="balaoB" id="balao-fala2">
+        <img src="imagens/candeeiro/baloes-fala/BalaoC1.png" alt="balao-fala3" class="balaoC" id="balao-fala3">
+        <img src="imagens/candeeiro/baloes-fala/BalaoA2.png" alt="balao-fala4" class="balaoA" id="balao-fala4">
+        <img src="imagens/candeeiro/baloes-fala/BalaoB2.png" alt="balao-fala6" class="balaoB" id="balao-fala6">
+        <img src="imagens/candeeiro/baloes-fala/balaoC2.png" alt="balao-fala5" class="balaoC" id="balao-fala5">
+        <img src="imagens/candeeiro/baloes-fala/BalaoA3.png" alt="balao-fala7" class="balaoA" id="balao-fala4">
+        <img src="imagens/candeeiro/baloes-fala/BalaoB3.png" alt="balao-fala8" class="balaoC" id="balao-fala5">
+        <img src="imagens/candeeiro/baloes-fala/BalaoC3.png" alt="balao-fala9" class="balaoB" id="balao-fala6">
 
-    <div >
-         <button type="button" class="desistir" >Desistir!</button> 
-    </div>
+        <div>
+            <button type="button" class="desistir">Desistir!</button>
+        </div>
 
-    <container class="fullScreen" id="fullscreen-container"> 
-        <a class="close" onclick="fecharFullscreen()">X</a>
- 
-    </container>
-   
+        <container class="fullScreen" id="fullscreen-container">
+            <a class="close" onclick="fecharFullscreen()">X</a>
 
-</main>
+        </container>
+
+
+    </main>
     <script src="js/candeeiro.js"></script>
     <script src="js/homepage.js"></script>
     <script src="js/estrelas.js"></script>
     <script src="js/geral.js"></script>
 </body>
+
 </html>

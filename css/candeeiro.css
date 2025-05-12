@@ -1,6 +1,4 @@
-
-  
-  body {
+body {
     margin: 0;
     overflow: hidden;
     background-color: #000;
@@ -18,9 +16,10 @@
     left: 0;
     z-index: -2;
 }
-#acendedor{
+
+#acendedor {
     width: 19%;
-   position:absolute; 
+    position: absolute;
     bottom: -3%;
     left: 6%;
     z-index: 0;
@@ -44,7 +43,8 @@
     bottom: 0;
     transform-origin: bottom center;
     pointer-events: none;
-    transform: rotate(0deg); /* Posição inicial */
+    transform: rotate(0deg);
+    /* Posição inicial */
     transition: transform 0.2s ease-out;
 }
 
@@ -65,7 +65,7 @@
     width: 300px;
     height: 300px;
     transform-origin: center;
-   /* animation: rotatePlanet 15s linear infinite;*/
+    /* animation: rotatePlanet 15s linear infinite;*/
 }
 
 .luz {
@@ -76,7 +76,7 @@
     height: auto;
     transform-origin: center -130px;
     pointer-events: none;
-    
+
 
 }
 
@@ -85,11 +85,11 @@
 }
 
 #luz2 {
-    transform:  rotate(120deg) translateY(100px);
+    transform: rotate(120deg) translateY(100px);
 }
 
 #luz3 {
-    transform: rotate(240deg) translateY(100px) ;
+    transform: rotate(240deg) translateY(100px);
 }
 
 
@@ -100,28 +100,30 @@
     width: 15vw;
     height: auto;
     z-index: 5;
-  }
-  
-  /*  */
- .balaoB{
+}
+
+/*  */
+.balaoB {
     position: fixed;
     left: 30%;
     bottom: 55%;
     width: 17vw;
     height: auto;
     z-index: 5;
-  }
-  
- .balaoC {
+}
+
+.balaoC {
     position: fixed;
     left: 27%;
     bottom: 30%;
     width: 17vw;
     height: auto;
     z-index: 5;
-  }
-  
-  .balaoA, .balaoB, .balaoC {
+}
+
+.balaoA,
+.balaoB,
+.balaoC {
     display: none;
     opacity: 0;
     transition: opacity 3s ease;
@@ -145,11 +147,12 @@
     border-radius: 10px;
     font-size: 16px;
     color: white;
-   
+
     animation: fadeIn 0.20s ease forwards;
 }
-.desistir:hover{
-    background-color: #AEB1E5;  
+
+.desistir:hover {
+    background-color: #AEB1E5;
 }
 
 /* Adicione ao seu arquivo candeeiro.css */
@@ -160,9 +163,9 @@
 /* Posições específicas */
 #posicao1 {
     position: absolute;
-   bottom: -5%;
+    bottom: -5%;
     left: 60%;
-    width:35%; 
+    width: 35%;
 }
 
 #posicao2 {
@@ -171,17 +174,18 @@
     width: 60%;
 }
 
-#homeButton{
-position:absolute; 
-top: 54%;
+#homeButton {
+    position: absolute;
+    top: 54%;
     left: 35%;
     padding: 10px 30px;
-background-color:rgb(255, 183, 0) ;
-color: black;
-font-size: 20px;
-border-radius: 10px;
-transition: background-color 0.3s ease;
+    background-color: rgb(255, 183, 0);
+    color: black;
+    font-size: 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
 }
-#homeButton:hover{
-    background-color:rgb(255, 140, 0) ;  
+
+#homeButton:hover {
+    background-color: rgb(255, 140, 0);
 }

@@ -1,5 +1,4 @@
-
-  /* Estilo para o container da webcam */
+/* Estilo para o container da webcam */
 
 #webcam-container {
   position: fixed;
@@ -11,7 +10,7 @@
   border: 3px solid #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -38,7 +37,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   transition: all 0.3s ease;
 }
@@ -46,104 +45,121 @@
 #botao-final:hover {
   background-color: #45a049;
   transform: translate(-50%, -50%) scale(1.05);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 /*   */
 .floresta {
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-   
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+
 }
-.floresta-img{
-    width:100%; 
-    top:0%;
-    left:0%; 
-    position: absolute;
+
+.floresta-img {
+  width: 100%;
+  top: 0%;
+  left: 0%;
+  position: absolute;
 }
 
 
 /* Camadas da floresta */
-#ceu-raposa{
-    width:100%;
-    left: 0;
-    z-index:0; 
-    }
-
-#floresta6 {   /*mais a frente */
-   
-    left: 0;
-    z-index: 7;
-}
-#floresta5 {   
-   
-    left: 0;
-    z-index: 6;
-}
-#floresta4 {   
-   
-    left: 0;
-    z-index: 5;
-}
-#floresta3 {   
-   
-    left: 0;
-    z-index: 4;
-}
-#floresta2 {   
-   
-    left: 0;
-    z-index: 3;
-}
-#floresta1 {   
-   
-    left: 0;
-    z-index: 2;
+#ceu-raposa {
+  width: 100%;
+  left: 0;
+  z-index: 0;
 }
 
+#floresta6 {
+  /*mais a frente */
 
-.perguntas{
-     
-  width:100%;  
+  left: 0;
+  z-index: 7;
+}
+
+#floresta5 {
+
+  left: 0;
+  z-index: 6;
+}
+
+#floresta4 {
+
+  left: 0;
+  z-index: 5;
+}
+
+#floresta3 {
+
+  left: 0;
+  z-index: 4;
+}
+
+#floresta2 {
+
+  left: 0;
+  z-index: 3;
+}
+
+#floresta1 {
+
+  left: 0;
+  z-index: 2;
+}
+
+
+.perguntas {
+
+  width: 100%;
   position: absolute;
   left: 0%;
- top: 0%;
- z-index: 50; 
+  top: 0%;
+  z-index: 50;
 
 }
 
 
-    #p, #p0, #p1, #p2{
-    position: fixed; 
-    width:18%;  
+#p,
+#p0,
+#p1,
+#p2 {
+  position: fixed;
+  width: 18%;
 
-   
+
   left: 27%;
   top: 20%;
   height: auto;
-  }
-
-
-
-#p3, #p4, #p5, #p6{
-  position:  fixed;
-  left: 30%;
- top: 35%;
-  width:18%; 
-
-  
 }
- #p7, #p8, #p9, #p10 {
-  position:  fixed;
-  left: 40%;
- top: 40%;
-  width:18%; 
 
-  
+
+
+#p3,
+#p4,
+#p5,
+#p6 {
+  position: fixed;
+  left: 30%;
+  top: 35%;
+  width: 18%;
+
+
+}
+
+#p7,
+#p8,
+#p9,
+#p10 {
+  position: fixed;
+  left: 40%;
+  top: 40%;
+  width: 18%;
+
+
 }
 
 
@@ -153,85 +169,96 @@
   z-index: 2;
   left: 43%;
   bottom: 25%;
-   animation: raposaAnimationD 7s infinite ease-in-out;
+  animation: raposaAnimationD 7s infinite ease-in-out;
 }
 
 
-  #raposa2 {
-    position: absolute;
-    display:none;
-    width: 8%;
-    z-index: 4;
-    left: 10%;
-    bottom: 25%;
-     animation: raposaAnimationE 7s infinite ease-in-out;
+#raposa2 {
+  position: absolute;
+  display: none;
+  width: 8%;
+  z-index: 4;
+  left: 10%;
+  bottom: 25%;
+  animation: raposaAnimationE 7s infinite ease-in-out;
 }
 
-  
+
 /* raposa do meio*/
-  #raposa3 {
-      position: absolute;
-      display:none;
-      width: 10%;
-      z-index: 5;
-      left: 56%;
-      bottom: 15%;
-   /*   animation: raposaAnimationD 7s infinite ease-in-out;
+#raposa3 {
+  position: absolute;
+  display: none;
+  width: 10%;
+  z-index: 5;
+  left: 56%;
+  bottom: 15%;
+  /*   animation: raposaAnimationD 7s infinite ease-in-out;
       /* 7s = 5s de animação + 2s de pausa (distribuídos) */
-      /* ease-in-out para transição suave */
-  }
+  /* ease-in-out para transição suave */
+}
 
-  #raposa4 {
-    position: absolute;
-    display:none;
-    width: 15%;
-    z-index: 5;
-    left: 20%;
-    bottom: 10%;
-   /* animation: raposaAnimationE 7s infinite ease-in-out;
+#raposa4 {
+  position: absolute;
+  display: none;
+  width: 15%;
+  z-index: 5;
+  left: 20%;
+  bottom: 10%;
+  /* animation: raposaAnimationE 7s infinite ease-in-out;
     /* 7s = 5s de animação + 2s de pausa (distribuídos) */
-    /* ease-in-out para transição suave */
+  /* ease-in-out para transição suave */
 }
 
 #raposa5 {
-    position: absolute;
-    display:none;
-    width: 25%;
-    z-index: 7;
-    left: 40%;
-    bottom: 2%;
+  position: absolute;
+  display: none;
+  width: 25%;
+  z-index: 7;
+  left: 40%;
+  bottom: 2%;
 }
 
 /* Animação da Raposa */
 
 @keyframes raposaAnimationD {
-  0%,30% {
+
+  0%,
+  30% {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
-  40%, 60% { 
-    transform: translateX(-6vh) translateY(2vh) scale(0.7); 
-  
+
+  40%,
+  60% {
+    transform: translateX(-6vh) translateY(2vh) scale(0.7);
+
   }
-  80%,100%{
+
+  80%,
+  100% {
     transform: translateY(0) scale(1);
-    
+
   }
 }
 
 
 @keyframes raposaAnimationE {
-  0%,30% {
+
+  0%,
+  30% {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
-  40%, 60% { 
-    transform: translateY(5vh) translateX(4vh)  scale(0.7); 
-  
+
+  40%,
+  60% {
+    transform: translateY(5vh) translateX(4vh) scale(0.7);
+
   }
-  80%,100%{
+
+  80%,
+  100% {
     transform: translateY(0) scale(1);
-    
+
   }
 }
-
