@@ -131,3 +131,31 @@ if (imagemIdEsconder) {
     localStorage.removeItem('imagemParaEsconder');
 }
 });
+
+// Controle da peça corpo
+    const pecaCorpoCompleta = localStorage.getItem('pecaCorpoCompleta');
+    const pecaCorpo = document.getElementById('corpo');
+    const pecaCenarioCorpo = document.getElementById('peça-corpo');
+
+    if (pecaCorpoCompleta) {
+        console.log("Peça corpo já completada - mostrando estado final");
+        
+        // Mostrar estado final diretamente
+        if (pecaCorpo) {
+            pecaCorpo.style.display = 'block';
+            pecaCorpo.style.top = '64%';
+            pecaCorpo.style.left = '37.2%';
+            pecaCorpo.style.width = '24vw';
+            pecaCorpo.style.transform = 'rotate(25deg)';
+            pecaCorpo.style.zIndex = '13';
+            pecaCorpo.style.animation = 'none'; // Remove qualquer animação
+        }
+        
+        // Esconder peça do cenário
+        if (pecaCenarioCorpo) {
+            pecaCenarioCorpo.style.display = 'none';
+        }
+    } else {
+        // Animação normal da peça corpo (se necessário)
+        console.log("Peça corpo não completada - mantendo estado inicial");
+    }

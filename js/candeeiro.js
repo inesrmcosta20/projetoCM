@@ -187,21 +187,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-        function showButton() {
-        const botao = document.querySelector(".desistir");
-        if (botao) {
-            botao.style.display = "block";
+       function showButton() {
+    const botao = document.querySelector(".desistir");
+    if (botao) {
+        botao.style.display = "block";
+        
+        botao.addEventListener('click', function() {
+            // Armazenar no localStorage o estado da peça corpo
+            localStorage.setItem('pecaCorpoCompleta', 'true');
+            localStorage.setItem('imagemParaEsconder', 'peça-corpo');
+            localStorage.setItem('imagemParaMostrar', 'corpo');
             
-            botao.addEventListener('click', function() {
-                // Armazenar no localStorage quais peças devem ser mostradas/escondidas
-                localStorage.setItem('imagemParaEsconder', 'peça-corpo'); // Esconde a peça no cenário
-                localStorage.setItem('imagemParaMostrar', 'corpo'); // Mostra a peça no avião
-                
-                // Redireciona para homepage.html
-                window.location.href = 'homepage.html';
-            });
-        }
+            window.location.href = 'homepage.html';
+        });
     }
+}
 
 
   startAnimation();
