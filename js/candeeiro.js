@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentRotation = 0;
     let lastTimestamp = null;
     let animationId = null;
-    const baseSpeed = 15; // Velocidade constante
+    const baseSpeed = 10; // Velocidade constante
 
     // Caminhos das imagens
     const imgLuzAcesa = 'imagens/candeeiro/luz.png';
@@ -167,13 +167,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         luz.src = imgLuzAcesa;
                         lightOn.currentTime = 0;
                         lightOn.play();
-                        tempoDesligar[index] = Date.now() + 1000 + Math.random() * 2000;
+                        tempoDesligar[index] = Date.now() + 500 + Math.random() * 1000;
 
                         interactionCount++;
                         console.log(`Interação número: ${interactionCount}`);
 
-                        // Ativar balões após 4 interações
-                        if (interactionCount === 3 && !baloesAtivados) {
+                        // Ativar balões após 1 interações
+                        if (interactionCount === 1 && !baloesAtivados) {
                             baloesAtivados = true;
                             ativarBaloes();
                         }
