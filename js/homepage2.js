@@ -131,31 +131,42 @@ if (imagemIdEsconder) {
     localStorage.removeItem('imagemParaEsconder');
 }
 });
-
 // Controle da peça corpo
-    const pecaCorpoCompleta = localStorage.getItem('pecaCorpoCompleta');
-    const pecaCorpo = document.getElementById('corpo');
-    const pecaCenarioCorpo = document.getElementById('peça-corpo');
+const pecaCorpo = document.getElementById('corpo');
+const pecaCenarioCorpo = document.getElementById('peça-corpo');
 
-    if (pecaCorpoCompleta) {
-        console.log("Peça corpo já completada - mostrando estado final");
-        
-        // Mostrar estado final diretamente
-        if (pecaCorpo) {
-            pecaCorpo.style.display = 'block';
-            pecaCorpo.style.top = '64%';
-            pecaCorpo.style.left = '37.2%';
-            pecaCorpo.style.width = '24vw';
-            pecaCorpo.style.transform = 'rotate(25deg)';
-            pecaCorpo.style.zIndex = '13';
-            pecaCorpo.style.animation = 'none'; // Remove qualquer animação
-        }
-        
-        // Esconder peça do cenário
-        if (pecaCenarioCorpo) {
-            pecaCenarioCorpo.style.display = 'none';
-        }
-    } else {
-        // Animação normal da peça corpo (se necessário)
-        console.log("Peça corpo não completada - mantendo estado inicial");
-    }
+// Verificar se devemos desativar a peça do cenário e animar a do avião
+const pecaParaDesativar = sessionStorage.getItem('desativarPecaCenario');
+const pecaParaAnimar = sessionStorage.getItem('animarPecaAviao');
+
+if (pecaParaDesativar === 'peça-corpo' && pecaCenarioCorpo) {
+    // Desativar definitivamente a peça do cenário
+    pecaCenarioCorpo.style.display = 'none';
+    sessionStorage.setItem('pecaCorpoDesativada', 'true');
+    sessionStorage.removeItem('desativarPecaCenario');
+}
+
+if (pecaParaAnimar === 'corpo' && pecaCorpo) {
+    // Executar animação da peça no avião
+    pecaCorpo.style.display = 'block';
+    pecaCorpo.style.animation = 'moveCorpo 5s ease-out forwards';
+    
+    pecaCorpo.addEventListener('animationend', function() {
+        sessionStorage.setItem('pecaCorpoAnimada', 'true');
+        sessionStorage.removeItem('animarPecaAviao');
+    });
+} else if (sessionStorage.getItem('pecaCorpoAnimada') && pecaCorpo) {
+    // Mostrar estado final se já foi animada
+    pecaCorpo.style.display = 'block';
+    pecaCorpo.style.top = '64%';
+    pecaCorpo.style.left = '37.2%';
+    pecaCorpo.style.width = '24vw';
+    pecaCorpo.style.transform = 'rotate(25deg)';
+    pecaCorpo.style.zIndex = '13';
+    pecaCorpo.style.animation = 'none';
+}
+
+// Verificar se a peça já estava desativada de sessões anteriores
+if (sessionStorage.getItem('pecaCorpoDesativada') && pecaCenarioCorpo) {
+    pecaCenarioCorpo.style.display = 'none';
+}

@@ -193,13 +193,12 @@ document.addEventListener('DOMContentLoaded', function () {
         botao.style.display = "block";
         
         botao.addEventListener('click', function() {
-            // Armazenar no localStorage o estado da peça corpo
-            localStorage.setItem('pecaCorpoCompleta', 'true');
-            localStorage.setItem('imagemParaEsconder', 'peça-corpo');
-            localStorage.setItem('imagemParaMostrar', 'corpo');
-            
-            window.location.href = 'homepage.html';
-        });
+    // Marcar que a peça corpo deve ser desativada e animada
+    sessionStorage.setItem('desativarPecaCenario', 'peça-corpo');
+    sessionStorage.setItem('animarPecaAviao', 'corpo');
+    
+    window.location.href = 'homepage.html';
+});
     }
 }
 

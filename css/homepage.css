@@ -356,3 +356,19 @@ h2 {
         transform: rotate(25deg);
     }
 }
+
+/* Estado desativado permanente para peças do cenário */
+.peca-desativada {
+    display: none !important;
+    pointer-events: none !important;
+}
+
+/* Estado final da peça no avião */
+.peca-corpo-final {
+    top: 64%;
+    left: 37.2%;
+    width: 24vw;
+    transform: rotate(25deg);
+    z-index: 13;
+    animation: none !important;
+}
