@@ -187,18 +187,22 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function showButton() {
+        function showButton() {
         const botao = document.querySelector(".desistir");
         if (botao) {
             botao.style.display = "block";
             
-            // Adiciona o event listener para o clique no botão
             botao.addEventListener('click', function() {
-                // Redireciona para homeage.html
+                // Armazenar no localStorage quais peças devem ser mostradas/escondidas
+                localStorage.setItem('imagemParaEsconder', 'peça-corpo'); // Esconde a peça no cenário
+                localStorage.setItem('imagemParaMostrar', 'corpo'); // Mostra a peça no avião
+                
+                // Redireciona para homepage.html
                 window.location.href = 'homepage.html';
             });
         }
     }
+
 
   startAnimation();
     updateLights();

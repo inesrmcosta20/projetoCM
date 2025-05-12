@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const aviao2 = document.getElementById('aviao2');
   const pecasCenario = document.querySelector('.peças-cenario');
 
-  // Verificar se é a primeira visita
-  const firstVisit = localStorage.getItem('firstVisit') === null;
-
   // Posições e transformações para cada etapa da animação
   const keyframes = [
     { time: 0,    top: -10, left: 100, rotate: 10,   scale: 0 },
@@ -23,26 +20,20 @@ document.addEventListener("DOMContentLoaded", function () {
     { time: 5000, top: 70,  left: 45,  rotate: 385,  scale: 4 }
   ];
 
-function checkCompletedPieces() {
-    const completedPieces = JSON.parse(localStorage.getItem('completedPieces') || '{}');
-    
-    // Esconde peças do cenário que já foram completadas
-    Object.keys(completedPieces).forEach(pieceId => {
-        const scenarioPiece = document.querySelector(`.peças-cenario a[href="${completedPieces[pieceId]}"] img`);
-        if (scenarioPiece) {
-            scenarioPiece.style.display = 'none';
-            scenarioPiece.parentElement.style.pointerEvents = 'none';
-        }
-        
-        // Mostra a peça correspondente no avião
-        const airplanePiece = document.getElementById(pieceId);
-        if (airplanePiece) {
-            airplanePiece.style.display = 'block';
-        }
-    });
-
-}
-    checkCompletedPieces();
+  // Verificar se a animação já foi executada nesta sessão
+  const animationAlreadyPlayed = sessionStorage.getItem('animationPlayed');
+  
+  if (!animationAlreadyPlayed) {
+    console.log("Animação será executada (primeira vez nesta sessão)");
+    startAnimation();
+  } else {
+    console.log("Animação já foi executada nesta sessão - pulando");
+    // Mostrar estado final (avião como sombra e peças visíveis)
+    aviao.style.display = 'none';
+    aviao2.style.display = 'block';
+    pecasCenario.style.opacity = "1";
+    pecasCenario.classList.add("active");
+  }
 
   function startAnimation() {
     if (animationRunning) return;
@@ -91,6 +82,10 @@ function checkCompletedPieces() {
         pecasCenario.classList.add("active");
       }, 300);
       
+      // Marcar na sessão que a animação já foi executada
+      sessionStorage.setItem('animationPlayed', 'true');
+      console.log("Animação terminada - marcando como executada nesta sessão");
+      
       return;
     }
     
@@ -116,49 +111,23 @@ function checkCompletedPieces() {
     aviao.style.transform = `rotate(${frame.rotate}deg) scale(${frame.scale})`;
   }
 
-  // Configurar estado inicial baseado no localStorage
-  if (firstVisit) {
-    // Primeira visita - animar o avião
-    localStorage.setItem('firstVisit', 'false');
-    localStorage.setItem('shouldAnimate', 'true');
-    console.log("Primeira visita - animação será executada");
-  } else {
-    // Visitas subsequentes - verificar se deve animar
-    const shouldAnimate = localStorage.getItem('shouldAnimate') === 'true';
-    console.log(`Visita subsequente - animação será executada? ${shouldAnimate}`);
-  }
+// Mostrar ou esconder peças do avião com base no localStorage
+const imagemIdMostrar = localStorage.getItem('imagemParaMostrar');
+const imagemIdEsconder = localStorage.getItem('imagemParaEsconder');
 
-  // Iniciar animação apenas se shouldAnimate for true
-  const shouldAnimate = localStorage.getItem('shouldAnimate') === 'true';
-  if (shouldAnimate) {
-    window.addEventListener('load', startAnimation);
-    // Resetar o flag após a animação
-    localStorage.setItem('shouldAnimate', 'false');
-  } else {
-    // Estado padrão quando não há animação
-    aviao.style.display = 'none';
-    aviao2.style.display = 'block';
-    pecasCenario.style.opacity = "1";
-    pecasCenario.classList.add("active");
-  }
-
-  // Mostrar ou esconder peças do avião com base no localStorage
-  const imagemIdMostrar = localStorage.getItem('imagemParaMostrar');
-  const imagemIdEsconder = localStorage.getItem('imagemParaEsconder');
-
-  if (imagemIdMostrar) {
+if (imagemIdMostrar) {
     const imagemParaMostrar = document.getElementById(imagemIdMostrar);
     if (imagemParaMostrar) {
-      imagemParaMostrar.style.display = 'block';
+        imagemParaMostrar.style.display = 'block';
     }
     localStorage.removeItem('imagemParaMostrar');
-  }
+}
 
-  if (imagemIdEsconder) {
+if (imagemIdEsconder) {
     const imagemParaEsconder = document.getElementById(imagemIdEsconder);
     if (imagemParaEsconder) {
-      imagemParaEsconder.style.display = 'none';
+        imagemParaEsconder.style.display = 'none';
     }
     localStorage.removeItem('imagemParaEsconder');
-  }
+}
 });
