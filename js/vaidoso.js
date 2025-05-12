@@ -38,32 +38,22 @@ function iniciarSomAmbiente() {
     const bufferLength = analyser.frequencyBinCount;
     dataArray = new Uint8Array(bufferLength);
 
-    // Solicita áudio apenas do microfone, com filtros
-    navigator.mediaDevices.getUserMedia({
-        audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-            sampleRate: 44100
-        }
-    }).then(function (stream) {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
         const microfoneFonte = audioContext.createMediaStreamSource(stream);
         microfoneFonte.connect(analyser);
-
-        // Inicia detecção a cada 100ms
         setInterval(detectSoundAndSetImage, 100);
-
-        // Após iniciar detecção, toca música se necessário
-        if (localStorage.getItem("somAtivo") === "true") {
-            musicaFundo.volume = 0.1; // Volume bem baixo
-            musicaFundo.play().catch(e => console.warn("Autoplay bloqueado:", e));
-        }
-
     }).catch(function (err) {
-        console.error('Erro ao acessar o microfone:', err);
+        console.error('Erro ao aceder ao microfone:', err);
     });
 }
 
-// Espera a página carregar
 window.addEventListener('load', () => {
-    iniciarSomAmbiente(); // Inicia detecção de som antes da música
+    // Música de fundo
+    if (localStorage.getItem("somAtivo") === "true") {
+        musicaFundo.volume = 0.5;
+        musicaFundo.play().catch(e => console.warn("Autoplay bloqueado:", e));
+    }
+
+    // Iniciar análise de som ambiente
+    iniciarSomAmbiente();
 });
