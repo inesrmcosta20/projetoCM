@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
         requestAnimationFrame(updateLights);
     }
 
-    // Função para ativar os balões de fala
+    // Função para ativar os balões de fala com seleção mais aleatória
     function ativarBaloes() {
         const baloes = {
             A: ["balao-fala1", "balao-fala4", "balao-fala7"],
@@ -74,23 +74,57 @@ document.addEventListener('DOMContentLoaded', function () {
             C: ["balao-fala3", "balao-fala5", "balao-fala9"]
         };
 
-        const baloesAtivos = {
-            A: false,
-            B: false,
-            C: false
+        // Rastreadores do último balão exibido para cada classe
+        const ultimosBalões = {
+            A: null,
+            B: null,
+            C: null
         };
 
-        function mostrarBalao(classe) {
-            if (baloesAtivos[classe]) return;
+        // Contadores para garantir que todos os balões sejam mostrados
+        const contadoresBalões = {
+            A: { index: 0, ordem: shuffleArray([...baloes.A]) },
+            B: { index: 0, ordem: shuffleArray([...baloes.B]) },
+            C: { index: 0, ordem: shuffleArray([...baloes.C]) }
+        };
 
-            const ids = baloes[classe];
-            const balaoId = ids[Math.floor(Math.random() * ids.length)];
+        // Função para embaralhar array
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function mostrarBalao(classe) {
+            const baloesClasse = baloes[classe];
+            const contador = contadoresBalões[classe];
+            
+            // Seleciona o próximo balão na ordem embaralhada
+            let balaoId = contador.ordem[contador.index];
+            contador.index = (contador.index + 1) % contador.ordem.length;
+            
+            // Se completou um ciclo, reembaralha
+            if (contador.index === 0) {
+                contador.ordem = shuffleArray([...baloesClasse]);
+            }
+            
+            // Evita repetir o mesmo balão consecutivamente
+            while (balaoId === ultimosBalões[classe] && baloesClasse.length > 1) {
+                balaoId = contador.ordem[contador.index];
+                contador.index = (contador.index + 1) % contador.ordem.length;
+            }
+            
+            ultimosBalões[classe] = balaoId;
+            
             const balao = document.getElementById(balaoId);
+            if (!balao) return;
 
             // Ativar balão
             balao.style.display = "block";
             balao.style.opacity = "1";
-            baloesAtivos[classe] = true;
 
             // Tempo de vida entre 4 a 7 segundos antes do fade out
             const tempoDeVida = Math.random() * 3000 + 4000;
@@ -103,9 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(() => {
                     balao.style.display = "none";
                     balao.style.opacity = "1"; // Reset para reutilização
-                    baloesAtivos[classe] = false;
                 }, 2000);
-
             }, tempoDeVida);
         }
 
@@ -141,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.log(`Interação número: ${interactionCount}`);
 
                         // Ativar balões após 4 interações
-                        if (interactionCount === 4 && !baloesAtivados) {
+                        if (interactionCount === 3 && !baloesAtivados) {
                             baloesAtivados = true;
                             ativarBaloes();
                         }
@@ -159,9 +191,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const botao = document.querySelector(".desistir");
         if (botao) {
             botao.style.display = "block";
+            
+            // Adiciona o event listener para o clique no botão
+            botao.addEventListener('click', function() {
+                // Redireciona para homeage.html
+                window.location.href = 'homepage.html';
+            });
         }
     }
 
-    startAnimation();
+  startAnimation();
     updateLights();
 });
