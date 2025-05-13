@@ -1,4 +1,4 @@
-
+/* homepage.css */
 /* Body */
 body {
     overflow: hidden;
@@ -285,14 +285,7 @@ h2 {
     width: 12.4vw;
  
 }
-#rodas{
-    display:none; 
-    z-index: 15;
-    width: 20vw;
-    top: 79.3%;
-    left: 37%;
- 
-}
+
 #placaBaixo{
     display:none;  
     z-index: 14;
@@ -328,14 +321,13 @@ h2 {
     left: 33%;*/
 }
 #placaCima{
-    display:none; 
-    z-index: 11;
-    width: 39.3vw;
-  
-    top: 54.7%;
-    left: 31.4%;
+    animation-iteration-count: 1;
 }
 
+#rodas{
+    animation-iteration-count: 1;
+ 
+}
 
 
 /* Animação a peça corpo */
@@ -363,7 +355,7 @@ h2 {
     pointer-events: none !important;
 }
 
-/* Estado final da peça no avião */
+/* Estado final da peça no avião 
 .peca-corpo-final {
     top: 64%;
     left: 37.2%;
@@ -371,32 +363,35 @@ h2 {
     transform: rotate(25deg);
     z-index: 13;
     animation: none !important;
-}
-
+}*/
 
 /* animacao rodas */
 @keyframes moveRodas {
-    0% {
-        top: 47%;
-        left: 60%;
-        width: 10vw;
-        z-index: 5;
-        transform: rotate(160deg);
-    }
-    100% {
-        top: 79.3%;
-        left: 37%;
-        width: 20vw;
-        z-index: 15;
-        transform: rotate(0deg);
-    }
+    0% {  top: 47%;
+    left: 60%;
+    width: 10vw;
+    z-index: 5;
+    rotate: 160deg; }
+
+    100% {   z-index: 15;
+    width: 20vw;
+    top: 79.3%;
+    left: 37%;
+  }
 }
 
-/* Estado final das rodas */
-#rodas.peca-final {
-    top: 79.3% !important;
-    left: 37% !important;
-    width: 20vw !important;
-   
-    animation: none !important;
+/* animacao rodas */
+@keyframes moveplacaBaixo {
+    0% {  top: 34%;
+    left: 70%;
+    width: 10vw;
+    z-index: 1;
+    rotate: 30deg; }
+
+    100% {   z-index: 11;
+    width: 39.3vw;
+    top: 54.7%;
+    left: 31.4%;
+  }
 }
+ 

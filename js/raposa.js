@@ -223,6 +223,8 @@ function criarBotaoFinal() {
   btn.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
   
   btn.onclick = () => {
+    sessionStorage.setItem('desativarPecaCenario', 'peça-placaBaixo');
+    sessionStorage.setItem('animarPecaAviao', 'placaBaixo');
     window.location.href = "homepage.html";
   };
   

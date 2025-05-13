@@ -273,69 +273,10 @@ document.addEventListener("DOMContentLoaded", function () {
         
         window.location.href = 'homepage.html';
     });
+    
 
         fullscreenContainer.style.display = 'flex';
     }
 
 });
 
-
-// Mostrar ou esconder peças do avião com base no localStorage
-const imagemIdMostrar = localStorage.getItem('imagemParaMostrar');
-const imagemIdEsconder = localStorage.getItem('imagemParaEsconder');
-
-if (imagemIdMostrar) {
-    const imagemParaMostrar = document.getElementById(imagemIdMostrar);
-    if (imagemParaMostrar) {
-        imagemParaMostrar.style.display = 'block';
-    }
-    localStorage.removeItem('imagemParaMostrar');
-}
-
-if (imagemIdEsconder) {
-    const imagemParaEsconder = document.getElementById(imagemIdEsconder);
-    if (imagemParaEsconder) {
-        imagemParaEsconder.style.display = 'none';
-    }
-    localStorage.removeItem('imagemParaEsconder');
-}
-
-
-// Processar peças ao carregar a página
-    const pecaRodas = document.getElementById('rodas');
-    const pecaCenarioRodas = document.getElementById('peça-rodas');
-    
-    // Verificar se devemos animar/desativar as peças
-    const pecaParaDesativar = sessionStorage.getItem('desativarPecaCenario');
-    const pecaParaAnimar = sessionStorage.getItem('animarPecaAviao');
-    
-    if (pecaParaDesativar === 'peça-rodas' && pecaCenarioRodas) {
-        // Desativar a peça do cenário
-        pecaCenarioRodas.style.display = 'none';
-        sessionStorage.setItem('pecaRodasDesativada', 'true');
-        sessionStorage.removeItem('desativarPecaCenario');
-    }
-    
-    if (pecaParaAnimar === 'rodas' && pecaRodas) {
-        // Executar animação da peça no avião
-        pecaRodas.style.display = 'block';
-        pecaRodas.style.animation = 'moveRodas 5s ease-out forwards';
-        
-        pecaRodas.addEventListener('animationend', function() {
-            sessionStorage.setItem('pecaRodasAnimada', 'true');
-            sessionStorage.removeItem('animarPecaAviao');
-        });
-    } else if (sessionStorage.getItem('pecaRodasAnimada') && pecaRodas) {
-        // Mostrar estado final se já foi animada
-        pecaRodas.style.display = 'block';
-        pecaRodas.style.top = '79.3%';
-        pecaRodas.style.left = '37%';
-        pecaRodas.style.width = '20vw';
-        pecaRodas.style.zIndex = '15';
-        pecaRodas.style.animation = 'none';
-    }
-    
-    // Verificar se a peça já estava desativada
-    if (sessionStorage.getItem('pecaRodasDesativada') && pecaCenarioRodas) {
-        pecaCenarioRodas.style.display = 'none';
-    }
