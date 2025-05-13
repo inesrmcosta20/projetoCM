@@ -1,6 +1,6 @@
 // Animação de estrelas cintilando
 const numEstrelas = 40;
-const main = document.querySelector("main");
+const main = document.querySelector(".estrelas");
 
 function criarEstrela() {
     const estrela = document.createElement("img");
