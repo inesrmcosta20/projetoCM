@@ -1,4 +1,3 @@
-//rosa.js
 document.addEventListener("DOMContentLoaded", function () {
     const zonaSucesso = document.getElementById("zona-sucesso");
 
@@ -89,40 +88,62 @@ document.addEventListener("DOMContentLoaded", function () {
     let etapaAtual = 0;
     let todosBaloesMostrados = false;
 
-    function mostrarBalao(etapa) {
-        if (todosBaloesMostrados) return;
-
-        // Oculta todos os balões principais e extras
-        [...balaoFalas.map(b => b.id), ...Object.values(falaSincronizada).flat()].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.style.display = "none";
-        });
-
-        const falaAtual = balaoFalas[etapa];
-        const balaoPrincipal = document.getElementById(falaAtual.id);
-        if (balaoPrincipal) balaoPrincipal.style.display = "block";
-
-        // Mostrar os balões sincronizados, se houver
-        if (falaSincronizada[falaAtual.id]) {
-            falaSincronizada[falaAtual.id].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.style.display = "block";
-            });
+function esconderTodosBaloes() {
+    [...balaoFalas.map(b => b.id), ...Object.values(falaSincronizada).flat()].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.classList.contains('fade-in')) {
+            el.classList.remove('fade-in');
+            el.classList.add('fade-out');
+            setTimeout(() => {
+                el.classList.remove('fade-out');
+                el.style.display = 'none';
+            }, 700);
+        } else if (el) {
+            el.style.display = 'none';
         }
+    });
+}
 
-        // Verifica se é o balão da chuva
-        if (falaAtual.id === "balao-fala4_esq") {
-            iniciarChuva();
-        } else {
-            pararChuva();
-        }
+function mostrarBalao(etapa) {
+    if (todosBaloesMostrados) return;
 
-        if (falaAtual.objeto === "cupula") {
-            iniciarAnimacaoRosa();
-        } else {
-            pararAnimacaoRosa();
-        }
+    esconderTodosBaloes();
+
+    const falaAtual = balaoFalas[etapa];
+    const balaoPrincipal = document.getElementById(falaAtual.id);
+    if (balaoPrincipal) {
+        balaoPrincipal.classList.remove("fade-out");
+        balaoPrincipal.style.display = "block";
+        void balaoPrincipal.offsetWidth; // força reflow para reiniciar animação
+        balaoPrincipal.classList.add("fade-in");
     }
+
+    // Mostrar extras sincronizados
+    if (falaSincronizada[falaAtual.id]) {
+        falaSincronizada[falaAtual.id].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove("fade-out");
+                el.style.display = "block";
+                void el.offsetWidth;
+                el.classList.add("fade-in");
+            }
+        });
+    }
+
+    // Condições adicionais
+    if (falaAtual.id === "balao-fala4_esq") {
+        iniciarChuva();
+    } else {
+        pararChuva();
+    }
+
+    if (falaAtual.objeto === "cupula") {
+        iniciarAnimacaoRosa();
+    } else {
+        pararAnimacaoRosa();
+    }
+}
 
 
     mostrarBalao(etapaAtual);
@@ -254,29 +275,44 @@ document.addEventListener("DOMContentLoaded", function () {
         }, intervalo);
     }
 
-    function mostrarFullscreen() {
-        const fullscreenContainer = document.getElementById('fullscreen-container');
-        document.body.classList.add('fullscreen-active');
+function mostrarFullscreen() {
+    const fullscreenContainer = document.getElementById('fullscreen-container');
+    document.body.classList.add('fullscreen-active');
 
-        fullscreenContainer.innerHTML =
-            `<div class="fullScreen-img-container">
-                <img src="imagens/principe.png" id="posicao1" alt="principe">
-                <img src="imagens/rosa/mensagem.png" id="posicao2" alt="mensagem"> 
-            </div>
-            <button id="homeButton">Finalizar</button>`;
+    fullscreenContainer.innerHTML = `
+        <div class="fullScreen-img-container">
+            <img src="imagens/rosa/personagem/principe1.png" id="posicao1" alt="príncipe">
+            <img src="imagens/rosa/mensagem.png" id="posicao2" alt="mensagem"> 
+        </div>
+        <button id="homeButton">Finalizar</button>
+    `;
 
-        const homeButton = document.getElementById('homeButton');
-    homeButton.addEventListener('click', function() {
+    // Iniciar animação do príncipe
+    const principeImg = document.getElementById('posicao1');
+    let frame = 1;
+    const maxFrames = 10;
+    const intervalo = 150; // ms
+
+    let animacaoIntervalo = setInterval(() => {
+        frame = frame >= maxFrames ? 1 : frame + 1;
+        principeImg.src = `imagens/principe/principe${frame}.png`;
+    }, intervalo);
+
+    // Lidar com clique no botão
+    const homeButton = document.getElementById('homeButton');
+    homeButton.addEventListener('click', function () {
+        // Parar a animação ao sair
+        clearInterval(animacaoIntervalo);
+
         // Ativar peça rodas no avião e desativar no cenário
         sessionStorage.setItem('desativarPecaCenario', 'peça-rodas');
         sessionStorage.setItem('animarPecaAviao', 'rodas');
-        
+
         window.location.href = 'homepage.html';
     });
-    
 
-        fullscreenContainer.style.display = 'flex';
-    }
+    fullscreenContainer.style.display = 'flex';
+}
 
 });
 

@@ -1,13 +1,13 @@
 #webcam-container {
   position: fixed;
-  top: 53%;
+  top: 52%;
   left: 58%;
   transform: translate(-50%, -50%);
   width: 630px;
   /* Largura fixa do contêiner */
   height: 375px;
   /* Altura fixa do contêiner */
-  z-index: 50;
+  z-index: 0;
 }
 
 /* Evita espelhamento e ajusta o vídeo */
@@ -37,18 +37,18 @@
 /* Rei */
 #rei {
   position: absolute;
-  left: 0;
-  bottom: 0;
+  left: 3%;
+  bottom: 3%;
   width: 50%;
-  z-index: 2;
+  z-index: 3;
 }
 
 #planeta {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -10%;
   width: 73%;
-  z-index: 1;
+  z-index: 2;
 }
 
 #manto {
@@ -56,7 +56,7 @@
   left: 20%;
   bottom: 0;
   width: 73%;
-  z-index: 0;
+  z-index: 1;
 }
 
 /* Evita scroll da tela */

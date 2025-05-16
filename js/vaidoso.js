@@ -1,6 +1,5 @@
 const somErrado = document.getElementById("audio-errado");
 const somCorreto = document.getElementById("audio-correto");
-const musicaFundo = document.getElementById("background-music-jogo");
 const vaidosoElement = document.getElementById('vaidoso');
 
 let currentImageIndex = 1;
@@ -48,12 +47,5 @@ function iniciarSomAmbiente() {
 }
 
 window.addEventListener('load', () => {
-    // Música de fundo
-    if (localStorage.getItem("somAtivo") === "true") {
-        musicaFundo.volume = 0.5;
-        musicaFundo.play().catch(e => console.warn("Autoplay bloqueado:", e));
-    }
-
-    // Iniciar análise de som ambiente
     iniciarSomAmbiente();
 });

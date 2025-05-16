@@ -1,47 +1,99 @@
-async function iniciarWebcam() {
-    Webcam.set({
-        width: 630,    // Largura da webcam
-        height: 375,   // Altura da webcam
-        image_format: 'jpeg',
-        jpeg_quality: 90,
-        flip_horiz: false // NÃO espelha a imagem
-    });
+const videoElement = document.createElement('video');
+const canvasElement = document.createElement('canvas');
+const canvasCtx = canvasElement.getContext('2d');
+document.getElementById('webcam-container').appendChild(videoElement);
 
-    Webcam.attach('#webcam-container');
+const faceMesh = new FaceMesh({
+  locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
+});
 
-    // Carregar os modelos do face-api.js
-    await faceapi.nets.ssdMobilenetv1.loadFromUri('/models');
-    await faceapi.nets.faceExpressionNet.loadFromUri('/models');
-    
-    // Iniciar a detecção de sorriso
-    detectarSorriso();
-}
+faceMesh.setOptions({
+  maxNumFaces: 1,
+  refineLandmarks: true,
+  minDetectionConfidence: 0.5,
+  minTrackingConfidence: 0.5
+});
 
-// Função para detectar o sorriso
-async function detectarSorriso() {
-    const video = document.querySelector('video'); // A webcam estará em um elemento de vídeo
-    const detections = await faceapi.detectAllFaces(video).withFaceExpressions();
+faceMesh.onResults(onResults);
 
-    if (detections.length > 0) {
-        // Verificar se a pessoa está sorrindo
-        const sorriso = detections[0].expressions.happy;
-        
-        // Se o sorriso for maior que 0.5 (indicando que a pessoa está sorrindo)
-        if (sorriso > 0.5) {
-            const audioAcerto = document.getElementById("audio-acerto");
-            audioAcerto.play();
+const camera = new Camera(videoElement, {
+  onFrame: async () => {
+    await faceMesh.send({ image: videoElement });
+  },
+  width: 640,
+  height: 480
+});
+
+camera.start()
+  .then(() => {
+    console.log("Câmera inicializada com sucesso!");
+  })
+  .catch((err) => {
+    console.error("Erro ao acessar a câmera: ", err);
+  });
+
+let etapaAtual = 0; // 0: olhos, 1: boca, 2: sorriso
+
+function onResults(results) {
+  if (results.multiFaceLandmarks.length > 0) {
+    const landmarks = results.multiFaceLandmarks[0];
+
+    const leftEAR = computeEAR([
+      landmarks[33], landmarks[160], landmarks[158],
+      landmarks[133], landmarks[153], landmarks[144]
+    ]);
+    const rightEAR = computeEAR([
+      landmarks[362], landmarks[385], landmarks[387],
+      landmarks[263], landmarks[373], landmarks[380]
+    ]);
+    const avgEAR = (leftEAR + rightEAR) / 2;
+
+    const topLip = landmarks[13];
+    const bottomLip = landmarks[14];
+    const mouthOpenDistance = Math.abs(topLip.y - bottomLip.y);
+
+    const leftMouthCorner = landmarks[61];
+    const rightMouthCorner = landmarks[291];
+    const mouthWidth = Math.abs(rightMouthCorner.x - leftMouthCorner.x);
+    const lipDistance = Math.abs(topLip.y - bottomLip.y);
+    const smileRatio = mouthWidth / lipDistance;
+
+    switch (etapaAtual) {
+      case 0: // Esperando piscar
+        if (avgEAR < 0.2) {
+          etapaAtual = 1;
+          document.getElementById("audio-acerto").play();
+          console.log("Etapa 1: Olhos fechados detectados");
         }
-    }
+        break;
 
-    // Chamar novamente a função para continuar detectando
-    requestAnimationFrame(detectarSorriso);
+      case 1: // Esperando boca aberta
+        if (mouthOpenDistance > 0.04) {
+          etapaAtual = 2;
+          document.getElementById("audio-acerto").play();
+          console.log("Etapa 2: Boca aberta detectada");
+        }
+        break;
+
+      case 2: // Esperando sorriso
+        if (smileRatio > 2.0 && lipDistance > 0.04) {
+          etapaAtual = 3;
+          document.getElementById("audio-acerto").play();
+          console.log("Etapa 3: Sorriso detectado. Sequência completa!");
+          // Aqui você pode adicionar qualquer ação final, tipo mudar de tela ou mostrar algo.
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
 }
 
-// Quando a página estiver carregada, inicia a webcam
-window.addEventListener("DOMContentLoaded", iniciarWebcam);
-
-// Exemplo de popup
-function myPopUp() {
-    const popup = document.getElementById("popup");
-    popup.classList.toggle("show");
+function computeEAR(eye) {
+  const euclidean = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+  const a = euclidean(eye[1], eye[5]);
+  const b = euclidean(eye[2], eye[4]);
+  const c = euclidean(eye[0], eye[3]);
+  return (a + b) / (2.0 * c);
 }
