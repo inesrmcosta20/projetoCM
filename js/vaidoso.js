@@ -1,51 +1,70 @@
-const somErrado = document.getElementById("audio-errado");
-const somCorreto = document.getElementById("audio-correto");
 const vaidosoElement = document.getElementById('vaidoso');
-
-let currentImageIndex = 1;
 const totalImages = 24;
+let currentImageIndex = 1;
 
+// Configuração do áudio
 let audioContext;
 let analyser;
-let dataArray;
+let smoothAmplitude = 0;
+const SMOOTHING_FACTOR = 0.8; // Fator de suavização (0 a 1)
 
-function detectSoundAndSetImage() {
+function preloadImages() {
+    for (let i = 1; i <= totalImages; i++) {
+        new Image().src = `imagens/vaidoso/movimento/vaidoso${i}.png`;
+    }
+}
+
+function analyzeSound() {
     if (!analyser) return;
 
-    analyser.getByteFrequencyData(dataArray);
+    const bufferLength = analyser.frequencyBinCount;
+    const timeDomainData = new Uint8Array(bufferLength);
+    analyser.getByteTimeDomainData(timeDomainData);
 
-    let sum = 0;
-    for (let i = 0; i < dataArray.length; i++) {
-        sum += dataArray[i];
+    // Calcular amplitude máxima
+    let maxAmplitude = 0;
+    for (let i = 0; i < bufferLength; i++) {
+        const amplitude = Math.abs((timeDomainData[i] - 128) / 128);
+        if (amplitude > maxAmplitude) {
+            maxAmplitude = amplitude;
+        }
     }
 
-    const average = sum / dataArray.length;
+    // Aplicar suavização
+    smoothAmplitude = SMOOTHING_FACTOR * smoothAmplitude + (1 - SMOOTHING_FACTOR) * maxAmplitude;
 
-    let imageIndex = Math.floor((average / 255) * totalImages);
-    imageIndex = Math.min(Math.max(imageIndex, 1), totalImages);
+    // Mapear amplitude para frames (ajuste a sensibilidade conforme necessário)
+    const sensitivity = 4;
+    let imageIndex = Math.min(totalImages, 
+        Math.max(1, 
+            Math.ceil(smoothAmplitude * sensitivity * totalImages)
+        )
+    );
 
+    // Atualizar imagem se necessário
     if (imageIndex !== currentImageIndex) {
         currentImageIndex = imageIndex;
         vaidosoElement.src = `imagens/vaidoso/movimento/vaidoso${currentImageIndex}.png`;
     }
+
+    requestAnimationFrame(analyzeSound);
 }
 
-function iniciarSomAmbiente() {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioContext.createAnalyser();
-    analyser.fftSize = 64;
-    const bufferLength = analyser.frequencyBinCount;
-    dataArray = new Uint8Array(bufferLength);
-
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+async function iniciarSomAmbiente() {
+    try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const microfoneFonte = audioContext.createMediaStreamSource(stream);
         microfoneFonte.connect(analyser);
-        setInterval(detectSoundAndSetImage, 100);
-    }).catch(function (err) {
-        console.error('Erro ao aceder ao microfone:', err);
-    });
+        
+        preloadImages();
+        analyzeSound();
+    } catch (err) {
+        console.error('Erro ao acessar microfone:', err);
+    }
 }
 
-window.addEventListener('load', () => {
-    iniciarSomAmbiente();
-});
+window.addEventListener('load', iniciarSomAmbiente);
