@@ -18,9 +18,7 @@ const baloesAleatorios = [
 let ultimaFraseTimestamp = 0;
 const INTERVALO_ENTRE_FRASES = 4000;
 
-let confettiContainer;
-
-// ✅ Função corrigida para mostrar balões com fade-in funcional
+// ✅ Função para mostrar balões com fade-in funcional
 function mostrarBalao(id) {
   const baloes = document.querySelectorAll('.balao');
 
@@ -35,34 +33,6 @@ function mostrarBalao(id) {
     void novoBalao.offsetWidth; // força reflow
     novoBalao.classList.add('fade-in');
   }
-}
-
-function criarConfetti() {
-  const confetti = document.createElement('div');
-  confetti.style.position = 'absolute';
-  confetti.style.width = '8px';
-  confetti.style.height = '8px';
-  confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
-  confetti.style.left = `${Math.random() * window.innerWidth}px`;
-  confetti.style.top = '-10px';
-  confetti.style.borderRadius = '2px';
-  confetti.style.opacity = '1';
-  confetti.style.pointerEvents = 'none';
-  confetti.style.transition = 'transform 2.5s linear, opacity 2.5s ease';
-  confetti.classList.add('confetti');
-
-  confettiContainer.appendChild(confetti);
-
-  requestAnimationFrame(() => {
-    const translateX = (Math.random() - 0.5) * 100;
-    const translateY = window.innerHeight + 20;
-    const rotate = (Math.random() - 0.5) * 360;
-
-    confetti.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotate}deg)`;
-    confetti.style.opacity = '0';
-  });
-
-  setTimeout(() => confetti.remove(), 2500);
 }
 
 function analyzeSound() {
@@ -101,13 +71,6 @@ function analyzeSound() {
       mostrarBalao(idBalao);
       ultimaFraseTimestamp = agora;
     }
-
-    const maxConfettiPorFrame = 10;
-    const confettiCount = Math.min(Math.floor(effectiveAmplitude * 100), maxConfettiPorFrame);
-
-    for (let i = 0; i < confettiCount; i++) {
-      criarConfetti();
-    }
   }
 
   requestAnimationFrame(analyzeSound);
@@ -139,17 +102,6 @@ function preloadImages() {
 }
 
 window.addEventListener('load', () => {
-  confettiContainer = document.createElement('div');
-  confettiContainer.style.position = 'fixed';
-  confettiContainer.style.top = '0';
-  confettiContainer.style.left = '0';
-  confettiContainer.style.width = '100%';
-  confettiContainer.style.height = '100%';
-  confettiContainer.style.pointerEvents = 'none';
-  confettiContainer.style.overflow = 'visible';
-  confettiContainer.style.zIndex = '9999';
-  document.body.appendChild(confettiContainer);
-
   preloadImages();
   iniciarSomAmbiente();
 });

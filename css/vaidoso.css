@@ -1,53 +1,55 @@
 /* Vaidoso */
 #vaidoso {
-    position: absolute;
-    bottom: -3%;
-    left: 45%;
-    transform: translateX(-50%);
-    z-index: 3;
-    width: 80%;
+  position: absolute;
+  bottom: -3%;
+  left: 45%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 80%;
 }
 
 /* Background Noite */
 #noite-vaidoso {
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -2;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
 }
 
+/* Planeta e Flores */
 #planeta-flores {
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
 /* Seta Retroceder */
 #seta-retroceder {
-    position: absolute;
-    top: 20px;
-    left: 25px;
-    display: flex;
-    z-index: 10000;
-    width: 40px;
-    height: auto;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  display: flex;
+  z-index: 10000;
+  width: 40px;
+  height: auto;
+  cursor: pointer;
 }
 
 #seta-retroceder:hover {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 /* Evita scroll da tela */
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
+/* Balões de Fala */
 .balao {
   opacity: 0;
   visibility: hidden;
@@ -67,21 +69,18 @@ body {
   pointer-events: none;
 }
 
-
-
 #balao-fala1 {
   position: fixed;
   left: 55%;
-  bottom: 60%;
+  bottom: 65%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
-
 #balao-fala2 {
   position: fixed;
-  left: 55%;
+  left: 20%;
   bottom: 60%;
   width: 15vw;
   height: auto;
@@ -91,68 +90,61 @@ body {
 #balao-fala3 {
   position: fixed;
   left: 55%;
-  bottom: 60%;
+  bottom: 65%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
-
 
 #balao-fala4 {
   position: fixed;
-  left: 55%;
-  bottom: 60%;
+  left: 20%;
+  bottom: 62%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
-
 
 #balao-fala5 {
   position: fixed;
-  left: 55%;
-  bottom: 60%;
+  left: 53%;
+  bottom: 62%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
-
 
 #balao-fala6 {
   position: fixed;
-  left: 55%;
-  bottom: 60%;
+  left: 20%;
+  bottom: 63%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
-
 
 #balao-fala7 {
   position: fixed;
   left: 55%;
-  bottom: 60%;
+  bottom: 65%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
-
 
 #balao-fala8 {
   position: fixed;
-  left: 55%;
-  bottom: 60%;
+  left: 20%;
+  bottom: 58%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
-
-
 #balao-fala9 {
   position: fixed;
-  left: 55%;
-  bottom: 60%;
+  left: 53%;
+  bottom: 65%;
   width: 15vw;
   height: auto;
   z-index: 5;
@@ -160,19 +152,9 @@ body {
 
 #balao-fala10 {
   position: fixed;
-  left: 55%;
-  bottom: 60%;
+  left: 20%;
+  bottom: 58%;
   width: 15vw;
   height: auto;
   z-index: 5;
-}
-
-/* Confetti */
-.confetti {
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  position: absolute;
-  pointer-events: none;
-  z-index:2;
 }
