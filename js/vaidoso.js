@@ -18,7 +18,7 @@ let ultimaFraseTimestamp = 0;
 const INTERVALO_ENTRE_FRASES = 4000;
 
 let interacoes = 0;
-const LIMITE_INTERACOES = 2;
+const LIMITE_INTERACOES = 7;
 
 // Função para mostrar balões com controlo de interações
 function mostrarBalao(id) {
