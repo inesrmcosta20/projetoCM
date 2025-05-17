@@ -47,3 +47,132 @@
 body {
     overflow: hidden;
 }
+
+.balao {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 1s ease;
+}
+
+.balao.fade-in {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.balao.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+
+
+#balao-fala1 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+
+#balao-fala2 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+#balao-fala3 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+
+#balao-fala4 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+
+#balao-fala5 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+
+#balao-fala6 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+
+#balao-fala7 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+
+#balao-fala8 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+
+
+#balao-fala9 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+#balao-fala10 {
+  position: fixed;
+  left: 55%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/* Confetti */
+.confetti {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  position: absolute;
+  pointer-events: none;
+  z-index:2;
+}
