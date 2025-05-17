@@ -103,7 +103,7 @@ async function iniciarSomAmbiente() {
   }
 }
 
-// Mostrar tela fullscreen personalizada
+// Mostrar tela fullscreen 
 function mostrarFullscreen() {
   const fullscreenContainer = document.getElementById('fullscreen-container');
   document.body.classList.add('fullscreen-active');

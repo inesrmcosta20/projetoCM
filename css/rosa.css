@@ -197,12 +197,6 @@
   width: 70%;
 }
 
-
-/* Evita scroll da tela */
-body {
-  overflow: hidden;
-}
-
 /* Movimento do Sol */
 @keyframes girarEOscilar {
   0% { transform: scale(3) rotate(0deg); }
@@ -235,6 +229,7 @@ body {
   }
 }
 
+/* Chuva */
 #chuva {
   position: fixed;
   top: 0;
@@ -267,7 +262,7 @@ body {
   }
 }
 
-/* Animações */
+/* Fade-In e Fade-out dos Balões de Fala */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -291,4 +286,10 @@ body {
 
 .balao.fade-out {
   animation: fadeOut 0.7s forwards;
+}
+
+
+/* Evita scroll da tela */
+body {
+  overflow: hidden;
 }
