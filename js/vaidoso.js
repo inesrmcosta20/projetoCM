@@ -34,7 +34,7 @@ function analyzeSound() {
     smoothAmplitude = SMOOTHING_FACTOR * smoothAmplitude + (1 - SMOOTHING_FACTOR) * maxAmplitude;
 
     // Mapear amplitude para frames (ajuste a sensibilidade conforme necessário)
-    const sensitivity = 4;
+    const sensitivity = 2;
     let imageIndex = Math.min(totalImages, 
         Math.max(1, 
             Math.ceil(smoothAmplitude * sensitivity * totalImages)
