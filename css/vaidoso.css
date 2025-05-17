@@ -158,3 +158,27 @@ body {
   height: auto;
   z-index: 5;
 }
+
+/* botão de desistir  */
+.desistir {
+    position: fixed;
+    bottom: 5%;
+    left: 25%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    z-index: 100;
+    display: none;
+    padding: 10px 20px;
+    background-color: #74ba96;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: white;
+
+    animation: fadeIn 0.20s ease forwards;
+}
+
+.desistir:hover {
+    background-color: #AEB1E5;
+}
+

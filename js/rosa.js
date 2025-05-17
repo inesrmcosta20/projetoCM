@@ -88,62 +88,62 @@ document.addEventListener("DOMContentLoaded", function () {
     let etapaAtual = 0;
     let todosBaloesMostrados = false;
 
-function esconderTodosBaloes() {
-    [...balaoFalas.map(b => b.id), ...Object.values(falaSincronizada).flat()].forEach(id => {
-        const el = document.getElementById(id);
-        if (el && el.classList.contains('fade-in')) {
-            el.classList.remove('fade-in');
-            el.classList.add('fade-out');
-            setTimeout(() => {
-                el.classList.remove('fade-out');
-                el.style.display = 'none';
-            }, 700);
-        } else if (el) {
-            el.style.display = 'none';
-        }
-    });
-}
-
-function mostrarBalao(etapa) {
-    if (todosBaloesMostrados) return;
-
-    esconderTodosBaloes();
-
-    const falaAtual = balaoFalas[etapa];
-    const balaoPrincipal = document.getElementById(falaAtual.id);
-    if (balaoPrincipal) {
-        balaoPrincipal.classList.remove("fade-out");
-        balaoPrincipal.style.display = "block";
-        void balaoPrincipal.offsetWidth; // força reflow para reiniciar animação
-        balaoPrincipal.classList.add("fade-in");
-    }
-
-    // Mostrar extras sincronizados
-    if (falaSincronizada[falaAtual.id]) {
-        falaSincronizada[falaAtual.id].forEach(id => {
+    function esconderTodosBaloes() {
+        [...balaoFalas.map(b => b.id), ...Object.values(falaSincronizada).flat()].forEach(id => {
             const el = document.getElementById(id);
-            if (el) {
-                el.classList.remove("fade-out");
-                el.style.display = "block";
-                void el.offsetWidth;
-                el.classList.add("fade-in");
+            if (el && el.classList.contains('fade-in')) {
+                el.classList.remove('fade-in');
+                el.classList.add('fade-out');
+                setTimeout(() => {
+                    el.classList.remove('fade-out');
+                    el.style.display = 'none';
+                }, 700);
+            } else if (el) {
+                el.style.display = 'none';
             }
         });
     }
 
-    // Condições adicionais
-    if (falaAtual.id === "balao-fala4_esq") {
-        iniciarChuva();
-    } else {
-        pararChuva();
-    }
+    function mostrarBalao(etapa) {
+        if (todosBaloesMostrados) return;
 
-    if (falaAtual.objeto === "cupula") {
-        iniciarAnimacaoRosa();
-    } else {
-        pararAnimacaoRosa();
+        esconderTodosBaloes();
+
+        const falaAtual = balaoFalas[etapa];
+        const balaoPrincipal = document.getElementById(falaAtual.id);
+        if (balaoPrincipal) {
+            balaoPrincipal.classList.remove("fade-out");
+            balaoPrincipal.style.display = "block";
+            void balaoPrincipal.offsetWidth; // força reflow para reiniciar animação
+            balaoPrincipal.classList.add("fade-in");
+        }
+
+        // Mostrar extras sincronizados
+        if (falaSincronizada[falaAtual.id]) {
+            falaSincronizada[falaAtual.id].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.remove("fade-out");
+                    el.style.display = "block";
+                    void el.offsetWidth;
+                    el.classList.add("fade-in");
+                }
+            });
+        }
+
+        // Condições adicionais
+        if (falaAtual.id === "balao-fala4_esq") {
+            iniciarChuva();
+        } else {
+            pararChuva();
+        }
+
+        if (falaAtual.objeto === "cupula") {
+            iniciarAnimacaoRosa();
+        } else {
+            pararAnimacaoRosa();
+        }
     }
-}
 
 
     mostrarBalao(etapaAtual);
@@ -275,44 +275,44 @@ function mostrarBalao(etapa) {
         }, intervalo);
     }
 
-function mostrarFullscreen() {
-    const fullscreenContainer = document.getElementById('fullscreen-container');
-    document.body.classList.add('fullscreen-active');
+    function mostrarFullscreen() {
+        const fullscreenContainer = document.getElementById('fullscreen-container');
+        document.body.classList.add('fullscreen-active');
 
-    fullscreenContainer.innerHTML = `
+        fullscreenContainer.innerHTML = `
         <div class="fullScreen-img-container">
-            <img src="imagens/rosa/personagem/principe1.png" id="posicao1" alt="príncipe">
-            <img src="imagens/rosa/mensagem.png" id="posicao2" alt="mensagem"> 
+          <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
+        <img src="imagens/rosa/mensagem.png" id="posicao2" alt="mensagem"> 
         </div>
         <button id="homeButton">Finalizar</button>
     `;
 
-    // Iniciar animação do príncipe
-    const principeImg = document.getElementById('posicao1');
-    let frame = 1;
-    const maxFrames = 10;
-    const intervalo = 150; // ms
+        // Iniciar animação do príncipe
+        const principeImg = document.getElementById('posicao1');
+        let frame = 1;
+        const maxFrames = 10;
+        const intervalo = 150; // ms
 
-    let animacaoIntervalo = setInterval(() => {
-        frame = frame >= maxFrames ? 1 : frame + 1;
-        principeImg.src = `imagens/principe/principe${frame}.png`;
-    }, intervalo);
+        let animacaoIntervalo = setInterval(() => {
+            frame = frame >= maxFrames ? 1 : frame + 1;
+            principeImg.src = `imagens/principe/principe${frame}.png`;
+        }, intervalo);
 
-    // Lidar com clique no botão
-    const homeButton = document.getElementById('homeButton');
-    homeButton.addEventListener('click', function () {
-        // Parar a animação ao sair
-        clearInterval(animacaoIntervalo);
+        // Lidar com clique no botão
+        const homeButton = document.getElementById('homeButton');
+        homeButton.addEventListener('click', function () {
+            // Parar a animação ao sair
+            clearInterval(animacaoIntervalo);
 
-        // Ativar peça rodas no avião e desativar no cenário
-        sessionStorage.setItem('desativarPecaCenario', 'peça-rodas');
-        sessionStorage.setItem('animarPecaAviao', 'rodas');
+            // Ativar peça rodas no avião e desativar no cenário
+            sessionStorage.setItem('desativarPecaCenario', 'peça-rodas');
+            sessionStorage.setItem('animarPecaAviao', 'rodas');
 
-        window.location.href = 'homepage.html';
-    });
+            window.location.href = 'homepage.html';
+        });
 
-    fullscreenContainer.style.display = 'flex';
-}
+        fullscreenContainer.style.display = 'flex';
+    }
 
 });
 
