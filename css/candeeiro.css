@@ -142,12 +142,12 @@ body {
     z-index: 100;
     display: none;
     padding: 10px 20px;
-    background-color: #020858;
+    background-color: #2f0141;
     border: none;
     border-radius: 10px;
     font-size: 16px;
     color: white;
-
+    cursor: pointer;
     animation: fadeIn 0.20s ease forwards;
 }
 
