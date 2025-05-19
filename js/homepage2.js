@@ -134,58 +134,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Função genérica para controlar peças
     function controlarPeca(pecaId, pecaCenarioId) {
-        const peca = document.getElementById(pecaId);
-        const pecaCenario = document.getElementById(pecaCenarioId);
+    const peca = document.getElementById(pecaId);
+    const pecaCenario = document.getElementById(pecaCenarioId);
 
-        // Verificar se devemos desativar a peça do cenário e animar a do avião
-        const pecaParaDesativar = sessionStorage.getItem('desativarPecaCenario');
-        const pecaParaAnimar = sessionStorage.getItem('animarPecaAviao');
+    const pecaParaDesativar = sessionStorage.getItem('desativarPecaCenario');
+    const pecaParaAnimar = sessionStorage.getItem('animarPecaAviao');
 
-        if (pecaParaDesativar === pecaCenarioId && pecaCenario) {
-            // Desativar definitivamente a peça do cenário
-            pecaCenario.style.display = 'none';
-            sessionStorage.setItem(`${pecaId}Desativada`, 'true');
-            sessionStorage.removeItem('desativarPecaCenario');
-        }
-
-        if (pecaParaAnimar === pecaId && peca) {
-            // Executar animação da peça no avião
-            peca.style.display = 'block';
-            peca.style.animation = `move${pecaId.charAt(0).toUpperCase() + pecaId.slice(1)} 5s ease-out forwards`;
-            
-            peca.addEventListener('animationend', function() {
-                sessionStorage.setItem(`${pecaId}Animada`, 'true');
-                sessionStorage.removeItem('animarPecaAviao');
-            });
-        } else if (sessionStorage.getItem(`${pecaId}Animada`) && peca) {
-            // Mostrar estado final se já foi animada
-            peca.style.display = 'block';
-            
-            // Posições específicas para cada peça
-            const posicoes = {
-                'corpo': { top: '64%', left: '37.2%', width: '24vw', rotate: '25deg', zIndex: '13', transform: rotate('25deg') },
-                'rodas': { zIndex: "15", width: "20vw", top: "79.3%", left: "37%" }, 
-                'placaBaixo': { zIndex: "14", width: "38vw", top: "70.8%", left: "30.5%" }, 
-                'tirantes': { zIndex: "12", width: "32.2vw", top: "59%", left: "33%" }, 
-
-                // Adicione as posições para as outras peças conforme necessário
-            };
-
-            const posicao = posicoes[pecaId] || { top: '50%', left: '50%', width: '20vw', rotate: '0deg', zIndex: '10' };
-            
-            peca.style.top = posicao.top;
-            peca.style.left = posicao.left;
-            peca.style.width = posicao.width;
-            peca.style.transform = `rotate(${posicao.rotate})`;
-            peca.style.zIndex = posicao.zIndex;
-            peca.style.animation = 'none';
-        }
-
-        // Verificar se a peça já estava desativada de sessões anteriores
-        if (sessionStorage.getItem(`${pecaId}Desativada`) && pecaCenario) {
-            pecaCenario.style.display = 'none';
-        }
+    if (pecaParaDesativar === pecaCenarioId && pecaCenario) {
+        pecaCenario.style.display = 'none';
+        sessionStorage.setItem(`${pecaId}Desativada`, 'true');
+        sessionStorage.removeItem('desativarPecaCenario');
     }
+
+    if (pecaParaAnimar === pecaId && peca) {
+        peca.style.display = 'block';
+        peca.style.animation = `move${pecaId.charAt(0).toUpperCase() + pecaId.slice(1)} 5s ease-out forwards`;
+        
+        peca.addEventListener('animationend', function() {
+            sessionStorage.setItem(`${pecaId}Animada`, 'true');
+            sessionStorage.removeItem('animarPecaAviao');
+        });
+    } else if (sessionStorage.getItem(`${pecaId}Animada`) && peca) {
+        peca.style.display = 'block';
+        const posicoes = {
+            'corpo': { top: '64%', left: '37.2%', width: '24vw', transform: 'rotate(25deg)', zIndex: '13' },
+            'rodas': { top: '79.3%', left: '37%', width: '20vw', transform: 'rotate(385deg)', zIndex: '15' },
+            'placaBaixo': { top: '70.8%', left: '30.5%', width: '38vw', transform: 'rotate(385deg)', zIndex: '14' },
+            'tirantes': { top: '59%', left: '33%', width: '32.2vw', transform: 'rotate(385deg)', zIndex: '12' },
+            'helices': { top: '48%', left: '33.5%', width: '12.4vw', transform: 'rotate(385deg)', zIndex: '16' },
+            'placaCima': { top: '54.7%', left: '31.4%', width: '39.3vw', transform: 'rotate(385deg)', zIndex: '11' }
+        };
+        const posicao = posicoes[pecaId] || {};
+        Object.assign(peca.style, posicao);
+        peca.style.animation = 'none';
+    }
+
+    if (sessionStorage.getItem(`${pecaId}Desativada`) && pecaCenario) {
+        pecaCenario.style.display = 'none';
+    }
+}
 
     // Controlar todas as peças
     controlarPeca('corpo', 'peça-corpo');
@@ -193,6 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
      controlarPeca('tirantes', 'peça-tirantes');
      controlarPeca('placaBaixo', 'peça-placaBaixo');
-    // controlarPeca('helices', 'peça-helices');
-    // controlarPeca('placaCima', 'peça-placaCima');
+     controlarPeca('helices', 'peça-helices');
+    controlarPeca('placaCima', 'peça-placaCima');
 });

@@ -279,28 +279,31 @@ h2 {
 /* Peças do avião - puzzle (inicialmente invizíveis) */
 
 #helices{
-    display:none; 
+      animation-iteration-count: 1;
+    /*display:none; 
     z-index: 16;
     top: 48%;
     left: 33.5%;
-    width: 12.4vw;
+    width: 12.4vw;*/
  
 }
 #rodas{
-    display:none; 
+      animation-iteration-count: 1;
+   /* display:none; 
     z-index: 15;
     width: 20vw;
     top: 79.3%;
-    left: 37%;
+    left: 37%;*/
  
 }
 #placaBaixo{
-    display:none;  
+      animation-iteration-count: 1;
+   /* display:none;  
     z-index: 14;
     left: 30.5%;
     
     width: 38vw;
-    top: 70.8%;
+    top: 70.8%;*/
 }
 /*#corpo{
     display:none; 
@@ -322,19 +325,21 @@ h2 {
     animation-iteration-count: 1;
 }
 #tirantes{
-    display:none; 
-   /* z-index: 12;
+     animation-iteration-count: 1;
+   /* display:none; 
+    z-index: 12;
     width: 32.2vw;
     top: 59%;
     left: 33%;*/
 }
 #placaCima{
-    display:none; 
+    animation-iteration-count: 1;
+   /* display:none; 
     z-index: 11;
     width: 39.3vw;
   
     top: 54.7%;
-    left: 31.4%;
+    left: 31.4%;*/
 }
 
 
@@ -364,13 +369,22 @@ h2 {
     pointer-events: none !important;
 }
 
-/* Estado final da peça no avião */
+/* Estado final da peça corpo no avião */
 .peca-corpo-final {
     top: 64%;
     left: 37.2%;
     width: 24vw;
     transform: rotate(25deg);
     z-index: 13;
+    animation: none !important;
+}
+/* Estado final da peça rodas no avião */
+.peca-rodas-final {
+    display:none; 
+    z-index: 15;
+    width: 20vw;
+    top: 79.3%;
+    left: 37%;
     animation: none !important;
 }
 
@@ -388,4 +402,71 @@ h2 {
     top: 79.3%;
     left: 37%;
   }
+}
+
+/* Animações para cada peça */
+@keyframes moveHelices {
+    0% {
+       top: 48%;
+    left: 85%;
+    width: 5vw;
+    z-index: 7;
+    rotate: 20deg;
+    }
+    100% {
+         z-index: 16;
+    top: 48%;
+    left: 33.5%;
+    width: 12.4vw;
+    }
+}
+
+
+@keyframes movePlacaBaixo {
+    0% {
+      top: 34%;
+    left: 70%;
+    width: 10vw;
+    z-index: 1;
+    rotate: 30deg;
+    }
+    100% {
+       z-index: 14;
+    left: 30.5%;
+    width: 38vw;
+    top: 70.8%;
+    }
+}
+
+@keyframes moveTirantes {
+    0% {
+     top: 30%;
+    left: 10%;
+    width: 3vw;
+    z-index: 1;
+    }
+    100% {
+        top: 59%;
+        left: 33%;
+        width: 32.2vw;
+        transform: rotate(385deg);
+        z-index: 12;
+    }
+}
+
+@keyframes movePlacaCima {
+    0% {
+         top: 46%;
+    left: 12%;
+    width: 15vw;
+    z-index: 6;
+    rotate: -10deg;
+    }
+    100% {
+   z-index: 11;
+    width: 39.3vw;
+  
+    top: 54.7%;
+    left: 31.4%;
+    }
 }
