@@ -216,7 +216,6 @@ function gerarObjetoBalanceado() {
 
     const index = objetosAtivos.indexOf(objetoAtual);
     if (index !== -1) objetosAtivos.splice(index, 1);
-
   });
 }
 
@@ -234,12 +233,13 @@ const posicoes = [
   { left: '81%', top: '4%' },
 ];
 
-function mostrarBalaoAleatorio() {
-  // Oculta todos
+let indiceBalaoAtual = 0;
+
+function mostrarBalaoSequencial() {
   baloes.forEach(b => b.classList.remove('fade-in', 'fade-out'));
 
-  const balao = baloes[Math.floor(Math.random() * baloes.length)];
-  const pos = posicoes[Math.floor(Math.random() * posicoes.length)];
+  const balao = baloes[indiceBalaoAtual % baloes.length];
+  const pos = posicoes[indiceBalaoAtual % posicoes.length];
 
   balao.style.left = pos.left;
   balao.style.top = pos.top;
@@ -250,35 +250,35 @@ function mostrarBalaoAleatorio() {
     balao.classList.remove('fade-in');
     balao.classList.add('fade-out');
   }, 3000);
+
+  indiceBalaoAtual++;
 }
 
-// Inicia o jogo e o intervalo para os balões
-iniciarGeracaoObjetos();
-setInterval(mostrarBalaoAleatorio, 4000);
+// Guarda o ID do intervalo para podermos parar depois
+const baloesIntervalID = setInterval(mostrarBalaoSequencial, 4000);
 
-// Função que você passou, com pequenos ajustes para ficar no mesmo escopo
+// Inicia o jogo
+iniciarGeracaoObjetos();
+
+botaoDesistir.addEventListener('click', () => {
+  // Para o intervalo dos balões
+  clearInterval(baloesIntervalID);
+
+  // Mostra fullscreen
+  mostrarFullscreen();
+});
+
 function mostrarFullscreen() {
   const fullscreenContainer = document.getElementById('fullscreen-container');
   document.body.classList.add('fullscreen-active');
 
   fullscreenContainer.innerHTML = `
-    <div class="fullScreen-close" id="closeFullscreen">X</div>
     <div class="fullScreen-img-container">
       <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
       <img src="imagens/homem-negocios/mensagem.png" id="posicao2" alt="mensagem"> 
     </div>
     <button id="homeButton">Finalizar</button>
   `;
-
-  // Botão "X" para fechar
-  const closeBtn = document.getElementById('closeFullscreen');
-  let animacaoIntervalo;
-
-  closeBtn.addEventListener('click', function () {
-    clearInterval(animacaoIntervalo);
-    fullscreenContainer.style.display = 'none';
-    document.body.classList.remove('fullscreen-active');
-  });
 
   fullscreenContainer.style.display = 'flex';
 
@@ -287,7 +287,7 @@ function mostrarFullscreen() {
   const maxFrames = 10;
   const intervalo = 150;
 
-  animacaoIntervalo = setInterval(() => {
+  const animacaoIntervalo = setInterval(() => {
     frame = frame >= maxFrames ? 1 : frame + 1;
     principeImg.src = `imagens/principe/principe${frame}.png`;
   }, intervalo);
@@ -298,8 +298,3 @@ function mostrarFullscreen() {
     window.location.href = 'homepage.html';
   });
 }
-
-// Associa o evento ao botão desistir
-botaoDesistir.addEventListener('click', () => {
-  mostrarFullscreen();
-});
