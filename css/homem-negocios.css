@@ -19,12 +19,11 @@
 
 /* Pote */
 #pote {
-  position: relative ;
-  left: 64.9%;
+  position: relative;
+  left: 1000px;
   margin-top: 11.5%;
   width: 20%;
-  height: 30%; 
-  z-index: 2;
+  height: 30%;
   overflow: hidden;
 }
 
@@ -32,24 +31,24 @@
   width: 100%;
   height: auto;
   display: block;
-  z-index: 1;
-  pointer-events: none; 
+  z-index: 12;
+  pointer-events: none;
   position: relative;
 }
 
 
 #pote-cima {
   position: absolute;
-  left: 66%;
-  top: 21.5%;
+  left: 1018px;
+  top: 150px;
   width: 17.7%;
   z-index: 0;
 }
 
 #pote-baixo {
   position: absolute;
-  left: 67%;
-  top: 85%;
+  left: 1018px;
+  top: 592px;
   width: 17%;
   z-index: 0;
 }
@@ -59,18 +58,19 @@
   position: absolute;
   top: 10%;
   left: 6%;
-  width: 50vw;  /* 40% do ecrã */
+  width: 48vw;
+  /* 40% do ecrã */
   height: 70vh;
   overflow: hidden;
   pointer-events: auto;
-  z-index: 10;
+  z-index: 5;
   /*background-color: rgba(255, 0, 0, 0.2);*/
 }
 
 #area-queda {
   position: absolute;
-  left: 66.4%; 
-  top: 39%; 
+  left: 66.4%;
+  top: 39%;
   width: 17%;
   height: 51%;
   pointer-events: none;
@@ -86,7 +86,7 @@
   height: auto;
   opacity: 1;
   cursor: pointer;
-  z-index: 11;
+  z-index: 9;
   transition: transform 1s ease, opacity 1s ease;
 }
 
@@ -115,41 +115,69 @@
     transform: translateY(0);
     opacity: 1;
   }
+
   100% {
-    transform: translate(300px, 400px); /* Ajuste dependendo da posição do pote */
+    transform: translate(300px, 400px);
+    /* Ajuste dependendo da posição do pote */
     opacity: 0;
   }
 }
 
 .objeto-caindo {
   animation: cairNoPote 1s ease-in forwards;
-  pointer-events: none; /* Evita clique múltiplo durante animação */
+  pointer-events: none;
+  /* Evita clique múltiplo durante animação */
 }
 
 /* Botão Desistir  */
 .desistir {
-    position: fixed;
-    bottom: 5%;
-    left: 25%;
-    transform: translateX(-50%);
-    transition: all 0.3s ease;
-    z-index: 100;
-    display: none;
-    padding: 10px 20px;
-    background-color: #e0b2c6;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    color: white;
-    cursor: pointer;
-    animation: fadeIn 0.20s ease forwards;
+  position: fixed;
+  bottom: 5%;
+  left: 25%;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+  z-index: 100;
+  display: none;
+  padding: 10px 20px;
+  background-color: #e0b2c6;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  animation: fadeIn 0.20s ease forwards;
 }
 
 .desistir:hover {
-    background-color: #f5cbee;
+  background-color: #f5cbee;
 }
 
 /* Evita scroll da tela */
 body {
   overflow: hidden;
 }
+
+/* Balões de Fala */
+.balao {
+  position: fixed;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+.balao.fade-in {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.balao.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+

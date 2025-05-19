@@ -1,6 +1,6 @@
 const AREA_SEGURANCA = 100;
 const TEMPO_ANIMACAO = 10000;
-const INTERVALO_GERACAO = 400;
+const INTERVALO_GERACAO = 300;
 
 const imagens = [
   { src: 'imagens/homem-negocios/objetos/estrela.png', alt: 'estrela' },
@@ -12,16 +12,15 @@ const areaObjetos = document.querySelector('.area-objetos');
 const areaQueda = document.getElementById('area-queda');
 const objetosAtivos = [];
 let indiceImagemAtual = 0;
+let objetosClicados = 0;
+const botaoDesistir = document.getElementById('btnDesistir');
 
-// Matter.js setup
 const { Engine, Runner, World, Bodies, Body, Composite, Events } = Matter;
-
 const engine = Engine.create();
 const world = engine.world;
 const runner = Runner.create();
 Runner.run(runner, engine);
 
-// Função utilitária
 function map(n, start1, stop1, start2, stop2) {
   return ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
 }
@@ -59,36 +58,26 @@ function criarChaoAreaObjetos() {
 function criarChaoNoPote() {
   const areaRect = atualizarAreaQuedaRect();
 
-  // Remove antigos
   Composite.allBodies(world).forEach(body => {
     if (body.isStatic && ['chao-pote', 'parede-esquerda', 'parede-direita'].includes(body.label)) {
       World.remove(world, body);
     }
   });
 
-  // Chão
   const chao = Bodies.rectangle(
     areaRect.x + areaRect.width / 2,
     areaRect.y + areaRect.height + 20,
     areaRect.width,
     40,
-    {
-      isStatic: true,
-      friction: 0.7,
-      label: 'chao-pote',
-    }
+    { isStatic: true, friction: 0.7, label: 'chao-pote' }
   );
 
-  // Paredes laterais
   const paredeEsquerda = Bodies.rectangle(
     areaRect.x - 20,
     areaRect.y + areaRect.height / 2,
     40,
     areaRect.height,
-    {
-      isStatic: true,
-      label: 'parede-esquerda',
-    }
+    { isStatic: true, label: 'parede-esquerda' }
   );
 
   const paredeDireita = Bodies.rectangle(
@@ -96,10 +85,7 @@ function criarChaoNoPote() {
     areaRect.y + areaRect.height / 2,
     40,
     areaRect.height,
-    {
-      isStatic: true,
-      label: 'parede-direita',
-    }
+    { isStatic: true, label: 'parede-direita' }
   );
 
   World.add(world, [chao, paredeEsquerda, paredeDireita]);
@@ -111,7 +97,7 @@ function aplicarFisicaAoObjeto(img, x, y, largura, altura, src, escala = 0.5) {
 
   const areaRect = atualizarAreaQuedaRect();
   const posX = areaRect.x + areaRect.width / 2;
-  const posY = areaRect.y - altura;
+  const posY = 0 - altura;
 
   const body = Bodies.rectangle(posX, posY, largura, altura, {
     restitution: 0.1,
@@ -129,24 +115,22 @@ function aplicarFisicaAoObjeto(img, x, y, largura, altura, src, escala = 0.5) {
   elem.style.height = `${altura}px`;
   elem.style.pointerEvents = 'none';
   elem.style.zIndex = '6';
-  elem.style.left = `${posX - largura / 2 - areaRect.x}px`;
-  elem.style.top = `${posY - altura / 2 - areaRect.y}px`;
+  elem.style.left = `${posX - largura / 2}px`;
+  elem.style.top = `${posY - altura / 2}px`;
 
-  areaQueda.appendChild(elem);
+  document.body.appendChild(elem);
 
   const intervalo = setInterval(() => {
-    elem.style.left = `${body.position.x - largura / 2 - areaRect.x}px`;
-    elem.style.top = `${body.position.y - altura / 2 - areaRect.y}px`;
+    elem.style.left = `${body.position.x - largura / 2}px`;
+    elem.style.top = `${body.position.y - altura / 2}px`;
     elem.style.transform = `rotate(${body.angle}rad)`;
   }, 16);
-
-  const TEMPO_NO_POTE = 80000; // 80 segundos no pote
 
   setTimeout(() => {
     clearInterval(intervalo);
     World.remove(world, body);
     elem.remove();
-  }, TEMPO_NO_POTE);
+  }, 80000);
 }
 
 Events.on(engine, "beforeUpdate", () => {
@@ -213,7 +197,6 @@ function gerarObjetoBalanceado() {
   img.style.left = `${posX - areaRect.x}px`;
   img.style.top = `${posY - areaRect.y}px`;
   img.style.position = 'absolute';
-  img.style.transition = 'transform 1s ease-in, opacity 1s ease-in';
 
   areaObjetos.appendChild(img);
 
@@ -223,54 +206,79 @@ function gerarObjetoBalanceado() {
   img.addEventListener('click', () => {
     const largura = img.width;
     const altura = img.height;
-    aplicarFisicaAoObjeto(img, null, null, largura, altura, img.src, 0.7); // ESCALA DE 50%
+    aplicarFisicaAoObjeto(img, null, null, largura, altura, img.src, 1);
     img.remove();
 
-    // Atualiza contador de cliques
     objetosClicados++;
-    if (objetosClicados === 10) {
+    if (objetosClicados === 25) {
       botaoDesistir.style.display = 'block';
     }
 
     const index = objetosAtivos.indexOf(objetoAtual);
     if (index !== -1) objetosAtivos.splice(index, 1);
-  });
 
-  setTimeout(() => {
-    if (areaObjetos.contains(img)) {
-      img.remove();
-      const index = objetosAtivos.indexOf(objetoAtual);
-      if (index !== -1) objetosAtivos.splice(index, 1);
-    }
-  }, TEMPO_ANIMACAO);
+  });
 }
 
-// Inicializações
-criarChaoAreaObjetos();
-criarChaoNoPote();
-
-window.addEventListener('resize', () => {
+function iniciarGeracaoObjetos() {
   criarChaoAreaObjetos();
   criarChaoNoPote();
-});
+  setInterval(gerarObjetoBalanceado, INTERVALO_GERACAO);
+}
 
-setInterval(gerarObjetoBalanceado, INTERVALO_GERACAO);
+const baloes = document.querySelectorAll('.balao');
+const posicoes = [
+  { left: '84%', top: '5%' },
+  { left: '83%', top: '6%' },
+  { left: '82%', top: '7%' },
+  { left: '81%', top: '4%' },
+];
 
-let objetosClicados = 0;
-const botaoDesistir = document.getElementById('btnDesistir');
+function mostrarBalaoAleatorio() {
+  // Oculta todos
+  baloes.forEach(b => b.classList.remove('fade-in', 'fade-out'));
 
-// Mostrar tela fullscreen 
+  const balao = baloes[Math.floor(Math.random() * baloes.length)];
+  const pos = posicoes[Math.floor(Math.random() * posicoes.length)];
+
+  balao.style.left = pos.left;
+  balao.style.top = pos.top;
+
+  balao.classList.add('fade-in');
+
+  setTimeout(() => {
+    balao.classList.remove('fade-in');
+    balao.classList.add('fade-out');
+  }, 3000);
+}
+
+// Inicia o jogo e o intervalo para os balões
+iniciarGeracaoObjetos();
+setInterval(mostrarBalaoAleatorio, 4000);
+
+// Função que você passou, com pequenos ajustes para ficar no mesmo escopo
 function mostrarFullscreen() {
   const fullscreenContainer = document.getElementById('fullscreen-container');
   document.body.classList.add('fullscreen-active');
 
   fullscreenContainer.innerHTML = `
+    <div class="fullScreen-close" id="closeFullscreen">X</div>
     <div class="fullScreen-img-container">
       <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
       <img src="imagens/homem-negocios/mensagem.png" id="posicao2" alt="mensagem"> 
     </div>
     <button id="homeButton">Finalizar</button>
   `;
+
+  // Botão "X" para fechar
+  const closeBtn = document.getElementById('closeFullscreen');
+  let animacaoIntervalo;
+
+  closeBtn.addEventListener('click', function () {
+    clearInterval(animacaoIntervalo);
+    fullscreenContainer.style.display = 'none';
+    document.body.classList.remove('fullscreen-active');
+  });
 
   fullscreenContainer.style.display = 'flex';
 
@@ -279,7 +287,7 @@ function mostrarFullscreen() {
   const maxFrames = 10;
   const intervalo = 150;
 
-  const animacaoIntervalo = setInterval(() => {
+  animacaoIntervalo = setInterval(() => {
     frame = frame >= maxFrames ? 1 : frame + 1;
     principeImg.src = `imagens/principe/principe${frame}.png`;
   }, intervalo);
@@ -291,15 +299,7 @@ function mostrarFullscreen() {
   });
 }
 
-// Configurar botão desistir para mostrar fullscreen
-function configurarBotaoDesistir() {
-  const btnDesistir = document.getElementById('btnDesistir');
-  if (btnDesistir) {
-    btnDesistir.addEventListener('click', () => {
-      mostrarFullscreen();
-    });
-  }
-}
-
-// Chamar ao carregar
-configurarBotaoDesistir();
+// Associa o evento ao botão desistir
+botaoDesistir.addEventListener('click', () => {
+  mostrarFullscreen();
+});
