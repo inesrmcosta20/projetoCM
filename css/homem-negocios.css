@@ -1,0 +1,43 @@
+/* Background Noite */
+#ceu {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+}
+
+/* Planeta */
+#planeta {
+  position: absolute;
+  left: 35%;
+  bottom: -27%;
+  width: 70%;
+  z-index: -1;
+}
+
+/* Pote */
+#pote {
+  position: absolute;
+  left: 64.9%;
+  top: 25.5%;
+  width: 20%;
+  z-index: 1;
+}
+
+#pote-cima {
+  position: absolute;
+  left: 66%;
+  top: 21.5%;
+  width: 17.7%;
+  z-index: 0;
+}
+
+#pote-baixo {
+  position: absolute;
+  left: 67%;
+  top: 85%;
+  width: 17%;
+  z-index: 0;
+}
