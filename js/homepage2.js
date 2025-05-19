@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     // Verificar se a animação já foi executada nesta sessão
-    const animationAlreadyPlayed = localStorage.getItem('animationPlayed');
+    const animationAlreadyPlayed = sessionStorage.getItem('animationPlayed');
     
     if (!animationAlreadyPlayed) {
         console.log("Animação será executada (primeira vez nesta sessão)");
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 300);
             
             // Marcar na sessão que a animação já foi executada
-            localStorage.setItem('animationPlayed', 'true');
+            sessionStorage.setItem('animationPlayed', 'true');
             console.log("Animação terminada - marcando como executada nesta sessão");
             
             return;

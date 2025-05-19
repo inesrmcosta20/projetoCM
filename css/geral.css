@@ -112,7 +112,7 @@
     background-color: rgb(255, 140, 0);
 }
 
-#homeButtonR{
+#homeButton2{
   position: absolute;
    top: 55%;
     left: 34%;
@@ -124,7 +124,7 @@
     transition: background-color 0.3s ease;
     cursor: pointer;  
 }
-#homeButtonR:hover {
+#homeButton2:hover {
     background-color: rgb(255, 140, 0);
 }
 

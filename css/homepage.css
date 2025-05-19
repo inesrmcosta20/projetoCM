@@ -316,10 +316,7 @@ h2 {
     animation: moveCorpo 5s ease-out forwards;
 }*/
 
-/* Remove a animação quando não for necessária */
-.no-animation {
-    animation: none !important;
-}
+
 
 #corpo {
     animation-iteration-count: 1;
@@ -342,7 +339,10 @@ h2 {
     left: 31.4%;*/
 }
 
-
+/* Remove a animação quando não for necessária */
+.no-animation {
+    animation: none !important;
+}
 
 /* Animação a peça corpo */
 @keyframes moveCorpo {
@@ -388,6 +388,40 @@ h2 {
     animation: none !important;
 }
 
+.peca-placaBaixo-final {
+    display:none; 
+    z-index: 14;
+    left: 30.5%;
+    width: 38vw;
+    top: 70.8%;
+    animation: none !important;
+}
+.peca-tirantes-final {
+    display:none; 
+   top: 59%;
+        left: 33%;
+        width: 32.2vw;
+        transform: rotate(385deg);
+        z-index: 12;
+    animation: none !important;
+}
+.peca-placaCima-final {
+    display:none; 
+    z-index: 11;
+    width: 39.3vw;
+    top: 54.7%;
+    left: 31.4%;
+    animation: none !important;
+}
+
+.peca-helices-final {
+    display:none; 
+          z-index: 16;
+    top: 48%;
+    left: 33.5%;
+    width: 12.4vw;
+    animation: none !important;
+}
 
 /* animacao rodas */
 @keyframes moveRodas {

@@ -271,7 +271,7 @@ function mostrarFullscreen() {
           <img src="imagens/principe/principe1.png" id="posicao1" alt="príncipe">
         <img src="imagens/raposa/mensagem.png" id="posicao2" alt="mensagem"> 
         </div>
-        <button id="homeButtonR">Finalizar</button>
+        <button id="homeButton2">Finalizar</button>
     `;
 
         // Iniciar animação do príncipe
@@ -286,7 +286,7 @@ function mostrarFullscreen() {
         }, intervalo);
 
         // Lidar com clique no botão
-        const homeButton = document.getElementById('homeButtonR');
+        const homeButton = document.getElementById('homeButton2');
         homeButton.addEventListener('click', function () {
             // Parar a animação ao sair
             clearInterval(animacaoIntervalo);
