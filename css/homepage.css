@@ -95,11 +95,11 @@ h2 {
     width: 10vw;
     height: auto;
     z-index: 10;
-    
+       transition: none;
+    will-change: transform;
 
   /* animation: moveAviao 5s ease-out forwards;*/
 }
-
 
 #aviao2 {
     position: absolute;
@@ -139,17 +139,22 @@ h2 {
     40% {
         top: 25%;
         left: 70%;
-        transform: rotate(180deg) scale(2);
+        transform: rotate(60deg) scale(2);
     }
-    50% {
+         50% {
         top: 35%;
         left: 60%;
-        transform: rotate(360deg) scale(3);
+        transform: rotate(385deg) scale(3);
+    }
+    70% {
+        top: 65%;
+        left: 60%;
+        transform: rotate(500deg) scale(3);
     }
     100% {
         top: 70%;
         left: 45%;
-        transform: rotate(385deg) scale(4);
+        transform: rotate(745deg) scale(4);
     }
 }*/
 
@@ -415,7 +420,7 @@ h2 {
 }
 
 .peca-helices-final {
-    display:none; 
+  /*  display:none; */
           z-index: 16;
     top: 48%;
     left: 33.5%;

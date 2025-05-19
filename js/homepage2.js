@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Posições e transformações para cada etapa da animação
     const keyframes = [
         { time: 0,    top: -10, left: 100, rotate: 10,   scale: 0 },
-        { time: 500,  top: 10,  left: 90,  rotate: 25,   scale: 0.5 },
-        { time: 1000, top: 25,  left: 85,  rotate: 40,   scale: 1 },
-        { time: 1500, top: 35,  left: 75,  rotate: 100,   scale: 1.5 },
-        { time: 2000, top: 45,  left: 70,  rotate: 230,  scale: 2 },
-        { time: 2500, top: 55,  left: 60,  rotate: 370,  scale: 3 },
-        { time: 5000, top: 70,  left: 45,  rotate: 385,  scale: 4 }
+        { time: 100,  top: 10,  left: 90,  rotate: 25,   scale: 0.5 },
+        { time: 1500, top: 25,  left: 85,  rotate: 40,   scale: 1 },
+        { time: 2500, top: 35,  left: 75,  rotate: 100,   scale: 1.5 },
+        { time: 3000, top: 45,  left: 70,  rotate: 230,  scale: 2 },
+        { time: 4000, top: 55,  left: 60,  rotate: 470,  scale: 3 },
+        { time: 5000, top: 70,  left: 45,  rotate: 745,  scale: 4 }
     ];
 
     // Verificar se a animação já foi executada nesta sessão
@@ -183,3 +183,131 @@ document.addEventListener("DOMContentLoaded", function () {
      controlarPeca('helices', 'peça-helices');
     controlarPeca('placaCima', 'peça-placaCima');
 });
+
+
+//animação final - quando todas as peças-avião estão ativas
+checkIfGameComplete();
+
+function checkIfGameComplete() {
+    const pecas = ['corpo', 'rodas', 'tirantes', 'placaBaixo', 'helices', 'placaCima'];
+    const todasMontadas = pecas.every(p => sessionStorage.getItem(`${p}Animada`) === 'true');
+
+    if (todasMontadas) {
+        console.log("Todas as peças foram montadas! Iniciando animação final...");
+
+        // Tocar som de sucesso
+        const audio = new Audio('sons/FinalSucess.mp3');
+        audio.play();
+
+        // Preparar avião para animação
+        aviao2.style.display = 'none';
+        aviao.style.display = 'block';
+        aviao.style.zIndex = '9999'; // garantir que esteja no topo
+
+        // Adiciona keyframes dinamicamente
+        const style = document.createElement('style');
+        style.innerHTML = `
+        @keyframes aviaoDecolando {
+            0% {
+                   top: 70%;
+        left: 45%;
+        transform: rotate(385deg) scale(4);
+            }
+            30% {
+                  top: 60%;
+        left: 40%;
+        transform: rotate(395deg) scale(3);
+            }
+    
+            70% {
+             top: 30%;
+        left: 20%;
+                transform: rotate(360deg) scale(2);
+                opacity: 0.8;
+            }
+            100% {
+            top: 0%;
+        left: -10%;
+                transform: rotate(360deg) scale(1);
+            
+            }
+        }
+        .animar-decolagem {
+            animation: aviaoDecolando 5s ease-in-out forwards;
+        }`;
+        document.head.appendChild(style);
+
+        // Acionar animação
+        aviao.classList.add('animar-decolagem');
+
+        // Mostrar botão de reset após animação
+        setTimeout(() => {
+            mostrarBotaoReset();
+        }, 3500);
+    }
+}
+
+function mostrarBotaoReset() {
+    const botaoReset = document.createElement('button');
+    botaoReset.textContent = "Jogar Novamente";
+    botaoReset.style.position = 'fixed';
+    botaoReset.style.top = '50%';
+    botaoReset.style.left = '50%';
+    botaoReset.style.transform = 'translate(-50%, -50%)';
+    botaoReset.style.padding = '20px 40px';
+    botaoReset.style.fontSize = '2rem';
+    botaoReset.style.backgroundColor = '#28a745';
+    botaoReset.style.color = '#fff';
+    botaoReset.style.border = 'none';
+    botaoReset.style.borderRadius = '10px';
+    botaoReset.style.cursor = 'pointer';
+    botaoReset.style.zIndex = '9999';
+
+    document.body.appendChild(botaoReset);
+
+    botaoReset.addEventListener('click', () => {
+        sessionStorage.clear();
+        localStorage.clear();
+        window.location.reload(); // Ou redireciona para tela inicial: window.location.href = 'index.html';
+    });
+}
+
+
+// Atalho para mostrar o botão de ativar todas as peças (modo desenvolvedor)
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'd' || e.key === 'D') {
+        mostrarBotaoAtivarTodasPecas();
+    }
+});
+
+function mostrarBotaoAtivarTodasPecas() {
+    const botao = document.createElement('button');
+    botao.textContent = "Ativar todas as peças (DEBUG)";
+    botao.style.position = 'fixed';
+    botao.style.bottom = '20px';
+    botao.style.right = '20px';
+    botao.style.padding = '10px 20px';
+    botao.style.fontSize = '1rem';
+    botao.style.backgroundColor = '#ff5722';
+    botao.style.color = '#fff';
+    botao.style.border = 'none';
+    botao.style.borderRadius = '6px';
+    botao.style.cursor = 'pointer';
+    botao.style.zIndex = '9999';
+
+    document.body.appendChild(botao);
+
+    botao.addEventListener('click', () => {
+        const pecas = ['corpo', 'rodas', 'tirantes', 'placaBaixo', 'helices', 'placaCima'];
+     
+        pecas.forEach(p => {
+            sessionStorage.setItem(`${p}Animada`, 'true');
+            sessionStorage.setItem(`${p}Desativada`, 'true');
+            const pecaElemento = document.getElementById(p);
+            if (pecaElemento) pecaElemento.style.display = 'block';
+        });
+
+        checkIfGameComplete();
+        botao.remove(); // Remove botão após uso
+    });
+}
