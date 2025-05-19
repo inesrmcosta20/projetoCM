@@ -1,4 +1,3 @@
-//candeeiro.js
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos do DOM
     const luzes = [
@@ -244,4 +243,3 @@ function mostrarFullscreen() {
     }
 
 });
-
