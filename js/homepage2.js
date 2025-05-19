@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Posições e transformações para cada etapa da animação
     const keyframes = [
         { time: 0,    top: -10, left: 100, rotate: 10,   scale: 0 },
-        { time: 500,  top: 10,  left: 90,  rotate: 15,   scale: 0.5 },
-        { time: 1000, top: 15,  left: 85,  rotate: 20,   scale: 1 },
-        { time: 1500, top: 25,  left: 75,  rotate: 45,   scale: 1.5 },
-        { time: 2000, top: 25,  left: 70,  rotate: 180,  scale: 2 },
-        { time: 2500, top: 35,  left: 60,  rotate: 360,  scale: 3 },
+        { time: 500,  top: 10,  left: 90,  rotate: 25,   scale: 0.5 },
+        { time: 1000, top: 25,  left: 85,  rotate: 40,   scale: 1 },
+        { time: 1500, top: 35,  left: 75,  rotate: 100,   scale: 1.5 },
+        { time: 2000, top: 45,  left: 70,  rotate: 230,  scale: 2 },
+        { time: 2500, top: 55,  left: 60,  rotate: 370,  scale: 3 },
         { time: 5000, top: 70,  left: 45,  rotate: 385,  scale: 4 }
     ];
 
