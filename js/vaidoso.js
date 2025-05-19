@@ -115,7 +115,7 @@ function mostrarFullscreen() {
           <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
         <img src="imagens/vaidoso/mensagem.png" id="posicao2" alt="mensagem"> 
         </div>
-        <button id="homeButton2">Finalizar</button>
+        <button id="homeButton">Finalizar</button>
     `;
 
 // Botão "X" para fechar
@@ -138,7 +138,7 @@ closeBtn.addEventListener('click', function () {
         }, intervalo);
 
         // Lidar com clique no botão
-        const homeButton = document.getElementById('homeButton2');
+        const homeButton = document.getElementById('homeButton');
         homeButton.addEventListener('click', function () {
             // Parar a animação ao sair
             clearInterval(animacaoIntervalo);
