@@ -9,7 +9,7 @@
 }
 
 /* Planeta */
-#planeta {
+#planeta-homem-negocios {
   position: absolute;
   left: 35%;
   bottom: -27%;
@@ -19,12 +19,24 @@
 
 /* Pote */
 #pote {
-  position: absolute;
+  position: relative ;
   left: 64.9%;
-  top: 25.5%;
+  margin-top: 11.5%;
   width: 20%;
-  z-index: 1;
+  height: 30%; 
+  z-index: 2;
+  overflow: hidden;
 }
+
+#pote-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  z-index: 1;
+  pointer-events: none; 
+  position: relative;
+}
+
 
 #pote-cima {
   position: absolute;
@@ -40,4 +52,104 @@
   top: 85%;
   width: 17%;
   z-index: 0;
+}
+
+/* Área dos objetos */
+.area-objetos {
+  position: absolute;
+  top: 10%;
+  left: 6%;
+  width: 50vw;  /* 40% do ecrã */
+  height: 70vh;
+  overflow: hidden;
+  pointer-events: auto;
+  z-index: 10;
+  /*background-color: rgba(255, 0, 0, 0.2);*/
+}
+
+#area-queda {
+  position: absolute;
+  left: 66.4%; 
+  top: 39%; 
+  width: 17%;
+  height: 51%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+  /*background-color: rgba(0, 255, 0, 0.2);*/
+}
+
+
+.objeto-animado {
+  position: absolute;
+  width: 35px;
+  height: auto;
+  opacity: 1;
+  cursor: pointer;
+  z-index: 11;
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+
+@keyframes animarObjeto {
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Objetos a cair no pote */
+@keyframes cairNoPote {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(300px, 400px); /* Ajuste dependendo da posição do pote */
+    opacity: 0;
+  }
+}
+
+.objeto-caindo {
+  animation: cairNoPote 1s ease-in forwards;
+  pointer-events: none; /* Evita clique múltiplo durante animação */
+}
+
+/* Botão Desistir  */
+.desistir {
+    position: fixed;
+    bottom: 5%;
+    left: 25%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    z-index: 100;
+    display: none;
+    padding: 10px 20px;
+    background-color: #e0b2c6;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    animation: fadeIn 0.20s ease forwards;
+}
+
+.desistir:hover {
+    background-color: #f5cbee;
+}
+
+/* Evita scroll da tela */
+body {
+  overflow: hidden;
 }

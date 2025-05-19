@@ -40,18 +40,39 @@
   <main>
     <!-- Cenário -->
     <div class="estrelas"> </div>
-    <img src="imagens/homem-negocios/ceu.png" alt="ceu" id="ceu">
-    <img src="imagens/homem-negocios/planeta.png" alt="planeta" id="planeta">
-    <img src="imagens/homem-negocios/pote.png" alt="pote" id="pote">
-    <img src="imagens/homem-negocios/pote-cima.png" alt="pote-cima" id="pote-cima">
-    <img src="imagens/homem-negocios/pote-baixo.png" alt="pote-baixo" id="pote-baixo">
+    <img src="imagens/homem-negocios/cenario/ceu.png" alt="ceu" id="ceu">
+    <img src="imagens/homem-negocios/cenario/planeta.png" alt="planeta" id="planeta-homem-negocios">
+    <div id="pote">
+      <img src="imagens/homem-negocios/cenario/pote.png" alt="pote-imagem" id="pote-img">
+    </div>
+    <img src="imagens/homem-negocios/cenario/pote-cima.png" alt="pote-cima" id="pote-cima">
+    <img src="imagens/homem-negocios/cenario/pote-baixo.png" alt="pote-baixo" id="pote-baixo">
+    <div class="area-objetos"></div>
+    <div id="area-queda"></div>
+
+    <!-- Botão de Ajuda -->
+    <div class="ajuda">
+      <img src="imagens/icones/help-icon g.png" onclick="myPopUp()">
+      <span class="popuptext" id="popup" display="none">Clica nas estrelas, planetas e luas para acumular riqueza.</span>
+    </div>
+
+    <!-- Botão Finalizar -->
+    <button type="button" class="desistir" id="btnDesistir">Desistir</button>
+
+    <!-- Mensagem Principezinho -->
+    <container class="fullScreen" id="fullscreen-container"> <a class="close" onclick="fecharFullscreen()">X</a>
+    </container>
   </main>
 
 
+
   <!-- JS -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
   <script src="js/homem-negocios.js"></script>
   <script src="js/estrelas.js"></script>
   <script src="js/geral.js"></script>
+  </script>
+
 </body>
 
 </html>

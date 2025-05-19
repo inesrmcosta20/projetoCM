@@ -85,7 +85,7 @@
 .popuptext::after {
     content: "";
     position: absolute;
-    bottom: -10px;
+    bottom: -9px;
     right: 30px;
     border-width: 10px 10px 0;
     border-style: solid;
