@@ -209,12 +209,21 @@ function mostrarFullscreen() {
         document.body.classList.add('fullscreen-active');
 
         fullscreenContainer.innerHTML = `
+        <div class="fullScreen-close" id="closeFullscreen">X</div>
         <div class="fullScreen-img-container">
           <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
-        <img src="imagens/rosa/mensagem.png" id="posicao2" alt="mensagem"> 
+        <img src="imagens/candeeiro/mensagem.png" id="posicao2" alt="mensagem"> 
         </div>
-        <button id="homeButton">Finalizar</button>
+        <button id="homeButton2">Finalizar</button>
     `;
+
+// Botão "X" para fechar
+const closeBtn = document.getElementById('closeFullscreen');
+closeBtn.addEventListener('click', function () {
+    clearInterval(animacaoIntervalo);
+    fullscreenContainer.style.display = 'none';
+    document.body.classList.remove('fullscreen-active');
+});
 
         // Iniciar animação do príncipe
         const principeImg = document.getElementById('posicao1');
@@ -228,7 +237,7 @@ function mostrarFullscreen() {
         }, intervalo);
 
         // Lidar com clique no botão
-        const homeButton = document.getElementById('homeButton');
+        const homeButton = document.getElementById('homeButton2');
         homeButton.addEventListener('click', function () {
             // Parar a animação ao sair
             clearInterval(animacaoIntervalo);

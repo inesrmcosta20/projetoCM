@@ -112,6 +112,21 @@
     background-color: rgb(255, 140, 0);
 }
 
+#homeButton2{
+  position: absolute;
+   top: 55%;
+    left: 34%;
+    padding: 12px 35px;
+    background-color: rgb(255, 183, 0);
+    color: black;
+    font-size: 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;  
+}
+#homeButton2:hover {
+    background-color: rgb(255, 140, 0);
+}
 
 /*fundo*/
 .fullScreen {
@@ -128,17 +143,18 @@
     z-index: 1000;
 }
 
-.fullScreen .close {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    color: white;
-    font-size: 70px;
-    cursor: pointer;
-    z-index: 1001;
+.fullScreen-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
 }
 
-.close:hover {
+.fullScreen-close :hover {
     scale: 107%;
 }
 

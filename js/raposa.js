@@ -1,5 +1,6 @@
 //raposa.js
 
+
 let video, handpose, predictions = [];
 let perguntasDisponiveis = [];
 let perguntaAtual = null;
@@ -115,12 +116,11 @@ function atualizarRaposa() {
 
 
 // Verify answer
-
 function verificarResposta(gesto) {
   if (emCooldown || !perguntaAtual || jogoCompleto) return;
-  
+
   const respostaEsperada = respostasCorretas[perguntaAtual.id];
-  
+
   if (gesto === respostaEsperada) {
     somCorreto.play();
     if (raposaIndex < 5) raposaIndex++;
@@ -130,21 +130,26 @@ function verificarResposta(gesto) {
     if (raposaIndex > 1) raposaIndex--;
     emojiAtual = '👎';
   }
-  
+
   atualizarRaposa();
-  
-  if (raposaIndex === 5) {
-  jogoCompleto = true;
-  
-  // Aguarda 5 segundos antes de mostrar o fullscreen
-  setTimeout(() => {
-    mostrarFullscreen();
-  }, 5000);
-} else {
-  mostrarNovaPergunta();
+
+  if (raposaIndex === 5 && !jogoCompleto) {
+    jogoCompleto = true;
+
+    // Esconder balões imediatamente
+    esconderTodasPerguntas();
+
+    // Aguarda 2 segundos e mostra o fullscreen
+    setTimeout(() => {
+      mostrarBotaoSucesso();
+      console.log("Entrou no fullscreen(raposa)");
+    }, 2000);
+  } else {
+    mostrarNovaPergunta();
+  }
 }
 
-}
+
 // Detect hand gesture
 function detectarGesto() {
   if (!predictions || predictions.length === 0) return null;
@@ -174,9 +179,9 @@ function mostrarBotaoSucesso() {
       console.log("Erro ao remover listener:", error);
     }
   }
-  
+
   predictions = []; // Limpa as predições
-  
+
   // Para a webcam de forma segura
   if (video && typeof video.stop === 'function') {
     try {
@@ -187,67 +192,25 @@ function mostrarBotaoSucesso() {
     }
     video = null;
   }
+
   // Esconde todos os balões
   esconderTodasPerguntas();
-  
+
   // Esconde o container da webcam
   const webcamContainer = document.getElementById('webcam-container');
   if (webcamContainer) {
     webcamContainer.style.display = 'none';
   }
-  
+
   // Pausa os sons
   if (somCorreto) somCorreto.pause();
   if (somIncorreto) somIncorreto.pause();
-  
+
+  // Em vez de mostrar botão, chama o pop-up fullscreen
+  mostrarFullscreen();
 }
 
-function mostrarFullscreen() {
-  const fullscreenContainer = document.getElementById('fullscreen-container');
-  document.body.classList.add('fullscreen-active');
 
-  fullscreenContainer.innerHTML = `
-    <div class="fullScreen-img-container">
-      <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
-      <img src="imagens/raposa/mensagem.png" id="posicao2" alt="mensagem">
-      <button id="closeButton" class="close-button">X</button>
-    </div>
-    <button id="homeButton">Finalizar</button>
-  `;
-
-  // Iniciar animação do príncipe
-  const principeImg = document.getElementById('posicao1');
-  let frame = 1;
-  const maxFrames = 10;
-  const intervalo = 150;
-
-  let animacaoIntervalo = setInterval(() => {
-    frame = frame >= maxFrames ? 1 : frame + 1;
-    principeImg.src = `imagens/principe/principe${frame}.png`;
-  }, intervalo);
-
-  // Botão de fechar (X)
-  const closeButton = document.getElementById('closeButton');
-  closeButton.addEventListener('click', function () {
-    clearInterval(animacaoIntervalo);
-    document.body.classList.remove('fullscreen-active');
-    fullscreenContainer.innerHTML = '';
-  });
-
-  // Botão de finalizar
-  const homeButton = document.getElementById('homeButton');
-  homeButton.addEventListener('click', function () {
-    clearInterval(animacaoIntervalo);
-    sessionStorage.setItem('desativarPecaCenario', 'peça-placaBaixo');
-    sessionStorage.setItem('animarPecaAviao', 'placaBaixo');
-    window.location.href = 'homepage.html';
-  });
-
-  fullscreenContainer.style.display = 'flex';
-}
-
-  
- 
 
 // p5.js setup
 function setup() {
@@ -284,7 +247,10 @@ function draw() {
     const prediction = predictions[0];
     const thumbTip = prediction.annotations.thumb[3];
     
-    
+    //polegar
+    fill(0, 255, 0);
+    noStroke();
+    ellipse(thumbTip[0], thumbTip[1], 15);
     
     // Detect gestures
     const gesto = detectarGesto();
@@ -292,5 +258,47 @@ function draw() {
       verificarResposta(gesto);
     }
   }
-  
 }
+  
+
+
+function mostrarFullscreen() {
+        const fullscreenContainer = document.getElementById('fullscreen-container');
+        document.body.classList.add('fullscreen-active');
+
+        fullscreenContainer.innerHTML = `
+        <div class="fullScreen-img-container">
+          <img src="imagens/principe/principe1.png" id="posicao1" alt="príncipe">
+        <img src="imagens/raposa/mensagem.png" id="posicao2" alt="mensagem"> 
+        </div>
+        <button id="homeButton2">Finalizar</button>
+    `;
+
+        // Iniciar animação do príncipe
+        const principeImg = document.getElementById('posicao1');
+        let frame = 1;
+        const maxFrames = 10;
+        const intervalo = 150; // ms
+
+        let animacaoIntervalo = setInterval(() => {
+            frame = frame >= maxFrames ? 1 : frame + 1;
+            principeImg.src = `imagens/principe/principe${frame}.png`;
+        }, intervalo);
+
+        // Lidar com clique no botão
+        const homeButton = document.getElementById('homeButton2');
+        homeButton.addEventListener('click', function () {
+            // Parar a animação ao sair
+            clearInterval(animacaoIntervalo);
+
+            // Ativar peça placaBaixo no avião e desativar no cenário
+            sessionStorage.setItem('desativarPecaCenario', 'peça-placaBaixo');
+            sessionStorage.setItem('animarPecaAviao', 'placaBaixo');
+
+            window.location.href = 'homepage.html';
+        });
+
+        fullscreenContainer.style.display = 'flex';
+    }
+
+

@@ -236,15 +236,3 @@ body.raposa4 .perguntaB {
   width: 18%;
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: transparent;
-  border: none;
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
-  z-index: 1001;
-}

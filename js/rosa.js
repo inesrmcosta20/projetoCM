@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         fullscreenContainer.innerHTML = `
         <div class="fullScreen-img-container">
-          <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
+          <img src="imagens/principe/principe1.png" id="posicao1" alt="príncipe">
         <img src="imagens/rosa/mensagem.png" id="posicao2" alt="mensagem"> 
         </div>
         <button id="homeButton">Finalizar</button>

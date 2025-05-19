@@ -95,11 +95,11 @@ h2 {
     width: 10vw;
     height: auto;
     z-index: 10;
-    
+       transition: none;
+    will-change: transform;
 
   /* animation: moveAviao 5s ease-out forwards;*/
 }
-
 
 #aviao2 {
     position: absolute;
@@ -139,17 +139,22 @@ h2 {
     40% {
         top: 25%;
         left: 70%;
-        transform: rotate(180deg) scale(2);
+        transform: rotate(60deg) scale(2);
     }
-    50% {
+         50% {
         top: 35%;
         left: 60%;
-        transform: rotate(360deg) scale(3);
+        transform: rotate(385deg) scale(3);
+    }
+    70% {
+        top: 65%;
+        left: 60%;
+        transform: rotate(500deg) scale(3);
     }
     100% {
         top: 70%;
         left: 45%;
-        transform: rotate(385deg) scale(4);
+        transform: rotate(745deg) scale(4);
     }
 }*/
 
@@ -316,10 +321,7 @@ h2 {
     animation: moveCorpo 5s ease-out forwards;
 }*/
 
-/* Remove a animação quando não for necessária */
-.no-animation {
-    animation: none !important;
-}
+
 
 #corpo {
     animation-iteration-count: 1;
@@ -342,7 +344,10 @@ h2 {
     left: 31.4%;*/
 }
 
-
+/* Remove a animação quando não for necessária */
+.no-animation {
+    animation: none !important;
+}
 
 /* Animação a peça corpo */
 @keyframes moveCorpo {
@@ -388,6 +393,40 @@ h2 {
     animation: none !important;
 }
 
+.peca-placaBaixo-final {
+    display:none; 
+    z-index: 14;
+    left: 30.5%;
+    width: 38vw;
+    top: 70.8%;
+    animation: none !important;
+}
+.peca-tirantes-final {
+    display:none; 
+   top: 59%;
+        left: 33%;
+        width: 32.2vw;
+        transform: rotate(385deg);
+        z-index: 12;
+    animation: none !important;
+}
+.peca-placaCima-final {
+    display:none; 
+    z-index: 11;
+    width: 39.3vw;
+    top: 54.7%;
+    left: 31.4%;
+    animation: none !important;
+}
+
+.peca-helices-final {
+  /*  display:none; */
+          z-index: 16;
+    top: 48%;
+    left: 33.5%;
+    width: 12.4vw;
+    animation: none !important;
+}
 
 /* animacao rodas */
 @keyframes moveRodas {
