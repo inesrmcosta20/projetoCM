@@ -9,11 +9,12 @@ const sensitivity = 4;
 const MIN_AMPLITUDE_THRESHOLD = 0.02;
 let started = false;
 
-const baloesAleatorios = [
+const baloes = [
   'balao-fala1', 'balao-fala2', 'balao-fala3', 'balao-fala4', 'balao-fala5',
   'balao-fala6', 'balao-fala7', 'balao-fala8', 'balao-fala9', 'balao-fala10',
 ];
 
+let indiceBalao = 0; // índice sequencial para os balões
 let ultimaFraseTimestamp = 0;
 const INTERVALO_ENTRE_FRASES = 4000;
 
@@ -22,8 +23,8 @@ const LIMITE_INTERACOES = 7;
 
 // Função para mostrar balões com controlo de interações
 function mostrarBalao(id) {
-  const baloes = document.querySelectorAll('.balao');
-  baloes.forEach(b => {
+  const baloesDOM = document.querySelectorAll('.balao');
+  baloesDOM.forEach(b => {
     b.classList.remove('fade-in');
     b.classList.add('fade-out');
   });
@@ -75,7 +76,8 @@ function analyzeSound() {
 
     const agora = Date.now();
     if (effectiveAmplitude > 0.05 && agora - ultimaFraseTimestamp > INTERVALO_ENTRE_FRASES) {
-      const idBalao = baloesAleatorios[Math.floor(Math.random() * baloesAleatorios.length)];
+      const idBalao = baloes[indiceBalao];
+      indiceBalao = (indiceBalao + 1) % baloes.length;
       mostrarBalao(idBalao);
       ultimaFraseTimestamp = agora;
     }

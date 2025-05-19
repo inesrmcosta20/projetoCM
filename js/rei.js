@@ -24,69 +24,124 @@ const camera = new Camera(videoElement, {
   height: 480
 });
 
-camera.start()
-  .then(() => {
-    console.log("Câmera inicializada com sucesso!");
-  })
-  .catch((err) => {
-    console.error("Erro ao acessar a câmera: ", err);
-  });
+let etapaAtual = 0; // 0: sorriso, 1: piscar 3x, 2: boca aberta, 3: balões aleatórios
+let blinkCount = 0;
+let eyesClosed = false;
+let balaoAtual = 1;
+let audioJaTocado = false;
 
-let etapaAtual = 0; // 0: olhos, 1: boca, 2: sorriso
+let trocaBalaoCount = 0;
+let intervaloBaloes;
+
+// Inicializa a configuração do botão
+document.addEventListener('DOMContentLoaded', configurarBotaoDesistir);
+
+function mostrarBalao(numero) {
+  // Se a etapaAtual for -1 significa que desistiu, não mostra mais balões
+  if (etapaAtual === -1) return;
+
+  balaoAtual = numero;
+  audioJaTocado = false;
+
+  if (etapaAtual === 3) {
+    trocaBalaoCount++;
+    if (trocaBalaoCount === 7) {  // Alterado para 7 trocas
+      const btnDesistir = document.getElementById("btnDesistir");
+      if (btnDesistir) btnDesistir.style.display = "block";
+    }
+  }
+
+  for (let i = 1; i <= 9; i++) {
+    const balao = document.getElementById(`balao-fala${i}`);
+    if (balao) {
+      balao.classList.remove('fade-in');
+      balao.classList.add('fade-out');
+    }
+  }
+
+  const balao = document.getElementById(`balao-fala${numero}`);
+  if (balao) {
+    balao.classList.remove('fade-out');
+    balao.classList.add('fade-in');
+  }
+}
 
 function onResults(results) {
-  if (results.multiFaceLandmarks.length > 0) {
-    const landmarks = results.multiFaceLandmarks[0];
+  if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) return;
 
-    const leftEAR = computeEAR([
-      landmarks[33], landmarks[160], landmarks[158],
-      landmarks[133], landmarks[153], landmarks[144]
-    ]);
-    const rightEAR = computeEAR([
-      landmarks[362], landmarks[385], landmarks[387],
-      landmarks[263], landmarks[373], landmarks[380]
-    ]);
-    const avgEAR = (leftEAR + rightEAR) / 2;
+  // Não processa se desistiu
+  if (etapaAtual === -1) return;
 
-    const topLip = landmarks[13];
-    const bottomLip = landmarks[14];
-    const mouthOpenDistance = Math.abs(topLip.y - bottomLip.y);
+  const landmarks = results.multiFaceLandmarks[0];
 
-    const leftMouthCorner = landmarks[61];
-    const rightMouthCorner = landmarks[291];
-    const mouthWidth = Math.abs(rightMouthCorner.x - leftMouthCorner.x);
-    const lipDistance = Math.abs(topLip.y - bottomLip.y);
-    const smileRatio = mouthWidth / lipDistance;
+  const leftEAR = computeEAR([landmarks[33], landmarks[160], landmarks[158], landmarks[133], landmarks[153], landmarks[144]]);
+  const rightEAR = computeEAR([landmarks[362], landmarks[385], landmarks[387], landmarks[263], landmarks[373], landmarks[380]]);
+  const avgEAR = (leftEAR + rightEAR) / 2;
 
-    switch (etapaAtual) {
-      case 0: // Esperando piscar
-        if (avgEAR < 0.2) {
-          etapaAtual = 1;
-          document.getElementById("audio-acerto").play();
-          console.log("Etapa 1: Olhos fechados detectados");
-        }
-        break;
+  const topLip = landmarks[13];
+  const bottomLip = landmarks[14];
+  const mouthOpenDistance = Math.abs(topLip.y - bottomLip.y);
 
-      case 1: // Esperando boca aberta
-        if (mouthOpenDistance > 0.04) {
+  const leftMouthCorner = landmarks[61];
+  const rightMouthCorner = landmarks[291];
+  const mouthWidth = Math.abs(rightMouthCorner.x - leftMouthCorner.x);
+  const lipDistance = mouthOpenDistance;
+  const smileRatio = mouthWidth / (lipDistance || 0.0001);
+
+  switch (etapaAtual) {
+    case 0: // Sorriso
+      if (smileRatio > 1.6 && lipDistance > 0.025) {
+        etapaAtual = 1;
+        document.getElementById("audio-correto").play();
+        mostrarBalao(2);
+      }
+      break;
+
+    case 1: // Piscar 3 vezes
+      if (avgEAR < 0.2 && !eyesClosed) {
+        eyesClosed = true;
+      }
+
+      if (avgEAR > 0.25 && eyesClosed) {
+        eyesClosed = false;
+        blinkCount++;
+
+        if (blinkCount >= 2) {
           etapaAtual = 2;
-          document.getElementById("audio-acerto").play();
-          console.log("Etapa 2: Boca aberta detectada");
+          document.getElementById("audio-correto").play();
+          mostrarBalao(3);
         }
-        break;
+      }
+      break;
 
-      case 2: // Esperando sorriso
-        if (smileRatio > 2.0 && lipDistance > 0.04) {
-          etapaAtual = 3;
-          document.getElementById("audio-acerto").play();
-          console.log("Etapa 3: Sorriso detectado. Sequência completa!");
-          // Aqui você pode adicionar qualquer ação final, tipo mudar de tela ou mostrar algo.
+    case 2: // Boca aberta
+      if (mouthOpenDistance > 0.06) {
+        etapaAtual = 3;
+        document.getElementById("audio-correto").play();
+
+        for (let i = 1; i <= 3; i++) {
+          const balao = document.getElementById(`balao-fala${i}`);
+          if (balao) balao.classList.add('fade-out');
         }
-        break;
 
-      default:
-        break;
-    }
+        iniciarBaloesAleatorios();
+      }
+      break;
+
+    case 3: // Balões aleatórios
+      if (!audioJaTocado) {
+        if (balaoAtual === 1 && smileRatio > 1.6 && lipDistance > 0.025) {
+          document.getElementById("audio-correto").play();
+          audioJaTocado = true;
+        } else if (balaoAtual === 2 && avgEAR < 0.2) {
+          document.getElementById("audio-correto").play();
+          audioJaTocado = true;
+        } else if (balaoAtual === 3 && mouthOpenDistance > 0.06) {
+          document.getElementById("audio-correto").play();
+          audioJaTocado = true;
+        }
+      }
+      break;
   }
 }
 
@@ -96,4 +151,72 @@ function computeEAR(eye) {
   const b = euclidean(eye[2], eye[4]);
   const c = euclidean(eye[0], eye[3]);
   return (a + b) / (2.0 * c);
+}
+
+function iniciarBaloesAleatorios() {
+  if (intervaloBaloes) return; // evita múltiplos intervalos
+
+  intervaloBaloes = setInterval(() => {
+    const numero = Math.floor(Math.random() * 9) + 1; // De 1 a 9
+    mostrarBalao(numero);
+  }, 2500); // A cada 2.5 segundos
+}
+
+function pararBaloes() {
+  if (intervaloBaloes) {
+    clearInterval(intervaloBaloes);
+    intervaloBaloes = null;
+  }
+}
+
+camera.start()
+  .then(() => {
+    mostrarBalao(1);
+  })
+  .catch((err) => {
+    console.error("Erro ao iniciar a câmara:", err);
+  });
+
+// Função para mostrar a tela fullscreen quando clicar em "Desistir"
+function mostrarFullscreen() {
+  pararBaloes();
+  etapaAtual = -1; // Para o fluxo do jogo
+
+  const fullscreenContainer = document.getElementById('fullscreen-container');
+  document.body.classList.add('fullscreen-active');
+
+  fullscreenContainer.innerHTML = `
+    <div class="fullScreen-img-container">
+      <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
+      <img src="imagens/rei/mensagem.png" id="posicao2" alt="mensagem"> 
+    </div>
+    <button id="homeButton">Finalizar</button>
+  `;
+
+  fullscreenContainer.style.display = 'flex';
+
+  const principeImg = document.getElementById('posicao1');
+  let frame = 1;
+  const maxFrames = 10;
+  const intervalo = 150;
+
+  const animacaoIntervalo = setInterval(() => {
+    frame = frame >= maxFrames ? 1 : frame + 1;
+    principeImg.src = `imagens/principe/principe${frame}.png`;
+  }, intervalo);
+
+  const homeButton = document.getElementById('homeButton');
+  homeButton.addEventListener('click', () => {
+    clearInterval(animacaoIntervalo);
+    window.location.href = 'homepage.html';
+  });
+}
+
+// Configura o botão desistir para chamar mostrarFullscreen
+function configurarBotaoDesistir() {
+  const btnDesistir = document.getElementById('btnDesistir');
+  if (btnDesistir) {
+    btnDesistir.style.display = 'none'; // começa oculto
+    btnDesistir.addEventListener('click', mostrarFullscreen);
+  }
 }

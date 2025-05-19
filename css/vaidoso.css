@@ -48,15 +48,17 @@
   pointer-events: none;
 }
 
+/*É tão bom ser aplaudido!*/
 #balao-fala1 {
   position: fixed;
-  left: 55%;
-  bottom: 65%;
+  left: 60%;
+  bottom: 50%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
+/*Quero aplausos!*/
 #balao-fala2 {
   position: fixed;
   left: 20%;
@@ -66,73 +68,81 @@
   z-index: 5;
 }
 
+/*Adoro aplausos!*/
 #balao-fala3 {
   position: fixed;
-  left: 55%;
+  left: 60%;
   bottom: 65%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
+/*Não estou a ouvir, aplausos!*/
 #balao-fala4 {
   position: fixed;
   left: 20%;
-  bottom: 62%;
+  bottom: 50%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
+/*Preciso de aplausos!*/
 #balao-fala5 {
   position: fixed;
-  left: 53%;
-  bottom: 62%;
+  left: 60%;
+  bottom: 50%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
+/*Quando me aplaudem, fico ainda mais bonito!*/
 #balao-fala6 {
   position: fixed;
   left: 20%;
-  bottom: 63%;
+  bottom: 50%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
+/*Quero ser admirado!*/
 #balao-fala7 {
   position: fixed;
-  left: 55%;
+  left: 60%;
   bottom: 65%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
+/*É tão bom ser aplaudido!*/
 #balao-fala8 {
   position: fixed;
   left: 20%;
-  bottom: 58%;
+  bottom: 60%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
+/*Eu mereço todos os aplausos do mundo!*/
 #balao-fala9 {
   position: fixed;
-  left: 53%;
-  bottom: 65%;
+  left: 60%;
+  bottom: 50%;
   width: 15vw;
   height: auto;
   z-index: 5;
 }
 
+/*A minha beleza cresce com aplausos!*/
 #balao-fala10 {
   position: fixed;
   left: 20%;
-  bottom: 58%;
+  bottom: 50%;
   width: 15vw;
   height: auto;
   z-index: 5;

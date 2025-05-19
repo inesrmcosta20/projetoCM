@@ -1,23 +1,18 @@
+/* Câmara */
 #webcam-container {
   position: fixed;
   top: 52%;
   left: 58%;
   transform: translate(-50%, -50%);
   width: 630px;
-  /* Largura fixa do contêiner */
   height: 375px;
-  /* Altura fixa do contêiner */
   z-index: 0;
 }
 
-/* Evita espelhamento e ajusta o vídeo */
 #webcam-container video {
   width: 100%;
-  /* Faz o vídeo ocupar toda a largura do contêiner */
   height: 100%;
-  /* Faz o vídeo ocupar toda a altura do contêiner */
   object-fit: cover;
-  /* Garante que o vídeo preencha o contêiner sem distorcer */
   border: 3px solid #fff;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -43,6 +38,7 @@
   z-index: 3;
 }
 
+/* Planeta */
 #planeta {
   position: absolute;
   left: 0;
@@ -51,12 +47,147 @@
   z-index: 2;
 }
 
+/* Manto */
 #manto {
   position: absolute;
   left: 20%;
   bottom: 0;
   width: 73%;
   z-index: 1;
+}
+
+/* Balões de Fala*/
+.balao {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+.balao.fade-in {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.balao.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+
+/*É tão bom ser aplaudido!*/
+#balao-fala1 {
+  position: fixed;
+  left: 3%;
+  bottom: 50%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*Quero aplausos!*/
+#balao-fala2 {
+  position: fixed;
+  left: 3%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*Adoro aplausos!*/
+#balao-fala3 {
+  position: fixed;
+  left: 3%;
+  bottom: 65%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*Proibo-te que sorrias!*/
+#balao-fala4 {
+  position: fixed;
+  left: 3%;
+  bottom: 50%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*Proibo-te que pisques os olhos!*/
+#balao-fala5 {
+  position: fixed;
+  left: 3%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*Proibo-te que faças caretas!*/
+#balao-fala6 {
+  position: fixed;
+  left: 3%;
+  bottom: 65%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*Proibo-te que bocejes!*/
+#balao-fala7 {
+  position: fixed;
+  left: 3%;
+  bottom: 50%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*Ordeno-te que feches os olhos!*/
+#balao-fala8 {
+  position: fixed;
+  left: 3%;
+  bottom: 60%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/*Ordeno-te que inclines a cabeça!*/
+#balao-fala9 {
+  position: fixed;
+  left: 3%;
+  bottom: 65%;
+  width: 15vw;
+  height: auto;
+  z-index: 5;
+}
+
+/* Botão Desistir  */
+.desistir {
+    position: fixed;
+    bottom: 5%;
+    left: 58%;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    z-index: 100;
+    display: none;
+    padding: 10px 20px;
+    background-color: #CC5724;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    animation: fadeIn 0.20s ease forwards;
+}
+
+.desistir:hover {
+    background-color: #AEB1E5;
 }
 
 /* Evita scroll da tela */

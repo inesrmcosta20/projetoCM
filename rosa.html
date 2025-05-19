@@ -1,4 +1,4 @@
-  <!-- rosa.html -->
+<!-- rosa.html -->
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -26,23 +26,29 @@
     <audio id="background-music-jogo" loop>
       <source src="audios/audio-jogo.mp3" type="audio/mp3">
     </audio>
+
+    <!-- Áudio Errado -->
     <audio id="audio-errado">
       <source src="audios/fail1.mp3" type="audio/mp3">
     </audio>
+
+    <!-- Áudio Correto -->
     <audio id="audio-correto">
       <source src="audios/sucess2.mp3" type="audio/mp3">
     </audio>
 
+    <!-- Seta Retroceder -->
     <a href="homepage.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>
 
   </header>
 
   <main>
-     <div class="estrelas"> </div>
+
     <!-- Cenário -->
     <img src="imagens/rosa/cenario/noite-rosa.png" alt="noite-rosa" class="noite-rosa">
     <img src="imagens/rosa/cenario/planeta.png" alt="planeta" class="planeta">
     <img src="imagens/rosa/cenario/nuvem-lateral.png" alt="nuvem-lateral" id="nuvem-lateral">
+    <div class="estrelas"></div>
 
     <!-- Rosa -->
     <img src="imagens/rosa/movimento/rosa0.png" alt="rosa" id="rosa">
@@ -76,6 +82,7 @@
     <!-- Balões de Fala Sem Objeto - Etapa Sol -->
     <img src="imagens/rosa/baloes-fala/balao-fala10_esq.png" alt="balao-fala10" id="balao-fala10_esq" class="balao">
 
+    <!-- Botão de Ajuda -->
     <div class="ajuda">
       <img src="imagens/icones/help-icon g.png" onclick="myPopUp()">
       <span class="popuptext" id="popup" display="none">Cuida da Rosa movendo o objeto para a protegeres.</span>
