@@ -37,7 +37,6 @@ let intervaloBaloes;
 document.addEventListener('DOMContentLoaded', configurarBotaoDesistir);
 
 function mostrarBalao(numero) {
-  // Se a etapaAtual for -1 significa que desistiu, não mostra mais balões
   if (etapaAtual === -1) return;
 
   balaoAtual = numero;
@@ -45,7 +44,7 @@ function mostrarBalao(numero) {
 
   if (etapaAtual === 3) {
     trocaBalaoCount++;
-    if (trocaBalaoCount === 7) {  // Alterado para 7 trocas
+    if (trocaBalaoCount === 15) {
       const btnDesistir = document.getElementById("btnDesistir");
       if (btnDesistir) btnDesistir.style.display = "block";
     }
@@ -64,12 +63,23 @@ function mostrarBalao(numero) {
     balao.classList.remove('fade-out');
     balao.classList.add('fade-in');
   }
+
+  // Tocar áudio errado após 1 segundo se o balão for 4, 5 ou 8
+  if ([4, 5, 8].includes(numero)) {
+    setTimeout(() => {
+      const audioErrado = document.getElementById('audio-errado');
+      if (audioErrado) {
+        audioErrado.pause();
+        audioErrado.currentTime = 0;
+        audioErrado.play();
+      }
+    }, 1000);
+  }
 }
 
 function onResults(results) {
   if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) return;
 
-  // Não processa se desistiu
   if (etapaAtual === -1) return;
 
   const landmarks = results.multiFaceLandmarks[0];
