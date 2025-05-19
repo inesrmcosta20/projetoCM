@@ -105,21 +105,20 @@ async function iniciarSomAmbiente() {
   }
 }
 
-// Mostrar tela fullscreen 
 function mostrarFullscreen() {
-  const fullscreenContainer = document.getElementById('fullscreen-container');
-  document.body.classList.add('fullscreen-active');
+        const fullscreenContainer = document.getElementById('fullscreen-container');
+        document.body.classList.add('fullscreen-active');
 
-  fullscreenContainer.innerHTML = `
-  <div class="fullScreen-close" id="closeFullscreen">X</div>
-    <div class="fullScreen-img-container">
-      <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
-      <img src="imagens/vaidoso/mensagem.png" id="posicao2" alt="mensagem"> 
-    </div>
-    <button id="homeButton">Finalizar</button>
-  `;
+        fullscreenContainer.innerHTML = `
+        <div class="fullScreen-close" id="closeFullscreen">X</div>
+        <div class="fullScreen-img-container">
+          <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
+        <img src="imagens/vaidoso/mensagem.png" id="posicao2" alt="mensagem"> 
+        </div>
+        <button id="homeButton2">Finalizar</button>
+    `;
 
-  // Botão "X" para fechar
+// Botão "X" para fechar
 const closeBtn = document.getElementById('closeFullscreen');
 closeBtn.addEventListener('click', function () {
     clearInterval(animacaoIntervalo);
@@ -127,24 +126,34 @@ closeBtn.addEventListener('click', function () {
     document.body.classList.remove('fullscreen-active');
 });
 
-  fullscreenContainer.style.display = 'flex';
+        // Iniciar animação do príncipe
+        const principeImg = document.getElementById('posicao1');
+        let frame = 1;
+        const maxFrames = 10;
+        const intervalo = 150; // ms
 
-  const principeImg = document.getElementById('posicao1');
-  let frame = 1;
-  const maxFrames = 10;
-  const intervalo = 150;
+        let animacaoIntervalo = setInterval(() => {
+            frame = frame >= maxFrames ? 1 : frame + 1;
+            principeImg.src = `imagens/principe/principe${frame}.png`;
+        }, intervalo);
 
-  const animacaoIntervalo = setInterval(() => {
-    frame = frame >= maxFrames ? 1 : frame + 1;
-    principeImg.src = `imagens/principe/principe${frame}.png`;
-  }, intervalo);
+        // Lidar com clique no botão
+        const homeButton = document.getElementById('homeButton2');
+        homeButton.addEventListener('click', function () {
+            // Parar a animação ao sair
+            clearInterval(animacaoIntervalo);
 
-  const homeButton = document.getElementById('homeButton');
-  homeButton.addEventListener('click', () => {
-    clearInterval(animacaoIntervalo);
-    window.location.href = 'homepage.html';
-  });
-}
+            // Ativar peça rodas no avião e desativar no cenário
+            sessionStorage.setItem('desativarPecaCenario', 'peça-helices');
+            sessionStorage.setItem('animarPecaAviao', 'helices');
+
+            window.location.href = 'homepage.html';
+        });
+
+        fullscreenContainer.style.display = 'flex';
+    }
+
+
 
 // Configurar botão desistir para mostrar fullscreen
 function configurarBotaoDesistir() {
