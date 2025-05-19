@@ -273,14 +273,46 @@ function mostrarFullscreen() {
   document.body.classList.add('fullscreen-active');
 
   fullscreenContainer.innerHTML = `
+          <div class="fullScreen-close" id="closeFullscreen">X</div>
     <div class="fullScreen-img-container">
       <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
-      <img src="imagens/homem-negocios/mensagem.png" id="posicao2" alt="mensagem"> 
+      <img src="imagens/rei/mensagem.png" id="posicao2" alt="mensagem"> 
     </div>
     <button id="homeButton">Finalizar</button>
   `;
 
+  // Botão "X" para fechar
+const closeBtn = document.getElementById('closeFullscreen');
+closeBtn.addEventListener('click', function () {
+    clearInterval(animacaoIntervalo);
+    fullscreenContainer.style.display = 'none';
+    document.body.classList.remove('fullscreen-active');
+});
+
+  const principeImg = document.getElementById('posicao1');
+  let frame = 1;
+  const maxFrames = 10;
+  const intervalo = 150;
+
+  const animacaoIntervalo = setInterval(() => {
+    frame = frame >= maxFrames ? 1 : frame + 1;
+    principeImg.src = `imagens/principe/principe${frame}.png`;
+  }, intervalo);
+
+  const homeButton = document.getElementById('homeButton');
+        homeButton.addEventListener('click', function () {
+            // Parar a animação ao sair
+            clearInterval(animacaoIntervalo);
+
+            // Ativar peça rodas no avião e desativar no cenário
+            sessionStorage.setItem('desativarPecaCenario', 'peça-placaCima');
+sessionStorage.setItem('animarPecaAviao', 'placaCima');
+
+            window.location.href = 'homepage.html';
+        });
+
   fullscreenContainer.style.display = 'flex';
+}
 
   const principeImg = document.getElementById('posicao1');
   let frame = 1;
@@ -297,4 +329,4 @@ function mostrarFullscreen() {
     clearInterval(animacaoIntervalo);
     window.location.href = 'homepage.html';
   });
-}
+

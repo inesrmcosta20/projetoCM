@@ -21,7 +21,7 @@
 #pote {
   position: relative;
   left: 1000px;
-  margin-top: 11.5%;
+  margin-top:13.5%; ;
   width: 20%;
   height: 30%;
   overflow: hidden;
@@ -40,7 +40,7 @@
 #pote-cima {
   position: absolute;
   left: 1018px;
-  top: 150px;
+    top: 178px;
   width: 17.7%;
   z-index: 0;
 }
@@ -48,7 +48,7 @@
 #pote-baixo {
   position: absolute;
   left: 1018px;
-  top: 592px;
+    top: 613px;
   width: 17%;
   z-index: 0;
 }
