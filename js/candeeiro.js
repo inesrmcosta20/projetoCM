@@ -194,11 +194,8 @@ document.addEventListener('DOMContentLoaded', function () {
         botao.style.display = "block";
         
         botao.addEventListener('click', function() {
-    // Marcar que a peça corpo deve ser desativada e animada
-    sessionStorage.setItem('desativarPecaCenario', 'peça-corpo');
-    sessionStorage.setItem('animarPecaAviao', 'corpo');
-    
-    window.location.href = 'homepage.html';
+    mostrarFullscreen();
+   
 });
     }
 }
@@ -206,4 +203,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
   startAnimation();
     updateLights();
+
+function mostrarFullscreen() {
+        const fullscreenContainer = document.getElementById('fullscreen-container');
+        document.body.classList.add('fullscreen-active');
+
+        fullscreenContainer.innerHTML = `
+        <div class="fullScreen-img-container">
+          <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
+        <img src="imagens/rosa/mensagem.png" id="posicao2" alt="mensagem"> 
+        </div>
+        <button id="homeButton">Finalizar</button>
+    `;
+
+        // Iniciar animação do príncipe
+        const principeImg = document.getElementById('posicao1');
+        let frame = 1;
+        const maxFrames = 10;
+        const intervalo = 150; // ms
+
+        let animacaoIntervalo = setInterval(() => {
+            frame = frame >= maxFrames ? 1 : frame + 1;
+            principeImg.src = `imagens/principe/principe${frame}.png`;
+        }, intervalo);
+
+        // Lidar com clique no botão
+        const homeButton = document.getElementById('homeButton');
+        homeButton.addEventListener('click', function () {
+            // Parar a animação ao sair
+            clearInterval(animacaoIntervalo);
+
+            // Ativar peça rodas no avião e desativar no cenário
+            sessionStorage.setItem('desativarPecaCenario', 'peça-corpo');
+            sessionStorage.setItem('animarPecaAviao', 'corpo');
+
+            window.location.href = 'homepage.html';
+        });
+
+        fullscreenContainer.style.display = 'flex';
+    }
+
 });
+

@@ -262,14 +262,16 @@ h2 {
 /* Peças puzzle sobre o avião */
 
 .peças-aviao >img {
+     
     position:absolute; 
   width:50%; 
   height:auto; 
-    
-    transform: rotate(385deg);
 
-    top: 70%;
-    left: 45%;
+     top: 52%;
+    left: 8%;
+    width: 10vw;
+    z-index: 8;
+    rotate: 30deg;
    
 }
 
@@ -314,7 +316,7 @@ h2 {
     animation-iteration-count: 1;
 }
 #tirantes{
-    display:none; 
+      animation-iteration-count: 1;
    /* z-index: 12;
     width: 32.2vw;
     top: 59%;
@@ -337,7 +339,7 @@ h2 {
     left: 8%;
     width: 10vw;
     z-index: 8;
-    rotate: 30deg;
+   transform: rotate(25deg);
 
     }
     100% {
@@ -395,3 +397,17 @@ h2 {
   }
 }
  
+/* animacao rodas */
+@keyframes moveTirantes {
+    0% { 
+  top: 30%;
+    left: 10%;
+    width: 3vw;
+    z-index: 1;}
+
+    100% {   z-index: 12;
+         width: 32.2vw; 
+         top: 59%; 
+         left: 33%;
+  }
+}

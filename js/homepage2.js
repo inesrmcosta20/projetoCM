@@ -1,3 +1,4 @@
+//homepage2.js
 document.addEventListener("DOMContentLoaded", function () {
     // Variáveis de controle
     let animationRunning = false;
@@ -162,9 +163,10 @@ document.addEventListener("DOMContentLoaded", function () {
             
             // Posições específicas para cada peça
             const posicoes = {
-                'corpo': { top: '64%', left: '37.2%', width: '24vw', rotate: '25deg', zIndex: '13' },
+                'corpo': { top: '64%', left: '37.2%', width: '24vw', rotate: '25deg', zIndex: '13', transform: rotate('25deg') },
                 'rodas': { zIndex: "15", width: "20vw", top: "79.3%", left: "37%" }, 
                 'placaBaixo': { zIndex: "14", width: "38vw", top: "70.8%", left: "30.5%" }, 
+                'tirantes': { zIndex: "12", width: "32.2vw", top: "59%", left: "33%" }, 
 
                 // Adicione as posições para as outras peças conforme necessário
             };
@@ -189,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
     controlarPeca('corpo', 'peça-corpo');
     controlarPeca('rodas', 'peça-rodas');
 
-    // controlarPeca('tirantes', 'peça-tirantes');
+     controlarPeca('tirantes', 'peça-tirantes');
      controlarPeca('placaBaixo', 'peça-placaBaixo');
     // controlarPeca('helices', 'peça-helices');
     // controlarPeca('placaCima', 'peça-placaCima');
