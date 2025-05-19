@@ -1,3 +1,4 @@
+//rosa.js
 document.addEventListener("DOMContentLoaded", function () {
     const zonaSucesso = document.getElementById("zona-sucesso");
 

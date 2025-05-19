@@ -203,7 +203,7 @@ function mostrarFullscreen() {
     <button id="homeButton">Finalizar</button>
   `;
 
-  fullscreenContainer.style.display = 'flex';
+  
 
   const principeImg = document.getElementById('posicao1');
   let frame = 1;
@@ -216,10 +216,18 @@ function mostrarFullscreen() {
   }, intervalo);
 
   const homeButton = document.getElementById('homeButton');
-  homeButton.addEventListener('click', () => {
-    clearInterval(animacaoIntervalo);
-    window.location.href = 'homepage.html';
-  });
+        homeButton.addEventListener('click', function () {
+            // Parar a animação ao sair
+            clearInterval(animacaoIntervalo);
+
+            // Ativar peça rodas no avião e desativar no cenário
+            sessionStorage.setItem('desativarPecaCenario', 'peça-tirantes');
+sessionStorage.setItem('animarPecaAviao', 'tirantes');
+
+            window.location.href = 'homepage.html';
+        });
+
+  fullscreenContainer.style.display = 'flex';
 }
 
 // Configura o botão desistir para chamar mostrarFullscreen

@@ -1,6 +1,5 @@
 //raposa.js
 
-
 let video, handpose, predictions = [];
 let perguntasDisponiveis = [];
 let perguntaAtual = null;
@@ -135,13 +134,17 @@ function verificarResposta(gesto) {
   atualizarRaposa();
   
   if (raposaIndex === 5) {
-    jogoCompleto = true;
-    mostrarBotaoSucesso();
-  } else {
-    mostrarNovaPergunta();
-  }
+  jogoCompleto = true;
+  
+  // Aguarda 5 segundos antes de mostrar o fullscreen
+  setTimeout(() => {
+    mostrarFullscreen();
+  }, 5000);
+} else {
+  mostrarNovaPergunta();
 }
 
+}
 // Detect hand gesture
 function detectarGesto() {
   if (!predictions || predictions.length === 0) return null;
@@ -197,39 +200,54 @@ function mostrarBotaoSucesso() {
   if (somCorreto) somCorreto.pause();
   if (somIncorreto) somIncorreto.pause();
   
-  // Cria o botão final
-  criarBotaoFinal();
 }
 
-function criarBotaoFinal() {
-  // Verifica se o botão já existe para não criar duplicados
-  if (document.getElementById('botao-final')) return;
-  
-  const btn = document.createElement('button');
-  btn.id = "botao-final";
-  btn.textContent = "Avançar";
-  btn.style.position = 'fixed';
-  btn.style.top = '50%';
-  btn.style.left = '50%';
-  btn.style.transform = 'translate(-50%, -50%)';
-  btn.style.zIndex = '1000';
-  btn.style.padding = '15px 30px';
-  btn.style.backgroundColor = '#4CAF50';
-  btn.style.color = 'white';
-  btn.style.border = 'none';
-  btn.style.borderRadius = '5px';
-  btn.style.fontSize = '18px';
-  btn.style.cursor = 'pointer';
-  btn.style.boxShadow = '0 4px 20px rgba(0,0,0,0.3)';
-  
-  btn.onclick = () => {
+function mostrarFullscreen() {
+  const fullscreenContainer = document.getElementById('fullscreen-container');
+  document.body.classList.add('fullscreen-active');
+
+  fullscreenContainer.innerHTML = `
+    <div class="fullScreen-img-container">
+      <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
+      <img src="imagens/raposa/mensagem.png" id="posicao2" alt="mensagem">
+      <button id="closeButton" class="close-button">X</button>
+    </div>
+    <button id="homeButton">Finalizar</button>
+  `;
+
+  // Iniciar animação do príncipe
+  const principeImg = document.getElementById('posicao1');
+  let frame = 1;
+  const maxFrames = 10;
+  const intervalo = 150;
+
+  let animacaoIntervalo = setInterval(() => {
+    frame = frame >= maxFrames ? 1 : frame + 1;
+    principeImg.src = `imagens/principe/principe${frame}.png`;
+  }, intervalo);
+
+  // Botão de fechar (X)
+  const closeButton = document.getElementById('closeButton');
+  closeButton.addEventListener('click', function () {
+    clearInterval(animacaoIntervalo);
+    document.body.classList.remove('fullscreen-active');
+    fullscreenContainer.innerHTML = '';
+  });
+
+  // Botão de finalizar
+  const homeButton = document.getElementById('homeButton');
+  homeButton.addEventListener('click', function () {
+    clearInterval(animacaoIntervalo);
     sessionStorage.setItem('desativarPecaCenario', 'peça-placaBaixo');
     sessionStorage.setItem('animarPecaAviao', 'placaBaixo');
-    window.location.href = "homepage.html";
-  };
-  
-  document.body.appendChild(btn);
+    window.location.href = 'homepage.html';
+  });
+
+  fullscreenContainer.style.display = 'flex';
 }
+
+  
+ 
 
 // p5.js setup
 function setup() {
@@ -266,10 +284,7 @@ function draw() {
     const prediction = predictions[0];
     const thumbTip = prediction.annotations.thumb[3];
     
-    //polegar
-    fill(0, 255, 0);
-    noStroke();
-    ellipse(thumbTip[0], thumbTip[1], 15);
+    
     
     // Detect gestures
     const gesto = detectarGesto();
