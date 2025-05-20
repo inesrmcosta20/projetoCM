@@ -1,4 +1,3 @@
-//homepage2.js
 document.addEventListener("DOMContentLoaded", function () {
     // Variáveis de controle
     let animationRunning = false;
