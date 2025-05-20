@@ -420,7 +420,7 @@ h2 {
 }
 
 .peca-helices-final {
-  /*  display:none; */
+    display:none; 
           z-index: 16;
     top: 48%;
     left: 33.5%;
