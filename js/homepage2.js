@@ -199,52 +199,75 @@ function checkIfGameComplete() {
         const audio = new Audio('sons/FinalSucess.mp3');
         audio.play();
 
-        // Preparar avião para animação
-        aviao2.style.display = 'none';
-        aviao.style.display = 'block';
-        aviao.style.zIndex = '9999'; // garantir que esteja no topo
+        // Anima cada peça para posição final
+        pecas.forEach(p => {
+            const pecaElemento = document.getElementById(p);
+            if (pecaElemento) {
+                pecaElemento.classList.add('posicao-final');
+                pecaElemento.style.transition = 'transform 1s ease';
+            }
+        });
 
-        // Adiciona keyframes dinamicamente
-        const style = document.createElement('style');
-        style.innerHTML = `
-        @keyframes aviaoDecolando {
-            0% {
-                   top: 70%;
-        left: 45%;
-        transform: rotate(385deg) scale(4);
-            }
-            30% {
-                  top: 60%;
-        left: 40%;
-        transform: rotate(395deg) scale(3);
-            }
-    
-            70% {
-             top: 30%;
-        left: 20%;
-                transform: rotate(360deg) scale(2);
-                opacity: 0.8;
-            }
-            100% {
-            top: 0%;
-        left: -10%;
-                transform: rotate(360deg) scale(1);
-            
-            }
-        }
-        .animar-decolagem {
-            animation: aviaoDecolando 5s ease-in-out forwards;
-        }`;
-        document.head.appendChild(style);
-
-        // Acionar animação
-        aviao.classList.add('animar-decolagem');
-
-        // Mostrar botão de reset após animação
+        // Esperar as peças se moverem antes de iniciar decolagem e esconder
         setTimeout(() => {
-            mostrarBotaoReset();
-        }, 3500);
+            iniciarAnimacaoFinalAviao();
+        }, 1200); // ajuste conforme tempo da animação das peças
     }
+}
+
+function iniciarAnimacaoFinalAviao() {
+    // Oculta todas as peças ANTES da decolagem
+    const pecas = ['corpo', 'rodas', 'tirantes', 'placaBaixo', 'helices', 'placaCima'];
+    pecas.forEach(p => {
+        const pecaElemento = document.getElementById(p);
+        if (pecaElemento) {
+            pecaElemento.style.display = 'none';
+        }
+    });
+
+    // Esconde avião estático, mostra o que vai decolar
+    aviao2.style.display = 'none';
+    aviao.style.display = 'block';
+    aviao.style.zIndex = '9999';
+
+    // Adiciona keyframes dinamicamente
+    const style = document.createElement('style');
+    style.innerHTML = `
+    @keyframes aviaoDecolando {
+        0% {
+            top: 70%;
+            left: 45%;
+            transform: rotate(385deg) scale(4);
+        }
+        30% {
+            top: 60%;
+            left: 40%;
+            transform: rotate(395deg) scale(3);
+        }
+        70% {
+            top: 30%;
+            left: 20%;
+            transform: rotate(360deg) scale(2);
+            opacity: 0.8;
+        }
+        100% {
+            top: 0%;
+            left: -10%;
+            transform: rotate(360deg) scale(1);
+        }
+    }
+    .animar-decolagem {
+        animation: aviaoDecolando 5s ease-in-out forwards;
+    }`;
+    document.head.appendChild(style);
+
+    // Inicia decolagem
+    aviao.classList.add('animar-decolagem');
+
+    // Exibe botão após animação
+    setTimeout(() => {
+        mostrarBotaoReset();
+    }, 3500);
 }
 
 function mostrarBotaoReset() {
@@ -268,12 +291,11 @@ function mostrarBotaoReset() {
     botaoReset.addEventListener('click', () => {
         sessionStorage.clear();
         localStorage.clear();
-        window.location.reload(); // Ou redireciona para tela inicial: window.location.href = 'index.html';
+        window.location.reload();
     });
 }
 
-
-// Atalho para mostrar o botão de ativar todas as peças (modo desenvolvedor)
+// Atalho para modo debug
 document.addEventListener('keydown', (e) => {
     if (e.key === 'd' || e.key === 'D') {
         mostrarBotaoAtivarTodasPecas();
@@ -308,6 +330,6 @@ function mostrarBotaoAtivarTodasPecas() {
         });
 
         checkIfGameComplete();
-        botao.remove(); // Remove botão após uso
+        botao.remove();
     });
 }
