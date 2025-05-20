@@ -276,7 +276,7 @@ function mostrarFullscreen() {
           <div class="fullScreen-close" id="closeFullscreen">X</div>
     <div class="fullScreen-img-container">
       <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
-      <img src="imagens/rei/mensagem.png" id="posicao2" alt="mensagem"> 
+      <img src="imagens/homem-negocios/mensagem.png" id="posicao2" alt="mensagem"> 
     </div>
     <button id="homeButton">Finalizar</button>
   `;
