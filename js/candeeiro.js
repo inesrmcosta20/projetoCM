@@ -1,4 +1,3 @@
-//candeeiro.js
 document.addEventListener('DOMContentLoaded', function () {
     // Elementos do DOM
     const luzes = [
@@ -246,7 +245,7 @@ closeBtn.addEventListener('click', function () {
             sessionStorage.setItem('desativarPecaCenario', 'peça-corpo');
             sessionStorage.setItem('animarPecaAviao', 'corpo');
 
-            window.location.href = 'homepage.html';
+            window.location.href = 'index.html';
         });
 
         fullscreenContainer.style.display = 'flex';

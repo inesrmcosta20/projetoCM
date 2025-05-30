@@ -295,7 +295,7 @@ function mostrarFullscreen() {
             sessionStorage.setItem('desativarPecaCenario', 'peça-placaBaixo');
             sessionStorage.setItem('animarPecaAviao', 'placaBaixo');
 
-            window.location.href = 'homepage.html';
+            window.location.href = 'index.html';
         });
 
         fullscreenContainer.style.display = 'flex';

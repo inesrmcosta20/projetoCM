@@ -175,7 +175,7 @@ function gerarObjetoBalanceado() {
   let colisao = true;
   let tentativas = 0;
 
-  while (colisao && tentativas < 25) {
+  while (colisao && tentativas < 10) {
     posX = areaRect.x + Math.random() * (areaWidth - 50);
     posY = areaRect.y + Math.random() * (areaHeight - 50);
 
@@ -308,7 +308,7 @@ closeBtn.addEventListener('click', function () {
             sessionStorage.setItem('desativarPecaCenario', 'peça-placaCima');
 sessionStorage.setItem('animarPecaAviao', 'placaCima');
 
-            window.location.href = 'homepage.html';
+            window.location.href = 'index.html';
         });
 
   fullscreenContainer.style.display = 'flex';
@@ -327,6 +327,6 @@ sessionStorage.setItem('animarPecaAviao', 'placaCima');
   const homeButton = document.getElementById('homeButton');
   homeButton.addEventListener('click', () => {
     clearInterval(animacaoIntervalo);
-    window.location.href = 'homepage.html';
+    window.location.href = 'index.html';
   });
 

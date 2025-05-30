@@ -19,7 +19,7 @@ let ultimaFraseTimestamp = 0;
 const INTERVALO_ENTRE_FRASES = 4000;
 
 let interacoes = 0;
-const LIMITE_INTERACOES = 7;
+const LIMITE_INTERACOES = 4;
 
 // Função para mostrar balões com controlo de interações
 function mostrarBalao(id) {
@@ -147,7 +147,7 @@ closeBtn.addEventListener('click', function () {
             sessionStorage.setItem('desativarPecaCenario', 'peça-helices');
             sessionStorage.setItem('animarPecaAviao', 'helices');
 
-            window.location.href = 'homepage.html';
+            window.location.href = 'index.html';
         });
 
         fullscreenContainer.style.display = 'flex';

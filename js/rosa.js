@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sessionStorage.setItem('desativarPecaCenario', 'peça-rodas');
             sessionStorage.setItem('animarPecaAviao', 'rodas');
 
-            window.location.href = 'homepage.html';
+            window.location.href = 'index.html';
         });
 
         fullscreenContainer.style.display = 'flex';

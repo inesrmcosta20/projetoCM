@@ -231,7 +231,7 @@ closeBtn.addEventListener('click', function () {
             sessionStorage.setItem('desativarPecaCenario', 'peça-tirantes');
 sessionStorage.setItem('animarPecaAviao', 'tirantes');
 
-            window.location.href = 'homepage.html';
+            window.location.href = 'index.html';
         });
 
   fullscreenContainer.style.display = 'flex';
