@@ -1,4 +1,3 @@
-<!-- raposa.html -->
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -23,14 +22,15 @@
 <body>
   <header>
     <!-- Ícones de som -->
-    <div class="sound-controls">
-      <img src="imagens/icones/som-on.png" alt="Som ligado" class="som-icon" id="som-on" style="display: inline;">
-      <img src="imagens/icones/som-off.png" alt="Som desligado" class="som-icon" id="som-off" style="display: none;">
-    </div>
+<div class="sound-controls">
+  <img src="imagens/icones/som-on.png" alt="Som ligado" class="som-icon" id="som-on" style="display: inline; cursor: pointer;">
+  <img src="imagens/icones/som-off.png" alt="Som desligado" class="som-icon" id="som-off" style="display: none; cursor: pointer;">
+</div>
 
-    <audio id="background-music" loop>
-      <source src="audios/audio-raposa.mp3" type="audio/mp3">
-    </audio>
+<audio id="background-music" loop autoplay muted>
+  <source src="audios/audio-raposa.mp3" type="audio/mp3">
+</audio>
+
 
 
     <a href="index.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>
@@ -38,7 +38,7 @@
 
   <div id="webcam-container" style="position: fixed; top: 5%; left: 55%; width:500px; z-index: 50;"></div>
 
-  
+
 
 
   <main>

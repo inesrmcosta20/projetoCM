@@ -298,31 +298,38 @@ function mostrarFullscreen() {
   fullscreenContainer.style.display = 'flex';
 }
 
-
-document.addEventListener("DOMContentLoaded", function () {
-  const music = document.getElementById('background-music');
+window.addEventListener('DOMContentLoaded', () => {
+  const audio = document.getElementById('background-music');
   const somOn = document.getElementById('som-on');
   const somOff = document.getElementById('som-off');
 
-  somOn.style.display = 'none';
-  somOff.style.display = 'inline';
-
-  // Ativa o som
-  somOff.addEventListener('click', () => {
-    music.muted = false;
-    music.play().then(() => {
-      somOff.style.display = 'none';
+  // Remover mute e tentar tocar
+  audio.muted = false;
+  const tentativa = audio.play();
+  if (tentativa !== undefined) {
+    tentativa.then(() => {
       somOn.style.display = 'inline';
-    }).catch((e) => {
-      console.warn("Falha ao iniciar áudio:", e);
+      somOff.style.display = 'none';
+    }).catch(err => {
+      console.log("Autoplay bloqueado. Requer interação do usuário.");
+      // Neste caso, exibe o ícone de som desligado
+      somOn.style.display = 'none';
+      somOff.style.display = 'inline';
     });
-  });
+  }
 
-  // Desativa o som
+  // Clique no ícone para pausar
   somOn.addEventListener('click', () => {
-    music.pause();
-    music.muted = true;
+    audio.pause();
     somOn.style.display = 'none';
     somOff.style.display = 'inline';
+  });
+
+  // Clique no ícone para retomar
+  somOff.addEventListener('click', () => {
+    audio.play().then(() => {
+      somOff.style.display = 'none';
+      somOn.style.display = 'inline';
+    });
   });
 });
