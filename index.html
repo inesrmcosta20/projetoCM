@@ -29,23 +29,23 @@
 
     <div class="sound-controls">
       <!-- Exibe o som desligado inicialmente e o som ligado estará oculto -->
-      <img src="imagens/icones/som-on.png" alt="Som ligado" class="som-icon" id="som-on" >
-      <img src="imagens/icones/som-off.png" alt="Som desligado" class="som-icon" id="som-off"   >
+      <img src="imagens/icones/som-on.png" alt="Som ligado" class="som-icon" id="som-on">
+      <img src="imagens/icones/som-off.png" alt="Som desligado" class="som-icon" id="som-off">
     </div>
   </header>
 
   <!-- Cenário -->
   <main>
     <div class="estrelas"> </div>
-    <div class="homepage-fundo">    
-    <img src="imagens/homepage-cenário/areia1.png" alt="areia1" class="areia1"> 
-    <img src="imagens/homepage-cenário/areia3.png" alt="areia3" class="areia3">
-    <img src="imagens/homepage-cenário/areia7.png" alt="areia5" class="areia5">
-    <img src="imagens/homepage-cenário/areia5.png" alt="areia7" class="areia7">
-    <img src="imagens/homepage-cenário/areia9.png" alt="areia9" class="areia9">
+    <div class="homepage-fundo">
+      <img src="imagens/homepage-cenário/areia1.png" alt="areia1" class="areia1">
+      <img src="imagens/homepage-cenário/areia3.png" alt="areia3" class="areia3">
+      <img src="imagens/homepage-cenário/areia7.png" alt="areia5" class="areia5">
+      <img src="imagens/homepage-cenário/areia5.png" alt="areia7" class="areia7">
+      <img src="imagens/homepage-cenário/areia9.png" alt="areia9" class="areia9">
 
-    <img src="imagens/homepage-cenário/ceuNoite.png" alt="Deserto" class="deserto">
-  </div>
+      <img src="imagens/homepage-cenário/ceuNoite.png" alt="Deserto" class="deserto">
+    </div>
     <img id="aviao" src="imagens/homepage-cenário/avião-vermelho.png" alt="Aviao" class="aviao">
     <img id="aviao2" src="imagens/homepage-cenário/avião-sombra.png" alt="Aviao" class="aviao" dislay="none">
 
@@ -54,21 +54,28 @@
 
     <!-- Peças do Avião dispersas no cenário -->
     <div class="peças-cenario">
-      <a href="rosa.html" class="peça-rodas"><img src="imagens/peças-cenário/rodas.png" alt="rodas" class="peça-rodas"id="peça-rodas"></a>
-      <a href="rei.html" class="peça-tirantes"><img src="imagens/peças-cenário/tirantes.png" alt="tirantes"  class="peça-tirantes" id="peça-tirantes"></a>
-      <a href="acendedor-candeeiros.html" class="peça-corpo"><img src="imagens/peças-cenário/corpo.png" alt="corpo"  class="peça-corpo" id="peça-corpo"></a>
-      <a href="raposa.html" class="peça-placaBaixo"><img src="imagens/peças-cenário/placaBaixo.png" alt="placaBaixo" class="peça-placaBaixo"  id="peça-placaBaixo"></a>
-      <a href="vaidoso.html" class="peça-helices"> <img src="imagens/peças-cenário/helices.png" alt="helices"  class="peça-helices" id="peça-helices" ></a>     
-      <a href="homem-negocios.html" class="placaCima"><img src="imagens/peças-cenário/placaCima.png" alt="placaCima" class="peça-placaCima" id="peça-placaCima"></a> 
-    </div> 
+      <a href="rosa.html" class="peça-rodas" onclick="tocarMusicaERedirecionar(event, 'audios/audio-jogo.mp3', 'rosa.html')">
+        <img src="imagens/peças-cenário/rodas.png" alt="rodas" class="peça-rodas" id="peça-rodas">
+      </a>
+      <a href="rei.html" class="peça-tirantes"><img src="imagens/peças-cenário/tirantes.png" alt="tirantes"
+          class="peça-tirantes" id="peça-tirantes"></a>
+      <a href="acendedor-candeeiros.html" class="peça-corpo"><img src="imagens/peças-cenário/corpo.png" alt="corpo"
+          class="peça-corpo" id="peça-corpo"></a>
+      <a href="raposa.html" class="peça-placaBaixo"><img src="imagens/peças-cenário/placaBaixo.png" alt="placaBaixo"
+          class="peça-placaBaixo" id="peça-placaBaixo"></a>
+      <a href="vaidoso.html" class="peça-helices"> <img src="imagens/peças-cenário/helices.png" alt="helices"
+          class="peça-helices" id="peça-helices"></a>
+      <a href="homem-negocios.html" class="placaCima"><img src="imagens/peças-cenário/placaCima.png" alt="placaCima"
+          class="peça-placaCima" id="peça-placaCima"></a>
+    </div>
 
     <div class="peças-aviao">
       <img src="imagens/peças/helices.png" alt="corpo" class="peça" id="helices">
-      <img src="imagens/peças/rodas.png" alt="rodas" class="peça" id="rodas"  >
-      <img src="imagens/peças/placaBaixo.png" alt="placaBaixo"  class="peça"id="placaBaixo"  >
-      <img src="imagens/peças/corpo.png" alt="corpo" class="peça" id="corpo" >
-      <img src="imagens/peças/tirantes.png" alt="tirantes" class="peça" id="tirantes"  >
-      <img src="imagens/peças/placaCima.png" alt="placaCima" class="peça" id="placaCima" >
+      <img src="imagens/peças/rodas.png" alt="rodas" class="peça" id="rodas">
+      <img src="imagens/peças/placaBaixo.png" alt="placaBaixo" class="peça" id="placaBaixo">
+      <img src="imagens/peças/corpo.png" alt="corpo" class="peça" id="corpo">
+      <img src="imagens/peças/tirantes.png" alt="tirantes" class="peça" id="tirantes">
+      <img src="imagens/peças/placaCima.png" alt="placaCima" class="peça" id="placaCima">
 
 
     </div>
@@ -78,6 +85,7 @@
   <script src="js/index.js" defer></script>
   <script src="js/estrelas.js" defer></script>
   <script src="js/geral.js" defer></script>
+  <script src="js/rosa.js" defer></script>
 </body>
 
 </html>

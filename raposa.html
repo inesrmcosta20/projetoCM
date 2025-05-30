@@ -12,74 +12,98 @@
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/geral.css">
 
-  
-<!-- uso da câmara-->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
-<script src="https://unpkg.com/ml5@0.6.0/dist/ml5.min.js"></script>
+  <!-- uso da câmara-->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+  <script src="https://unpkg.com/ml5@0.6.0/dist/ml5.min.js"></script>
 
 </head>
 
 <body>
-    <header>
-        <a href="index.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>  
-      </header>
+  <header>
+    <!-- Ícones de som -->
+    <div class="sound-controls">
+      <img src="imagens/icones/som-on.png" alt="Som ligado" class="som-icon" id="som-on" style="display: inline;">
+      <img src="imagens/icones/som-off.png" alt="Som desligado" class="som-icon" id="som-off" style="display: none;">
+    </div>
 
-      <div id="webcam-container" style="position: fixed; top: 20px; right: 20px; width: 500px; z-index: 50;"></div>
+    <audio id="background-music" loop>
+      <source src="audios/audio-raposa.mp3" type="audio/mp3">
+    </audio>
 
-      <main>
-        <div class="estrelas"> </div>
-        <div>
-           <img src="imagens/raposa/floresta/raposa2.png"  id="raposa1"class="active" > <!-- virada para a esquerda-->
-           <img src="imagens/raposa/floresta/raposa1.png"  id="raposa2" > <!-- virada para a direita-->
-           <img src="imagens/raposa/floresta/raposa1.png"  id="raposa3" > <!-- virada para a esquerda-->
-           <img src="imagens/raposa/floresta/raposa2.png"  id="raposa4" > <!-- virada para a direita-->
-           <img src="imagens/raposa/floresta/raposa1.png"  id="raposa5" > <!-- virada para a direita-->
-<!-- balão Final - cativaste-me-->
-           <img src="imagens/raposa/perguntas/p12.png" id="balao-fala12" style="display:none;">
-        </div>
-       
-        <div class="floresta">
-           <img src="imagens/raposa/floresta/ceu-raposa.png"  id="ceu-raposa">
 
-            <img src="imagens/raposa/floresta/cam6-raposa.png"  class="floresta-img" id="floresta6"> <!-- mais à frente -->
-            <img src="imagens/raposa/floresta/cam5-raposa.png"    class="floresta-img"  id="floresta5">
-            <img src="imagens/raposa/floresta/cam4-raposa.png"  class="floresta-img"  id="floresta4">
-            <img src="imagens/raposa/floresta/cam3-raposa.png"    class="floresta-img"  id="floresta3">
-            <img src="imagens/raposa/floresta/cam2-raposa.png"  class="floresta-img"  id="floresta2">
-            <img src="imagens/raposa/floresta/cam1-raposa.png"    class="floresta-img"  id="floresta1">
+    <a href="index.html"><img src="imagens/icones/retroceder.png" alt="seta-retroceder" id="seta-retroceder"></a>
+  </header>
 
-        </div>
+  <div id="webcam-container" style="position: fixed; top: 20px; right: 20px; width: 500px; z-index: 50;"></div>
 
-     
-     <div  class="perguntas">
-      <img src="imagens/raposa/perguntas/p0.png" alt="p0" id="p" class="perguntaA"style="display:none;"> <!-- Queres brincar comigo? --> 
-        <img src="imagens/raposa/perguntas/p1.png" alt="p1" id="p0" class="perguntaA"style="display:none;">  <!-- É importante cativar alguém? -->     
-        <img src="imagens/raposa/perguntas/p2.png" alt="p2" id="p1" class="perguntaA"style="display:none;">  <!--Queres ser meu amigo? --> 
-        <img src="imagens/raposa/perguntas/p3.png" alt="p3" id="p2" class="perguntaA" style="display:none;"> <!-- Gostas de cativar? --> 
-        <img src="imagens/raposa/perguntas/p4.png" alt="p4" id="p3" class="perguntaA" style="display:none;"> <!-- És violento?--> 
-        <img src="imagens/raposa/perguntas/p5.png" alt="p5" id="p4" class="perguntaB"style="display:none;"> <!-- Queres me magoar?--> 
-        <img src="imagens/raposa/perguntas/p6.png" alt="p6" id="p5" class="perguntaB"style="display:none;"> <!-- Tens a certeza que não me queres magoar? --> 
-        <img src="imagens/raposa/perguntas/p7.png" alt="p7" id="p6" class="perguntaB"style="display:none;"> <!-- Ser rude é uma qualidade? --> 
-         <img src="imagens/raposa/perguntas/p8.png" alt="p8" id="p7" class="perguntaB"style="display:none;"> <!-- Amizades verdadeiras são importantes? --> 
-        <img src="imagens/raposa/perguntas/p9.png" alt="p9" id="p8" class="perguntaB"style="display:none;"> <!-- Se eu demorar, vais desistir de mim? --> 
-        <img src="imagens/raposa/perguntas/p10.png" alt="p10" id="p9" class="perguntaB"style="display:none;"> <!-- Sabes escutar com o coração? --> 
-  <img src="imagens/raposa/perguntas/p11.png" alt="p11" id="p10" class="perguntaB"style="display:none;"> <!-- Queres me dar carinho? --> 
-        </div>
+  <main>
+    <div class="estrelas"> </div>
+    <div>
+      <img src="imagens/raposa/floresta/raposa2.png" id="raposa1" class="active"> <!-- virada para a esquerda-->
+      <img src="imagens/raposa/floresta/raposa1.png" id="raposa2"> <!-- virada para a direita-->
+      <img src="imagens/raposa/floresta/raposa1.png" id="raposa3"> <!-- virada para a esquerda-->
+      <img src="imagens/raposa/floresta/raposa2.png" id="raposa4"> <!-- virada para a direita-->
+      <img src="imagens/raposa/floresta/raposa1.png" id="raposa5"> <!-- virada para a direita-->
+      <!-- balão Final - cativaste-me-->
+      <img src="imagens/raposa/perguntas/p12.png" id="balao-fala12" style="display:none;">
+    </div>
 
-        <div class="ajuda" >
-          <img  src="imagens/icones/help-icon g.png" onclick="myPopUp()"> 
-              <span class="popuptext" id="popup" display="none">Faz o gesto 👍 ou 👎 que responde corretamente à questão.</span>
-          </div>
+    <div class="floresta">
+      <img src="imagens/raposa/floresta/ceu-raposa.png" id="ceu-raposa">
 
-          
-  <!-- Mensagem Principezinho -->
-  <container class="fullScreen" id="fullscreen-container"></container>
-      </main>
+      <img src="imagens/raposa/floresta/cam6-raposa.png" class="floresta-img" id="floresta6"> <!-- mais à frente -->
+      <img src="imagens/raposa/floresta/cam5-raposa.png" class="floresta-img" id="floresta5">
+      <img src="imagens/raposa/floresta/cam4-raposa.png" class="floresta-img" id="floresta4">
+      <img src="imagens/raposa/floresta/cam3-raposa.png" class="floresta-img" id="floresta3">
+      <img src="imagens/raposa/floresta/cam2-raposa.png" class="floresta-img" id="floresta2">
+      <img src="imagens/raposa/floresta/cam1-raposa.png" class="floresta-img" id="floresta1">
 
-       <!-- JS -->
-  <script src="js/raposa.js" ></script>
-  <script src="js/geral.js" ></script>
+    </div>
 
-    </body>
-    </html>
+
+    <div class="perguntas">
+      <img src="imagens/raposa/perguntas/p0.png" alt="p0" id="p" class="perguntaA" style="display:none;">
+      <!-- Queres brincar comigo? -->
+      <img src="imagens/raposa/perguntas/p1.png" alt="p1" id="p0" class="perguntaA" style="display:none;">
+      <!-- É importante cativar alguém? -->
+      <img src="imagens/raposa/perguntas/p2.png" alt="p2" id="p1" class="perguntaA" style="display:none;">
+      <!--Queres ser meu amigo? -->
+      <img src="imagens/raposa/perguntas/p3.png" alt="p3" id="p2" class="perguntaA" style="display:none;">
+      <!-- Gostas de cativar? -->
+      <img src="imagens/raposa/perguntas/p4.png" alt="p4" id="p3" class="perguntaA" style="display:none;">
+      <!-- És violento?-->
+      <img src="imagens/raposa/perguntas/p5.png" alt="p5" id="p4" class="perguntaB" style="display:none;">
+      <!-- Queres me magoar?-->
+      <img src="imagens/raposa/perguntas/p6.png" alt="p6" id="p5" class="perguntaB" style="display:none;">
+      <!-- Tens a certeza que não me queres magoar? -->
+      <img src="imagens/raposa/perguntas/p7.png" alt="p7" id="p6" class="perguntaB" style="display:none;">
+      <!-- Ser rude é uma qualidade? -->
+      <img src="imagens/raposa/perguntas/p8.png" alt="p8" id="p7" class="perguntaB" style="display:none;">
+      <!-- Amizades verdadeiras são importantes? -->
+      <img src="imagens/raposa/perguntas/p9.png" alt="p9" id="p8" class="perguntaB" style="display:none;">
+      <!-- Se eu demorar, vais desistir de mim? -->
+      <img src="imagens/raposa/perguntas/p10.png" alt="p10" id="p9" class="perguntaB" style="display:none;">
+      <!-- Sabes escutar com o coração? -->
+      <img src="imagens/raposa/perguntas/p11.png" alt="p11" id="p10" class="perguntaB" style="display:none;">
+      <!-- Queres me dar carinho? -->
+    </div>
+
+    <div class="ajuda">
+      <img src="imagens/icones/help-icon g.png" onclick="myPopUp()">
+      <span class="popuptext" id="popup" display="none">Faz o gesto 👍 ou 👎 que responde corretamente à questão.</span>
+    </div>
+
+
+    <!-- Mensagem Principezinho -->
+    <container class="fullScreen" id="fullscreen-container"></container>
+  </main>
+
+  <!-- JS -->
+  <script src="js/raposa.js"></script>
+  <script src="js/geral.js"></script>
+
+</body>
+
+</html>

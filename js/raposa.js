@@ -299,3 +299,30 @@ function mostrarFullscreen() {
 }
 
 
+document.addEventListener("DOMContentLoaded", function () {
+  const music = document.getElementById('background-music');
+  const somOn = document.getElementById('som-on');
+  const somOff = document.getElementById('som-off');
+
+  somOn.style.display = 'none';
+  somOff.style.display = 'inline';
+
+  // Ativa o som
+  somOff.addEventListener('click', () => {
+    music.muted = false;
+    music.play().then(() => {
+      somOff.style.display = 'none';
+      somOn.style.display = 'inline';
+    }).catch((e) => {
+      console.warn("Falha ao iniciar áudio:", e);
+    });
+  });
+
+  // Desativa o som
+  somOn.addEventListener('click', () => {
+    music.pause();
+    music.muted = true;
+    somOn.style.display = 'none';
+    somOff.style.display = 'inline';
+  });
+});
