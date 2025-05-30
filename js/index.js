@@ -186,6 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //animação final - quando todas as peças-avião estão ativas
 checkIfGameComplete();
+console.log("verifica que já estao todas ativas(check game)"); 
 
 function checkIfGameComplete() {
     const pecas = ['corpo', 'rodas', 'tirantes', 'placaBaixo', 'helices', 'placaCima'];
