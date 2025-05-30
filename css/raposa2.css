@@ -2,7 +2,7 @@
 #webcam-container {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 250px;
   width: auto;
   height: 250px;
   z-index: 100;
