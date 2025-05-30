@@ -64,8 +64,20 @@ function mostrarBalao(numero) {
     balao.classList.add('fade-in');
   }
 
+    // Tocar áudio correto após 1 segundo se o balão for 6, 7 ou 9
+  if ([4, 6, 7, 9].includes(numero)) {
+    setTimeout(() => {
+      const audioCorreto = document.getElementById('audio-correto');
+      if (audioCorreto) {
+        audioCorreto.pause();
+        audioCorreto.currentTime = 0;
+        audioCorreto.play();
+      }
+    }, 1000);
+  }
+
   // Tocar áudio errado após 1 segundo se o balão for 4, 5 ou 8
-  if ([4, 5, 8].includes(numero)) {
+  if ([5, 8].includes(numero)) {
     setTimeout(() => {
       const audioErrado = document.getElementById('audio-errado');
       if (audioErrado) {

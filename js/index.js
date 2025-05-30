@@ -303,7 +303,7 @@ document.addEventListener('keydown', (e) => {
 
 function mostrarBotaoAtivarTodasPecas() {
     const botao = document.createElement('button');
-    botao.textContent = "Ativar todas as peças (DEBUG)";
+    botao.textContent = "Regresso do aviador";
     botao.style.position = 'fixed';
     botao.style.bottom = '20px';
     botao.style.right = '20px';
