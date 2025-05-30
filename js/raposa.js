@@ -1,6 +1,3 @@
-//raposa.js
-
-
 let video, handpose, predictions = [];
 let perguntasDisponiveis = [];
 let perguntaAtual = null;
@@ -21,12 +18,12 @@ const respostasCorretas = {
   p2: 'thumbs_up',
   p3: 'thumbs_down',
   p4: 'thumbs_down',
-  p5: 'thumbs_up', 
-  p6: 'thumbs_down', 
-   p7: 'thumbs_up',
-  p8: 'thumbs_down', 
-  p9: 'thumbs_up', 
-   p10: 'thumbs_up' 
+  p5: 'thumbs_up',
+  p6: 'thumbs_down',
+  p7: 'thumbs_up',
+  p8: 'thumbs_down',
+  p9: 'thumbs_up',
+  p10: 'thumbs_up'
 };
 
 // Feedback sounds
@@ -39,7 +36,7 @@ function modelReady() {
   handpose.on("predict", results => {
     predictions = results;
   });
-  
+
   inicializarPerguntas();
   mostrarNovaPergunta();
 }
@@ -59,17 +56,17 @@ function esconderTodasPerguntas() {
 // Show random question
 function mostrarNovaPergunta() {
   if (jogoCompleto || raposaIndex === 5) return;
-  
+
   if (perguntaAtual) perguntaAtual.style.display = 'none';
-  
+
   if (perguntasDisponiveis.length === 0) {
     perguntasDisponiveis = Array.from(document.querySelectorAll('.perguntas .perguntaA, .perguntas .perguntaB'));
   }
-  
+
   // Seleciona aleatoriamente qualquer pergunta disponível
   let randomIndex;
   let novaPergunta;
-  
+
   // Se houver mais de uma pergunta, evita repetição imediata
   if (perguntasDisponiveis.length > 1) {
     do {
@@ -80,13 +77,13 @@ function mostrarNovaPergunta() {
     randomIndex = 0;
     novaPergunta = perguntasDisponiveis[randomIndex];
   }
-  
+
   perguntaAtual = novaPergunta;
   perguntaAtual.style.display = 'block';
-  
+
   // Activate cooldown
   emCooldown = true;
-  
+
   setTimeout(() => {
     emCooldown = false;
   }, tempoEspera);
@@ -96,16 +93,16 @@ function mostrarNovaPergunta() {
 function atualizarRaposa() {
   // Remove todas as classes de raposa do body
   document.body.classList.remove('raposa1', 'raposa2', 'raposa3', 'raposa4', 'raposa5');
-  
+
   // Adiciona a classe correspondente à raposa atual
   document.body.classList.add(`raposa${raposaIndex}`);
-  
+
   // Atualiza a exibição das raposas
   for (let i = 1; i <= 5; i++) {
     const raposa = document.getElementById(`raposa${i}`);
     if (raposa) raposa.style.display = i === raposaIndex ? 'block' : 'none';
   }
-  
+
   // Força o redesenho para garantir as transições
   if (perguntaAtual) {
     perguntaAtual.style.animation = 'none';
@@ -153,19 +150,19 @@ function verificarResposta(gesto) {
 // Detect hand gesture
 function detectarGesto() {
   if (!predictions || predictions.length === 0) return null;
-  
+
   for (let prediction of predictions) {
     const annotations = prediction.annotations;
     const thumbTip = annotations.thumb[3];
     const wrist = annotations.palmBase[0];
-    
+
     const verticalDiff = thumbTip[1] - wrist[1];
     const MIN_VERTICAL_DIFF = 50;
-    
+
     if (verticalDiff < -MIN_VERTICAL_DIFF) return 'thumbs_up';
     if (verticalDiff > MIN_VERTICAL_DIFF) return 'thumbs_down';
   }
-  
+
   return null;
 }
 
@@ -216,12 +213,12 @@ function mostrarBotaoSucesso() {
 function setup() {
   const canvas = createCanvas(320, 240);
   canvas.parent('webcam-container');
-  
+
   video = createCapture(VIDEO);
   video.size(width, height);
   video.hide();
-  
-  handpose = ml5.handpose(video, { 
+
+  handpose = ml5.handpose(video, {
     flipHorizontal: true,
     maxContinuousChecks: Infinity,
     detectionConfidence: 0.8,
@@ -232,26 +229,26 @@ function setup() {
 // p5.js draw loop
 function draw() {
   if (jogoCompleto) return;
-  
+
   clear();
-  
+
   // Mirror webcam
   push();
   translate(width, 0);
   scale(-1, 1);
   image(video, 0, 0, width, height);
   pop();
-  
+
   // Draw thumb tip when active
   if (!emCooldown && predictions && predictions.length > 0) {
     const prediction = predictions[0];
     const thumbTip = prediction.annotations.thumb[3];
-    
+
     //polegar
     fill(0, 255, 0);
     noStroke();
     ellipse(thumbTip[0], thumbTip[1], 15);
-    
+
     // Detect gestures
     const gesto = detectarGesto();
     if (gesto) {
@@ -259,14 +256,14 @@ function draw() {
     }
   }
 }
-  
+
 
 
 function mostrarFullscreen() {
-        const fullscreenContainer = document.getElementById('fullscreen-container');
-        document.body.classList.add('fullscreen-active');
+  const fullscreenContainer = document.getElementById('fullscreen-container');
+  document.body.classList.add('fullscreen-active');
 
-        fullscreenContainer.innerHTML = `
+  fullscreenContainer.innerHTML = `
         <div class="fullScreen-img-container">
           <img src="imagens/principe/principe1.png" id="posicao1" alt="príncipe">
         <img src="imagens/raposa/mensagem.png" id="posicao2" alt="mensagem"> 
@@ -274,31 +271,31 @@ function mostrarFullscreen() {
         <button id="homeButton2">Finalizar</button>
     `;
 
-        // Iniciar animação do príncipe
-        const principeImg = document.getElementById('posicao1');
-        let frame = 1;
-        const maxFrames = 10;
-        const intervalo = 150; // ms
+  // Iniciar animação do príncipe
+  const principeImg = document.getElementById('posicao1');
+  let frame = 1;
+  const maxFrames = 10;
+  const intervalo = 150; // ms
 
-        let animacaoIntervalo = setInterval(() => {
-            frame = frame >= maxFrames ? 1 : frame + 1;
-            principeImg.src = `imagens/principe/principe${frame}.png`;
-        }, intervalo);
+  let animacaoIntervalo = setInterval(() => {
+    frame = frame >= maxFrames ? 1 : frame + 1;
+    principeImg.src = `imagens/principe/principe${frame}.png`;
+  }, intervalo);
 
-        // Lidar com clique no botão
-        const homeButton = document.getElementById('homeButton2');
-        homeButton.addEventListener('click', function () {
-            // Parar a animação ao sair
-            clearInterval(animacaoIntervalo);
+  // Lidar com clique no botão
+  const homeButton = document.getElementById('homeButton2');
+  homeButton.addEventListener('click', function () {
+    // Parar a animação ao sair
+    clearInterval(animacaoIntervalo);
 
-            // Ativar peça placaBaixo no avião e desativar no cenário
-            sessionStorage.setItem('desativarPecaCenario', 'peça-placaBaixo');
-            sessionStorage.setItem('animarPecaAviao', 'placaBaixo');
+    // Ativar peça placaBaixo no avião e desativar no cenário
+    sessionStorage.setItem('desativarPecaCenario', 'peça-placaBaixo');
+    sessionStorage.setItem('animarPecaAviao', 'placaBaixo');
 
-            window.location.href = 'index.html';
-        });
+    window.location.href = 'index.html';
+  });
 
-        fullscreenContainer.style.display = 'flex';
-    }
+  fullscreenContainer.style.display = 'flex';
+}
 
 
