@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     } else if (sessionStorage.getItem(`${pecaId}Animada`) && peca) {
         peca.style.display = 'block';
-        const posicoes = {
+       /* const posicoes = {
             'corpo': { top: '64%', left: '37.2%', width: '24vw', transform: 'rotate(25deg)', zIndex: '13' },
             'rodas': { top: '79.3%', left: '37%', width: '20vw', transform: 'rotate(385deg)', zIndex: '15' },
             'placaBaixo': { top: '70.8%', left: '30.5%', width: '38vw', transform: 'rotate(385deg)', zIndex: '14' },
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
             'helices': { top: '48%', left: '33.5%', width: '12.4vw', transform: 'rotate(385deg)', zIndex: '16' },
             'placaCima': { top: '54.7%', left: '31.4%', width: '39.3vw', transform: 'rotate(385deg)', zIndex: '11' }
         };
-        const posicao = posicoes[pecaId] || {};
+        const posicao = posicoes[pecaId] || {};*/
         Object.assign(peca.style, posicao);
         peca.style.animation = 'none';
     }
@@ -304,7 +304,7 @@ document.addEventListener('keydown', (e) => {
 
 function mostrarBotaoAtivarTodasPecas() {
     const botao = document.createElement('button');
-    botao.textContent = "Regresso do aviador";
+    botao.textContent = "Ativar todas as peças (DEBUG)";
     botao.style.position = 'fixed';
     botao.style.bottom = '20px';
     botao.style.right = '20px';

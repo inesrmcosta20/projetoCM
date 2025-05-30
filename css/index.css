@@ -1,3 +1,5 @@
+/* homepage.css */
+
 /* Body */
 body {
     overflow: hidden;
@@ -32,7 +34,7 @@ h2 {
     z-index: 10;
 }
 
-.homepage-fundo>img {
+.homepage-fundo>img{
     width: 102%;
     height: auto;
     position: absolute;
@@ -51,12 +53,12 @@ h2 {
 }
 
 /* Camadas do deserto */
-.areia1 {
-    /*mais a frente */
+.areia1 {   /*mais a frente */
+
+  
     bottom: -2%;
     left: 0;
-    z-index: 17;
-    /*tem de se sobrepor as peças puzzle*/
+    z-index: 17; /*tem de se sobrepor as peças puzzle*/
 }
 
 .areia3 {
@@ -71,11 +73,11 @@ h2 {
 .areia5 {
     bottom: 28%;
     left: -5%;
-    z-index: 7;
+    z-index:7;
 }
 
 .areia7 {
-
+   
     bottom: 32%;
     left: 0;
     z-index: 5;
@@ -96,27 +98,25 @@ h2 {
     width: 10vw;
     height: auto;
     z-index: 10;
-    transition: none;
+       transition: none;
     will-change: transform;
 
-    /* animation: moveAviao 5s ease-out forwards;*/
+  /* animation: moveAviao 5s ease-out forwards;*/
 }
 
 #aviao2 {
     position: absolute;
-    display: none;
+    display:none; 
     width: 10vw;
     height: auto;
     z-index: 10;
     top: 70%;
-    left: 45%;
-    transform: rotate(385deg) scale(4);
-    display: none;
-    /* Começa escondido */
+        left: 45%;
+        transform: rotate(385deg) scale(4);
+        display: none; /* Começa escondido */
 
-
+   
 }
-
 /* Animação do avião 
 @keyframes moveAviao {
     0% {
@@ -174,9 +174,8 @@ h2 {
     height: 100%;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
-
-    pointer-events: none;
-    /* Inicialmente desativado */
+    
+    pointer-events: none; /* Inicialmente desativado */
 
 
 }
@@ -185,7 +184,6 @@ h2 {
     opacity: 0;
     pointer-events: none;
 }
-
 .peças-cenario.active {
     opacity: 1;
     pointer-events: auto;
@@ -194,16 +192,14 @@ h2 {
 
 /* Links das peças - agora com posicionamento absoluto */
 .peças-cenario a {
-    display: contents;
-    /* Remove o contexto de empilhamento do link */
+    display: contents; /* Remove o contexto de empilhamento do link */
 }
 
 /* Imagens das Peças */
 .peças-cenario img {
     position: absolute;
     transition: transform 0.3s ease;
-    pointer-events: auto;
-    /* Permite clique mesmo com container desativado */
+    pointer-events: auto; /* Permite clique mesmo com container desativado */
 }
 
 
@@ -214,7 +210,7 @@ h2 {
     left: 10%;
     width: 3vw;
     z-index: 1;
-
+    
 }
 
 
@@ -227,7 +223,7 @@ h2 {
 }
 
 
-.peça-helices {
+.peça-helices{
     top: 48%;
     left: 85%;
     width: 5vw;
@@ -275,16 +271,16 @@ h2 {
 
 /* Peças puzzle sobre o avião */
 
-.peças-aviao>img {
-    position: absolute;
-    width: 50%;
-    height: auto;
-
+.peças-aviao >img {
+    position:absolute; 
+  width:50%; 
+  height:auto; 
+    
     transform: rotate(385deg);
 
     top: 70%;
     left: 45%;
-
+   
 }
 
 .peças-aviao > img {
@@ -293,36 +289,33 @@ h2 {
 
 /* Peças do avião - puzzle (inicialmente invizíveis) */
 
-#helices {
-    animation-iteration-count: 1;
+#helices{
+      animation-iteration-count: 1;
     /*display:none; 
     z-index: 16;
     top: 48%;
     left: 33.5%;
     width: 12.4vw;*/
-
+ 
 }
-
-#rodas {
-    animation-iteration-count: 1;
-    /* display:none; 
+#rodas{
+      animation-iteration-count: 1;
+   /* display:none; 
     z-index: 15;
     width: 20vw;
     top: 79.3%;
     left: 37%;*/
-
+ 
 }
-
-#placaBaixo {
-    animation-iteration-count: 1;
-    /* display:none;  
+#placaBaixo{
+      animation-iteration-count: 1;
+   /* display:none;  
     z-index: 14;
     left: 30.5%;
     
     width: 38vw;
     top: 70.8%;*/
 }
-
 /*#corpo{
     display:none; 
     z-index: 13;
@@ -339,19 +332,17 @@ h2 {
 #corpo {
     animation-iteration-count: 1;
 }
-
-#tirantes {
-    animation-iteration-count: 1;
-    /* display:none; 
+#tirantes{
+     animation-iteration-count: 1;
+   /* display:none; 
     z-index: 12;
     width: 32.2vw;
     top: 59%;
     left: 33%;*/
 }
-
-#placaCima {
+#placaCima{
     animation-iteration-count: 1;
-    /* display:none; 
+   /* display:none; 
     z-index: 11;
     width: 39.3vw;
   
@@ -368,13 +359,12 @@ h2 {
 @keyframes moveCorpo {
     0% {
         top: 52%;
-        left: 8%;
-        width: 10vw;
-        z-index: 8;
-        rotate: 30deg;
+    left: 8%;
+    width: 10vw;
+    z-index: 8;
+    rotate: 30deg;
 
     }
-
     100% {
         z-index: 13;
         top: 64%;
@@ -399,15 +389,9 @@ h2 {
     z-index: 13;
     animation: none !important;
 }
-
 /* Estado final da peça rodas no avião */
-<<<<<<< Updated upstream
 .peca-rodas-final {
-    display: none;
-=======
-/*.peca-rodas-final {
     display:none; 
->>>>>>> Stashed changes
     z-index: 15;
     width: 20vw;
     top: 79.3%;
@@ -416,26 +400,24 @@ h2 {
 }
 
 .peca-placaBaixo-final {
-    display: none;
+    display:none; 
     z-index: 14;
     left: 30.5%;
     width: 38vw;
     top: 70.8%;
     animation: none !important;
 }
-
 .peca-tirantes-final {
-    display: none;
-    top: 59%;
-    left: 33%;
-    width: 32.2vw;
-    transform: rotate(385deg);
-    z-index: 12;
+    display:none; 
+   top: 59%;
+        left: 33%;
+        width: 32.2vw;
+        transform: rotate(385deg);
+        z-index: 12;
     animation: none !important;
 }
-
 .peca-placaCima-final {
-    display: none;
+    display:none; 
     z-index: 11;
     width: 39.3vw;
     top: 4%;
@@ -444,76 +426,70 @@ h2 {
 }
 
 .peca-helices-final {
-    display: none;
-    z-index: 16;
+    display:none; 
+          z-index: 16;
     top: 48%;
     left: 33.5%;
     width: 12.4vw;
     animation: none !important;
-} */
+} 
 
 /* animacao rodas */
 @keyframes moveRodas {
-    0% {
-        top: 47%;
-        left: 60%;
-        width: 10vw;
-        z-index: 5;
-        rotate: 160deg;
-    }
+    0% {  top: 47%;
+    left: 60%;
+    width: 10vw;
+    z-index: 5;
+    rotate: 160deg; }
 
-    100% {
-        z-index: 15;
-        width: 20vw;
-        top: 79.3%;
-        left: 37%;
-    }
+    100% {   z-index: 15;
+    width: 20vw;
+    top: 79.3%;
+    left: 37%;
+  }
 }
 
 /* Animações para cada peça */
 @keyframes moveHelices {
     0% {
-        top: 48%;
-        left: 85%;
-        width: 5vw;
-        z-index: 7;
-        rotate: 20deg;
+       top: 48%;
+    left: 85%;
+    width: 5vw;
+    z-index: 7;
+    rotate: 20deg;
     }
-
     100% {
-        z-index: 16;
-        top: 48%;
-        left: 33.5%;
-        width: 12.4vw;
+         z-index: 16;
+    top: 48%;
+    left: 33.5%;
+    width: 12.4vw;
     }
 }
 
 
 @keyframes movePlacaBaixo {
     0% {
-        top: 34%;
-        left: 70%;
-        width: 10vw;
-        z-index: 1;
-        rotate: 30deg;
+      top: 34%;
+    left: 70%;
+    width: 10vw;
+    z-index: 1;
+    rotate: 30deg;
     }
-
     100% {
-        z-index: 14;
-        left: 30.5%;
-        width: 38vw;
-        top: 70.8%;
+       z-index: 14;
+    left: 30.5%;
+    width: 38vw;
+    top: 70.8%;
     }
 }
 
 @keyframes moveTirantes {
     0% {
-        top: 30%;
-        left: 10%;
-        width: 3vw;
-        z-index: 1;
+     top: 30%;
+    left: 10%;
+    width: 3vw;
+    z-index: 1;
     }
-
     100% {
         top: 59%;
         left: 33%;
@@ -525,18 +501,17 @@ h2 {
 
 @keyframes movePlacaCima {
     0% {
-        top: 46%;
-        left: 12%;
-        width: 15vw;
-        z-index: 6;
-        rotate: -10deg;
+         top: 46%;
+    left: 12%;
+    width: 15vw;
+    z-index: 6;
+    rotate: -10deg;
     }
-
     100% {
-        z-index: 11;
-        width: 39.3vw;
-
-        top: 54.7%;
-        left: 31.4%;
+   z-index: 11;
+    width: 39.3vw;
+  
+    top: 54.7%;
+    left: 31.4%;
     }
 }
