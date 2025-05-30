@@ -218,6 +218,7 @@ function mostrarFullscreen() {
 
 // Botão "X" para fechar
 const closeBtn = document.getElementById('closeFullscreen');
+
 closeBtn.addEventListener('click', function () {
     clearInterval(animacaoIntervalo);
     fullscreenContainer.style.display = 'none';
