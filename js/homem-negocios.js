@@ -204,6 +204,10 @@ function gerarObjetoBalanceado() {
   objetosAtivos.push(objetoAtual);
 
   img.addEventListener('click', () => {
+    const audio = document.getElementById('audio-acerto');
+    audio.currentTime = 0; 
+    audio.play();
+    
     const largura = img.width;
     const altura = img.height;
     aplicarFisicaAoObjeto(img, null, null, largura, altura, img.src, 1);
@@ -282,12 +286,12 @@ function mostrarFullscreen() {
   `;
 
   // Botão "X" para fechar
-const closeBtn = document.getElementById('closeFullscreen');
-closeBtn.addEventListener('click', function () {
+  const closeBtn = document.getElementById('closeFullscreen');
+  closeBtn.addEventListener('click', function () {
     clearInterval(animacaoIntervalo);
     fullscreenContainer.style.display = 'none';
     document.body.classList.remove('fullscreen-active');
-});
+  });
 
   const principeImg = document.getElementById('posicao1');
   let frame = 1;
@@ -300,33 +304,33 @@ closeBtn.addEventListener('click', function () {
   }, intervalo);
 
   const homeButton = document.getElementById('homeButton');
-        homeButton.addEventListener('click', function () {
-            // Parar a animação ao sair
-            clearInterval(animacaoIntervalo);
+  homeButton.addEventListener('click', function () {
+    // Parar a animação ao sair
+    clearInterval(animacaoIntervalo);
 
-            // Ativar peça rodas no avião e desativar no cenário
-            sessionStorage.setItem('desativarPecaCenario', 'peça-placaCima');
-sessionStorage.setItem('animarPecaAviao', 'placaCima');
+    // Ativar peça rodas no avião e desativar no cenário
+    sessionStorage.setItem('desativarPecaCenario', 'peça-placaCima');
+    sessionStorage.setItem('animarPecaAviao', 'placaCima');
 
-            window.location.href = 'index.html';
-        });
+    window.location.href = 'index.html';
+  });
 
   fullscreenContainer.style.display = 'flex';
 }
 
-  const principeImg = document.getElementById('posicao1');
-  let frame = 1;
-  const maxFrames = 10;
-  const intervalo = 150;
+const principeImg = document.getElementById('posicao1');
+let frame = 1;
+const maxFrames = 10;
+const intervalo = 150;
 
-  const animacaoIntervalo = setInterval(() => {
-    frame = frame >= maxFrames ? 1 : frame + 1;
-    principeImg.src = `imagens/principe/principe${frame}.png`;
-  }, intervalo);
+const animacaoIntervalo = setInterval(() => {
+  frame = frame >= maxFrames ? 1 : frame + 1;
+  principeImg.src = `imagens/principe/principe${frame}.png`;
+}, intervalo);
 
-  const homeButton = document.getElementById('homeButton');
-  homeButton.addEventListener('click', () => {
-    clearInterval(animacaoIntervalo);
-    window.location.href = 'index.html';
-  });
+const homeButton = document.getElementById('homeButton');
+homeButton.addEventListener('click', () => {
+  clearInterval(animacaoIntervalo);
+  window.location.href = 'index.html';
+});
 
