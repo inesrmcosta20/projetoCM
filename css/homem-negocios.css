@@ -20,8 +20,9 @@
 /* Pote */
 #pote {
   position: relative;
-  left: 1000px;
-  margin-top:13.5%; ;
+  left: 798px;
+  margin-top: 13.5%;
+  ;
   width: 20%;
   height: 30%;
   overflow: hidden;
@@ -39,16 +40,16 @@
 
 #pote-cima {
   position: absolute;
-  left: 1018px;
-    top: 178px;
+  left: 815px;
+  top: 177px;
   width: 17.7%;
   z-index: 0;
 }
 
 #pote-baixo {
   position: absolute;
-  left: 1018px;
-    top: 613px;
+  left: 815px;
+  top: 613px;
   width: 17%;
   z-index: 0;
 }
@@ -57,8 +58,8 @@
 .area-objetos {
   position: absolute;
   top: 10%;
-  left: 6%;
-  width: 48vw;
+  left: 10%;
+  width: 40vw;
   /* 40% do ecrã */
   height: 70vh;
   overflow: hidden;
@@ -69,8 +70,8 @@
 
 #area-queda {
   position: absolute;
-  left: 66.4%;
-  top: 39%;
+  left: 54%;
+  top: 43%;
   width: 17%;
   height: 51%;
   pointer-events: none;
@@ -181,3 +182,11 @@ body {
   pointer-events: none;
 }
 
+#homemNegocios {
+  position: absolute;
+  bottom: 5%;
+  left: 85%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 20%;
+}
