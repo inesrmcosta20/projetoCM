@@ -332,4 +332,71 @@ function mostrarBotaoReset() {
         localStorage.clear();
         window.location.reload();
     });
+
+
+
+
+    // Atalho para modo debug
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'd' || e.key === 'D') {
+            mostrarBotaoAtivarTodasPecas();
+        }
+    });
+
+    function mostrarBotaoAtivarTodasPecas() {
+        // Verifica se o botão já existe
+        if (document.getElementById('debug-button')) return;
+        
+        const botao = document.createElement('button');
+        botao.id = 'debug-button';
+        botao.textContent = "Ativar todas as peças (DEBUG)";
+        botao.style.position = 'fixed';
+        botao.style.bottom = '20px';
+        botao.style.right = '20px';
+        botao.style.padding = '10px 20px';
+        botao.style.fontSize = '1rem';
+        botao.style.backgroundColor = '#ff5722';
+        botao.style.color = '#fff';
+        botao.style.border = 'none';
+        botao.style.borderRadius = '6px';
+        botao.style.cursor = 'pointer';
+        botao.style.zIndex = '9999';
+
+        document.body.appendChild(botao);
+
+        botao.addEventListener('click', () => {
+            const pecas = ['corpo', 'rodas', 'tirantes', 'placaBaixo', 'helices', 'placaCima'];
+            const pecasCenarioIds = ['peça-corpo', 'peça-rodas', 'peça-tirantes', 
+                                    'peça-placaBaixo', 'peça-helices', 'peça-placaCima'];
+            
+            // Ativar todas as peças do avião
+            pecas.forEach(p => {
+                sessionStorage.setItem(`${p}Animada`, 'true');
+                const pecaElemento = document.getElementById(p);
+                if (pecaElemento) {
+                    pecaElemento.style.display = 'block';
+                    // Aplicar posição final
+                    const posicao = posicoesFinais[p];
+                    if (posicao) {
+                        Object.assign(pecaElemento.style, posicao);
+                    }
+                }
+            });
+            
+            // Desativar todas as peças do cenário
+            pecasCenarioIds.forEach(id => {
+                sessionStorage.setItem(`${id.replace('peça-', '')}Desativada`, 'true');
+                const pecaCenario = document.getElementById(id);
+                if (pecaCenario) {
+                    pecaCenario.style.display = 'none';
+                }
+            });
+
+            // Remover o botão de debug
+            botao.remove();
+            
+            // Forçar verificação de conclusão
+            iniciarAnimacaoFinalSeCompleto();
+        });
+    }
 }
