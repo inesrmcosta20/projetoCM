@@ -334,76 +334,39 @@ homeButton.addEventListener('click', () => {
   window.location.href = 'index.html';
 });
 
-
+// Som
 window.addEventListener('DOMContentLoaded', () => {
   const audio = document.getElementById('background-music');
   const somOn = document.getElementById('som-on');
   const somOff = document.getElementById('som-off');
 
-  // Remover mute e tentar tocar
+  // Sempre mostrar som ligado inicialmente
+  somOn.style.display = 'inline';
+  somOff.style.display = 'none';
   audio.muted = false;
+
+  // Tenta tocar o áudio automaticamente
   const tentativa = audio.play();
   if (tentativa !== undefined) {
-    tentativa.then(() => {
-      somOn.style.display = 'inline';
-      somOff.style.display = 'none';
-    }).catch(err => {
-      console.log("Autoplay bloqueado. Requer interação do usuário.");
-      // Neste caso, exibe o ícone de som desligado
-      somOn.style.display = 'none';
-      somOff.style.display = 'inline';
-    });
+    tentativa
+      .catch(err => {
+        console.log("Autoplay bloqueado. Requer interação do usuário.");
+        // Não altere o ícone nesse caso
+        // somOn.style.display = 'none'; ← REMOVER
+        // somOff.style.display = 'inline'; ← REMOVER
+      });
   }
 
-  // Clique no ícone para pausar
+  // Botões de controle manual
   somOn.addEventListener('click', () => {
     audio.pause();
     somOn.style.display = 'none';
     somOff.style.display = 'inline';
   });
 
-  // Clique no ícone para retomar
   somOff.addEventListener('click', () => {
-    audio.play().then(() => {
-      somOff.style.display = 'none';
-      somOn.style.display = 'inline';
-    });
+    audio.play();
+    somOff.style.display = 'none';
+    somOn.style.display = 'inline';
   });
-});
-
-// Som
-window.addEventListener('DOMContentLoaded', () => {
-    const audio = document.getElementById('background-music');
-    const somOn = document.getElementById('som-on');
-    const somOff = document.getElementById('som-off');
-
-    // Remover mute e tentar tocar
-    audio.muted = false;
-    const tentativa = audio.play();
-    if (tentativa !== undefined) {
-        tentativa.then(() => {
-            somOn.style.display = 'inline';
-            somOff.style.display = 'none';
-        }).catch(err => {
-            console.log("Autoplay bloqueado. Requer interação do usuário.");
-            // Neste caso, exibe o ícone de som desligado
-            somOn.style.display = 'none';
-            somOff.style.display = 'inline';
-        });
-    }
-
-    // Clique no ícone para pausar
-    somOn.addEventListener('click', () => {
-        audio.pause();
-        somOn.style.display = 'none';
-        somOff.style.display = 'inline';
-    });
-
-    // Clique no ícone para retomar
-    somOff.addEventListener('click', () => {
-        audio.play().then(() => {
-            somOff.style.display = 'none';
-            somOn.style.display = 'inline';
-        });
-    });
 });
