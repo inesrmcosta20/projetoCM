@@ -214,7 +214,7 @@ function gerarObjetoBalanceado() {
     img.remove();
 
     objetosClicados++;
-    if (objetosClicados === 2) {
+    if (objetosClicados === 10) {
       botaoDesistir.style.display = 'block';
     }
 
