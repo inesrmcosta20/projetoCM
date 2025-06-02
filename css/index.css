@@ -5,8 +5,8 @@ body {
     overflow: hidden;
     margin: 0;
     padding: 0;
+background-color: #CCC360;
 
-  background: linear-gradient(to bottom, #0a0a2a 0%, #1a1a4a 40%, #2a2a5a 100%);
 }
 
 /* Tipografia */
@@ -50,6 +50,8 @@ h2 {
     top: 0;
     left: 0;
     z-index: -2;
+    
+ 
 }
 
 /* Camadas do deserto */
@@ -88,6 +90,7 @@ h2 {
     bottom: 40%;
     left: -7%;
     z-index: 3;
+    
 }
 
 
