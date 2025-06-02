@@ -245,9 +245,9 @@ function draw() {
     const thumbTip = prediction.annotations.thumb[3];
 
     //polegar
-    fill(0, 255, 0);
+    //fill(0, 255, 0);
     noStroke();
-    ellipse(thumbTip[0], thumbTip[1], 15);
+    //ellipse(thumbTip[0], thumbTip[1], 15);
 
     // Detect gestures
     const gesto = detectarGesto();
@@ -264,31 +264,38 @@ function mostrarFullscreen() {
   document.body.classList.add('fullscreen-active');
 
   fullscreenContainer.innerHTML = `
-        <div class="fullScreen-img-container">
-          <img src="imagens/principe/principe1.png" id="posicao1" alt="príncipe">
-        <img src="imagens/raposa/mensagem.png" id="posicao2" alt="mensagem"> 
-        </div>
-        <button id="homeButton2">Finalizar</button>
-    `;
+    <div class="fullScreen-img-container">
+      <img src="imagens/principe/principe1.png" id="posicao1" alt="príncipe">
+      <img src="imagens/raposa/mensagem.png" id="posicao2" alt="mensagem"> 
+    </div>
+    <button id="homeButton2">Finalizar</button>
+  `;
 
   // Iniciar animação do príncipe
   const principeImg = document.getElementById('posicao1');
   let frame = 1;
   const maxFrames = 10;
   const intervalo = 150; // ms
+  let forward = true;
 
   let animacaoIntervalo = setInterval(() => {
-    frame = frame >= maxFrames ? 1 : frame + 1;
+    // Atualiza o frame com base na direção
+    if (forward) {
+      frame++;
+      if (frame === maxFrames) forward = false;
+    } else {
+      frame--;
+      if (frame === 1) forward = true;
+    }
+
     principeImg.src = `imagens/principe/principe${frame}.png`;
   }, intervalo);
 
   // Lidar com clique no botão
   const homeButton = document.getElementById('homeButton2');
   homeButton.addEventListener('click', function () {
-    // Parar a animação ao sair
     clearInterval(animacaoIntervalo);
 
-    // Ativar peça placaBaixo no avião e desativar no cenário
     sessionStorage.setItem('desativarPecaCenario', 'peça-placaBaixo');
     sessionStorage.setItem('animarPecaAviao', 'placaBaixo');
 
@@ -297,6 +304,7 @@ function mostrarFullscreen() {
 
   fullscreenContainer.style.display = 'flex';
 }
+
 
 // Som
 window.addEventListener('DOMContentLoaded', () => {
