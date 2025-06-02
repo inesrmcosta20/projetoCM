@@ -287,17 +287,26 @@ document.addEventListener("DOMContentLoaded", function () {
         <button id="homeButton">Finalizar</button>
     `;
 
-        // Iniciar animação do principezinho
-        const principeImg = document.getElementById('posicao1');
-        let frame = 1;
-        const maxFrames = 10;
-        const intervalo = 150; // ms
+        // Iniciar animação do príncipe
+  const principeImg = document.getElementById('posicao1');
+  let frame = 1;
+  const maxFrames = 10;
+  const intervalo = 150; // ms
+  let forward = true;
 
-        let animacaoIntervalo = setInterval(() => {
-            frame = frame >= maxFrames ? 1 : frame + 1;
-            principeImg.src = `imagens/principe/principe${frame}.png`;
-        }, intervalo);
+  let animacaoIntervalo = setInterval(() => {
+    // Atualiza o frame com base na direção
+    if (forward) {
+      frame++;
+      if (frame === maxFrames) forward = false;
+    } else {
+      frame--;
+      if (frame === 1) forward = true;
+    }
 
+    principeImg.src = `imagens/principe/principe${frame}.png`;
+  }, intervalo);
+  
         // Botão Finalizar
         const homeButton = document.getElementById('homeButton');
         homeButton.addEventListener('click', function () {

@@ -224,16 +224,26 @@ closeBtn.addEventListener('click', function () {
     document.body.classList.remove('fullscreen-active');
 });
 
+  // Iniciar animação do príncipe
   const principeImg = document.getElementById('posicao1');
   let frame = 1;
   const maxFrames = 10;
-  const intervalo = 150;
+  const intervalo = 150; // ms
+  let forward = true;
 
-  const animacaoIntervalo = setInterval(() => {
-    frame = frame >= maxFrames ? 1 : frame + 1;
+  let animacaoIntervalo = setInterval(() => {
+    // Atualiza o frame com base na direção
+    if (forward) {
+      frame++;
+      if (frame === maxFrames) forward = false;
+    } else {
+      frame--;
+      if (frame === 1) forward = true;
+    }
+
     principeImg.src = `imagens/principe/principe${frame}.png`;
   }, intervalo);
-
+  
   const homeButton = document.getElementById('homeButton');
         homeButton.addEventListener('click', function () {
             // Parar a animação ao sair
