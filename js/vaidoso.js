@@ -131,11 +131,21 @@ function mostrarFullscreen() {
   let frame = 1;
   const maxFrames = 10;
   const intervalo = 150; // ms
+  let forward = true;
 
   let animacaoIntervalo = setInterval(() => {
-    frame = frame >= maxFrames ? 1 : frame + 1;
+    // Atualiza o frame com base na direção
+    if (forward) {
+      frame++;
+      if (frame === maxFrames) forward = false;
+    } else {
+      frame--;
+      if (frame === 1) forward = true;
+    }
+
     principeImg.src = `imagens/principe/principe${frame}.png`;
   }, intervalo);
+  
 
   // Lidar com clique no botão
   const homeButton = document.getElementById('homeButton');
