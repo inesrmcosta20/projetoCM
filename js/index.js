@@ -117,9 +117,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function applyTransform(frame) {
-        aviao.style.top = "${frame.top}%";
-        aviao.style.left = "${frame.left}%";
-        aviao.style.transform = rotate("${frame.rotate}deg) scale(${frame.scale}");
+        aviao.style.top = `${frame.top}%`;
+        aviao.style.left = `${frame.left}%`;
+        aviao.style.transform = `rotate(${frame.rotate}deg) scale(${frame.scale})`;
     }
 
     // Mostrar ou esconder peças do avião com base no localStorage
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Verificar peças do cenário (devem estar todas desativadas)
         const pecasCenarioAtivas = document.querySelectorAll('.peças-cenario a:not([style*="display: none"])');
         if (pecasCenarioAtivas.length > 0) {
-            console.log("Ainda existem ${pecasCenarioAtivas.length} peças no cenário");
+            console.log(`Ainda existem ${pecasCenarioAtivas.length} peças no cenário`);
             return false;
         }
         
@@ -172,12 +172,12 @@ document.addEventListener("DOMContentLoaded", function () {
         for (const pecaId of todasPecas) {
             const peca = document.getElementById(pecaId);
             if (!peca || peca.style.display === 'none') {
-                console.log("Peça ${pecaId} não está visível");
+                console.log(`Peça ${pecaId} não está visível`);
                 return false;
             }
             
             if (!verificarPosicaoFinal(peca, pecaId)) {
-                console.log("Peça ${pecaId} não está na posição final");
+                console.log(`Peça ${pecaId} não está na posição final`);
                 return false;
             }
         }
@@ -204,16 +204,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (pecaParaDesativar === pecaCenarioId && pecaCenario) {
             pecaCenario.style.display = 'none';
-            sessionStorage.setItem("${pecaId}Desativada, 'true'");
+            sessionStorage.setItem(`${pecaId}Desativada`, 'true');
             sessionStorage.removeItem('desativarPecaCenario');
         }
 
         if (pecaParaAnimar === pecaId && peca) {
             peca.style.display = 'block';
-            peca.style.animation = "move${pecaId.charAt(0).toUpperCase() + pecaId.slice(1)} 5s ease-out forwards";
+            peca.style.animation = `move${pecaId.charAt(0).toUpperCase() + pecaId.slice(1)} 5s ease-out forwards`;
             
             peca.addEventListener('animationend', function() {
-                sessionStorage.setItem("${pecaId}Animada, 'true'");
+                sessionStorage.setItem(`${pecaId}Animada`, 'true');
                 sessionStorage.removeItem('animarPecaAviao');
                 
                 // Aplica posição final permanentemente
@@ -225,14 +225,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Verifica se todas as peças estão completas
                 iniciarAnimacaoFinalSeCompleto();
             });
-        } else if (sessionStorage.getItem("${pecaId}Animada") && peca) {
+        } else if (sessionStorage.getItem(`${pecaId}Animada`) && peca) {
             peca.style.display = 'block';
             const posicao = posicoesFinais[pecaId] || {};
             Object.assign(peca.style, posicao);
             peca.style.animation = 'none';
         }
 
-        if (sessionStorage.getItem("${pecaId}Desativada") && pecaCenario) {
+        if (sessionStorage.getItem(`${pecaId}Desativada`) && pecaCenario) {
             pecaCenario.style.display = 'none';
         }
     }
