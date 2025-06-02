@@ -25,9 +25,16 @@
 
 <body>
   <header>
-    <!-- Música de fundo -->
-    <audio id="background-music-jogo" loop>
-      <source src="audios/audio-jogo.mp3" type="audio/mp3">
+    <!-- Ícones de som -->
+    <div class="sound-controls">
+      <img src="imagens/icones/som-on.png" alt="Som ligado" class="som-icon" id="som-on"
+        style="display: inline; cursor: pointer;">
+      <img src="imagens/icones/som-off.png" alt="Som desligado" class="som-icon" id="som-off"
+        style="display: none; cursor: pointer;">
+    </div>
+
+    <audio id="background-music" loop autoplay muted>
+      <source src="audios/audio-raposa.mp3" type="audio/mp3">
     </audio>
 
        <!-- Áudio Errado -->
