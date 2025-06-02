@@ -21,8 +21,8 @@
 #pote {
   position: relative;
   left: 798px;
-  margin-top: 13.5%;
-  ;
+  margin-top: 13%;
+  
   width: 20%;
   height: 30%;
   overflow: hidden;
@@ -41,7 +41,7 @@
 #pote-cima {
   position: absolute;
   left: 815px;
-  top: 177px;
+  top: 171px;;
   width: 17.7%;
   z-index: 0;
 }
@@ -49,7 +49,7 @@
 #pote-baixo {
   position: absolute;
   left: 815px;
-  top: 613px;
+  top: 614px;
   width: 17%;
   z-index: 0;
 }
@@ -71,7 +71,7 @@
 #area-queda {
   position: absolute;
   left: 54%;
-  top: 43%;
+  top: 39%;
   width: 17%;
   height: 51%;
   pointer-events: none;
