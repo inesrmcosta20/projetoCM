@@ -214,7 +214,7 @@ function gerarObjetoBalanceado() {
     img.remove();
 
     objetosClicados++;
-    if (objetosClicados === 25) {
+    if (objetosClicados === 2) {
       botaoDesistir.style.display = 'block';
     }
 
@@ -277,7 +277,7 @@ function mostrarFullscreen() {
   document.body.classList.add('fullscreen-active');
 
   fullscreenContainer.innerHTML = `
-          <div class="fullScreen-close" id="closeFullscreen">X</div>
+          <div class="fullScreen-close" id="closeFullscreen"><img src="imagens/icones/fechar.png" alt="cruz"></div>
     <div class="fullScreen-img-container">
       <img src="imagens/principe1.png" id="posicao1" alt="príncipe">
       <img src="imagens/homem-negocios/mensagem.png" id="posicao2" alt="mensagem"> 

@@ -22,7 +22,7 @@
     top: 30px;
     right: 30px;
     display: flex;
-    z-index: 10000;
+    z-index: 100;
 }
 
 .sound-controls img {
@@ -144,26 +144,16 @@
     z-index: 1000;
 }
 
-.fullScreen-close {
+#closeFullscreen {
     position: absolute;
     top: 10px;
-    right: 15px;
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
+    left: 1000px;
     cursor: pointer;
     z-index: 1001;
 }
 
-.fullScreen-close :hover {
-    scale: 107%;
-}
-
-
-.fullScreen-img {
-
-    object-fit: contain;
-    transition: transform 0.10s ease;
+#fullScreen-close :hover {
+    opacity: 0.5;
 }
 
 /* Posições específicas */
