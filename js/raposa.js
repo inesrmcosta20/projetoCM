@@ -264,6 +264,7 @@ function mostrarFullscreen() {
   document.body.classList.add('fullscreen-active');
 
   fullscreenContainer.innerHTML = `
+  
     <div class="fullScreen-img-container">
       <img src="imagens/principe/principe1.png" id="posicao1" alt="príncipe">
       <img src="imagens/raposa/mensagem.png" id="posicao2" alt="mensagem"> 

@@ -175,7 +175,7 @@ function gerarObjetoBalanceado() {
   let colisao = true;
   let tentativas = 0;
 
-  while (colisao && tentativas < 10) {
+  while (colisao && tentativas < 15) {
     posX = areaRect.x + Math.random() * (areaWidth - 50);
     posY = areaRect.y + Math.random() * (areaHeight - 50);
 
