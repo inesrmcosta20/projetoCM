@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const aviao2 = document.getElementById('aviao2');
     const pecasCenario = document.querySelector('.peças-cenario');
 
+    const pecasAviaoIds = ['corpo', 'rodas', 'tirantes', 'placaBaixo', 'helices', 'placaCima'];
+
+// Array com IDs de todas as peças do cenário
+const pecasCenarioIds = ['peça-corpo', 'peça-rodas', 'peça-tirantes', 'peça-placaBaixo', 'peça-helices', 'peça-placaCima'];
+
     // Posições e transformações para cada etapa da animação
     const keyframes = [
         { time: 0,    top: -10, left: 100, rotate: 10,   scale: 0 },
@@ -50,6 +55,54 @@ document.addEventListener("DOMContentLoaded", function () {
     function stopAnimation() {
         animationRunning = false;
     }
+
+
+    // Função para verificar se todas as peças estão no lugar
+function verificarAnimacaoAviao() {
+    // Verificar se todas as peças do avião estão visíveis e animadas
+    const todasPecasAnimadas = pecasAviaoIds.every(id => {
+        const peca = document.getElementById(id);
+        return peca && peca.style.display === 'block';
+    });
+
+    // Verificar se todas as peças do cenário estão ocultas
+    const todasPecasCenarioOcultas = pecasCenarioIds.every(id => {
+        const pecaCenario = document.getElementById(id);
+        return pecaCenario && pecaCenario.style.display === 'none';
+    });
+
+    return todasPecasAnimadas && todasPecasCenarioOcultas;
+}
+
+
+    // Função para ativar a animação do avião
+function ativarAnimacaoAviao() {
+    const aviao = document.getElementById('aviao');
+    const aviao2 = document.getElementById('aviao2');
+    
+    // Mostrar avião principal e ocultar sombra
+    aviao.style.display = 'block';
+    aviao2.style.display = 'none';
+    
+    // Restaurar transformações iniciais
+    aviao.style.top = '-10%';
+    aviao.style.left = '100%';
+    aviao.style.transform = 'rotate(10deg) scale(0)';
+    
+    // Reiniciar controle de animação
+    animationRunning = false;
+    animationStartTime = null;
+    
+    // Iniciar animação
+    startAnimation();
+}
+
+// Verificação periódica do estado das peças
+setInterval(() => {
+    if (verificarAnimacaoAviao()) {
+        ativarAnimacaoAviao();
+    }
+}, 1000);
 
     function animate(currentTime) {
         if (!animationRunning) return;
@@ -133,12 +186,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Função genérica para controlar peças
-    function controlarPeca(pecaId, pecaCenarioId) {
+   // Modificar a função controlarPeca para incluir verificação
+
+function controlarPeca(pecaId, pecaCenarioId) {
     const peca = document.getElementById(pecaId);
     const pecaCenario = document.getElementById(pecaCenarioId);
 
     const pecaParaDesativar = sessionStorage.getItem('desativarPecaCenario');
     const pecaParaAnimar = sessionStorage.getItem('animarPecaAviao');
+
+    peca.addEventListener('animationend', function() {
+        sessionStorage.setItem(`${pecaId}Animada`, 'true');
+        sessionStorage.removeItem('animarPecaAviao');
+        
+        // Verificar se podemos ativar a animação do avião
+        if (verificarAnimacaoAviao()) {
+            ativarAnimacaoAviao();
+        }
+    });
 
     if (pecaParaDesativar === pecaCenarioId && pecaCenario) {
         pecaCenario.style.display = 'none';
@@ -286,6 +351,12 @@ function mostrarBotaoReset() {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'd' || e.key === 'D') {
         mostrarBotaoAtivarTodasPecas();
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'a' || e.key === 'A') {
+        ativarAnimacaoAviao();
     }
 });
 
