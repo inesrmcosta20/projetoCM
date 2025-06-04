@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
 // Array com IDs de todas as peças do cenário
 const pecasCenarioIds = ['peça-corpo', 'peça-rodas', 'peça-tirantes', 'peça-placaBaixo', 'peça-helices', 'peça-placaCima'];
 
+
+//animação inicial
     // Posições e transformações para cada etapa da animação
     const keyframes = [
         { time: 0,    top: -10, left: 100, rotate: 10,   scale: 0 },
@@ -58,7 +60,7 @@ const pecasCenarioIds = ['peça-corpo', 'peça-rodas', 'peça-tirantes', 'peça-
 
 
     // Função para verificar se todas as peças estão no lugar
-function verificarAnimacaoAviao() {
+function verificarAnimacaoTodasPeças() {
     // Verificar se todas as peças do avião estão visíveis e animadas
     const todasPecasAnimadas = pecasAviaoIds.every(id => {
         const peca = document.getElementById(id);
@@ -75,7 +77,7 @@ function verificarAnimacaoAviao() {
 }
 
 
-    // Função para ativar a animação do avião
+    // Função para ativar a animação do avião inicial
 function ativarAnimacaoAviao() {
     const aviao = document.getElementById('aviao');
     const aviao2 = document.getElementById('aviao2');
@@ -99,8 +101,8 @@ function ativarAnimacaoAviao() {
 
 // Verificação periódica do estado das peças
 setInterval(() => {
-    if (verificarAnimacaoAviao()) {
-        ativarAnimacaoAviao();
+    if (verificarAnimacaoTodasPeças()) {
+          checkIfGameComplete();
     }
 }, 1000);
 
@@ -199,9 +201,10 @@ function controlarPeca(pecaId, pecaCenarioId) {
         sessionStorage.setItem(`${pecaId}Animada`, 'true');
         sessionStorage.removeItem('animarPecaAviao');
         
-        // Verificar se podemos ativar a animação do avião
-        if (verificarAnimacaoAviao()) {
-            ativarAnimacaoAviao();
+        // Verificar se podemos ativar a animação final do avião
+        // e ativação final
+        if (verificarAnimacaoTodasPeças()) {
+               checkIfGameComplete();
         }
     });
 
